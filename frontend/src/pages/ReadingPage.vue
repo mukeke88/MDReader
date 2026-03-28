@@ -6,6 +6,12 @@
       @update:modelValue="setGlobalExplanationEnabled"
     />
 
+    <div class="read-zone-overlay" aria-hidden="true">
+      <div class="read-zone-overlay__active">
+        <span class="read-zone-overlay__label">Read trigger zone</span>
+      </div>
+      <div class="read-zone-overlay__inactive"></div>
+    </div>
     <header class="page-header">
       <div>
         <p class="eyebrow">Local MVP</p>
@@ -353,4 +359,5 @@ onBeforeUnmount(() => {
   window.clearTimeout(persistTimer.value)
 })
 </script>
+
 

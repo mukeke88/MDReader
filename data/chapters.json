@@ -1,0 +1,8 @@
+[
+  {
+    "id": "chapter-1",
+    "bookId": "book-1",
+    "title": "Introduction",
+    "sourceFile": "chapter-1.json"
+  }
+]

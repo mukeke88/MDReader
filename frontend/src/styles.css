@@ -18,8 +18,13 @@ body {
   min-height: 100vh;
 }
 
-button {
+button,
+input,
+textarea {
   font: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
@@ -42,6 +47,13 @@ button {
   padding-right: 164px;
 }
 
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .eyebrow {
   margin: 0 0 4px;
   text-transform: uppercase;
@@ -50,12 +62,20 @@ button {
   color: #9a3412;
 }
 
-h1 {
+h1,
+h2 {
   margin: 0;
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(1.9rem, 3.2vw, 3rem);
   line-height: 0.96;
   font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 .floating-score,
@@ -155,6 +175,11 @@ h1 {
   font-weight: 700;
 }
 
+.toggle-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 .ghost-button:hover,
 .toggle-button:hover,
 .switch:hover {
@@ -235,6 +260,75 @@ h1 {
   font-size: 0.92rem;
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(6px);
+}
+
+.import-modal {
+  width: min(760px, 100%);
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  background: #fffaf2;
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.import-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+.text-input,
+.markdown-input {
+  width: 100%;
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  color: #1f2937;
+}
+
+.text-input {
+  padding: 10px 12px;
+}
+
+.markdown-input {
+  min-height: 280px;
+  padding: 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.import-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.import-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.92rem;
+}
+
 @media (max-width: 720px) {
   .page-shell {
     padding-top: 138px;
@@ -244,6 +338,10 @@ h1 {
     padding-right: 0;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: flex-start;
   }
 
   .floating-score,
@@ -263,5 +361,10 @@ h1 {
 
   .paragraph-label {
     top: 126px;
+  }
+
+  .import-modal__header,
+  .import-actions {
+    flex-direction: column;
   }
 }

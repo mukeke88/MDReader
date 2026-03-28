@@ -28,15 +28,9 @@ public class FileChapterRepository implements ChapterRepository {
 
     @Override
     public Optional<ChapterMeta> findChapter(String chapterId) {
-        try {
-            List<ChapterMeta> chapters = objectMapper.readValue(
-                    dataDirectory.resolve("chapters.json").toFile(),
-                    new TypeReference<List<ChapterMeta>>() {
-                    });
-            return chapters.stream().filter(chapter -> chapterId.equals(chapter.getId())).findFirst();
-        } catch (IOException e) {
-            throw new IllegalStateException("Unable to read chapter metadata", e);
-        }
+        return readAllChapters().stream()
+                .filter(chapter -> chapterId.equals(chapter.getId()))
+                .findFirst();
     }
 
     @Override
@@ -52,6 +46,55 @@ public class FileChapterRepository implements ChapterRepository {
                     });
         } catch (IOException e) {
             throw new IllegalStateException("Unable to read sentence data", e);
+        }
+    }
+
+    @Override
+    public void saveSentences(String chapterId, List<Sentence> sentences) {
+        ChapterMeta chapter = findChapter(chapterId)
+                .orElseThrow(() -> new IllegalStateException("Chapter not found: " + chapterId));
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+                    dataDirectory.resolve("sentences").resolve(chapter.getSourceFile()).toFile(),
+                    sentences
+            );
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to write sentence data", e);
+        }
+    }
+
+    @Override
+    public void updateTitle(String chapterId, String title) {
+        List<ChapterMeta> chapters = readAllChapters();
+        for (ChapterMeta chapter : chapters) {
+            if (chapterId.equals(chapter.getId())) {
+                chapter.setTitle(title);
+                writeAllChapters(chapters);
+                return;
+            }
+        }
+        throw new IllegalStateException("Chapter not found: " + chapterId);
+    }
+
+    private List<ChapterMeta> readAllChapters() {
+        try {
+            return objectMapper.readValue(
+                    dataDirectory.resolve("chapters.json").toFile(),
+                    new TypeReference<List<ChapterMeta>>() {
+                    });
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to read chapter metadata", e);
+        }
+    }
+
+    private void writeAllChapters(List<ChapterMeta> chapters) {
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+                    dataDirectory.resolve("chapters.json").toFile(),
+                    chapters
+            );
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to write chapter metadata", e);
         }
     }
 }

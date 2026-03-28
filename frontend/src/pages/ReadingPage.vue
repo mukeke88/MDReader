@@ -1,20 +1,26 @@
 <template>
   <div class="page-shell">
     <ScoreIndicator :score="progress.totalScore" />
-    <GlobalExplanationToggle v-model="progress.globalExpanded" />
+    <GlobalExplanationToggle
+      :model-value="progress.globalExpanded"
+      @update:modelValue="setGlobalExplanationEnabled"
+    />
 
     <header class="page-header">
       <div>
         <p class="eyebrow">Local MVP</p>
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
       </div>
-      <button
-        v-if="progress.lastSentenceId"
-        class="ghost-button"
-        @click="scrollToSentence(progress.lastSentenceId)"
-      >
-        Back to Last Reading Position
-      </button>
+      <div class="header-actions">
+        <button class="ghost-button" @click="openImportModal">Paste Markdown</button>
+        <button
+          v-if="progress.lastSentenceId"
+          class="ghost-button"
+          @click="scrollToSentence(progress.lastSentenceId)"
+        >
+          Back to Last Reading Position
+        </button>
+      </div>
     </header>
 
     <main class="reading-list">
@@ -37,6 +43,38 @@
         </div>
       </section>
     </main>
+
+    <div v-if="isImportModalOpen" class="modal-backdrop" @click.self="closeImportModal">
+      <section class="import-modal">
+        <div class="import-modal__header">
+          <div>
+            <p class="eyebrow">Import</p>
+            <h2>Paste Markdown</h2>
+          </div>
+          <button class="ghost-button" @click="closeImportModal">Close</button>
+        </div>
+
+        <label class="field-label" for="import-title">Title</label>
+        <input id="import-title" v-model="importForm.title" class="text-input" type="text" placeholder="Optional title override" />
+
+        <label class="field-label" for="import-markdown">Markdown Content</label>
+        <textarea
+          id="import-markdown"
+          v-model="importForm.markdown"
+          class="markdown-input"
+          placeholder="Paste markdown here"
+        />
+
+        <p v-if="importError" class="import-error">{{ importError }}</p>
+
+        <div class="import-actions">
+          <button class="ghost-button" @click="closeImportModal">Cancel</button>
+          <button class="toggle-button" :disabled="isImporting" @click="submitImport">
+            {{ isImporting ? 'Importing...' : 'Load as Current Material' }}
+          </button>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -45,16 +83,9 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 import GlobalExplanationToggle from '../components/GlobalExplanationToggle.vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { fetchChapter, fetchProgress, saveProgress } from '../api/readerApi'
+import { fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
 
 const chapterId = 'chapter-1'
-const paragraphRanges = [
-  { id: 1, start: 1, end: 5 },
-  { id: 2, start: 6, end: 15 },
-  { id: 3, start: 16, end: 17 },
-  { id: 4, start: 18, end: 22 },
-  { id: 5, start: 23, end: 34 }
-]
 
 const chapter = reactive({
   chapterId,
@@ -75,15 +106,34 @@ const progress = reactive({
 
 const sentenceObserver = ref(null)
 const persistTimer = ref(null)
+const isHydratingProgress = ref(true)
+const isImportModalOpen = ref(false)
+const isImporting = ref(false)
+const importError = ref('')
+const importForm = reactive({
+  title: '',
+  markdown: ''
+})
+
 const readIdSet = computed(() => new Set(progress.readSentenceIds))
 const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
 const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
 
-const paragraphGroups = computed(() => paragraphRanges.map((range) => ({
-  id: range.id,
-  sentences: chapter.sentences.filter(sentence => sentence.id >= range.start && sentence.id <= range.end)
-})).filter(group => group.sentences.length > 0))
+const paragraphGroups = computed(() => {
+  const groups = new Map()
+  chapter.sentences.forEach((sentence) => {
+    const paragraphId = sentence.paragraphId || 1
+    if (!groups.has(paragraphId)) {
+      groups.set(paragraphId, [])
+    }
+    groups.get(paragraphId).push(sentence)
+  })
+
+  return Array.from(groups.entries())
+    .sort((a, b) => a[0] - b[0])
+    .map(([id, sentences]) => ({ id, sentences }))
+})
 
 function dedupe(ids) {
   return Array.from(new Set(ids)).sort((a, b) => a - b)
@@ -97,6 +147,19 @@ function mergeProgressState(savedProgress) {
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
   progress.scoredSentenceIds = dedupe(savedProgress.scoredSentenceIds || [])
   progress.explanationUsedSentenceIds = dedupe(savedProgress.explanationUsedSentenceIds || [])
+}
+
+function createEmptyProgress() {
+  return {
+    chapterId,
+    lastSentenceId: null,
+    totalScore: 0,
+    globalExpanded: false,
+    openedSentenceIds: [],
+    readSentenceIds: [],
+    scoredSentenceIds: [],
+    explanationUsedSentenceIds: []
+  }
 }
 
 function isExplanationOpen(sentenceId) {
@@ -120,7 +183,7 @@ function toggleSentenceExplanation(sentenceId) {
   progress.openedSentenceIds = dedupe(progress.openedSentenceIds.concat(sentenceId))
 }
 
-function applyGlobalExplanationState(enabled) {
+function setGlobalExplanationEnabled(enabled) {
   progress.globalExpanded = enabled
   if (!enabled) {
     return
@@ -159,6 +222,10 @@ function scrollToSentence(sentenceId) {
 }
 
 function schedulePersist() {
+  if (isHydratingProgress.value) {
+    return
+  }
+
   window.clearTimeout(persistTimer.value)
   persistTimer.value = window.setTimeout(() => {
     saveProgress(chapterId, { ...progress }).catch((error) => {
@@ -167,18 +234,40 @@ function schedulePersist() {
   }, 250)
 }
 
+function markBottomVisibleSentencesAsRead() {
+  const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24
+  if (!nearBottom) {
+    return
+  }
+
+  document.querySelectorAll('[data-sentence-id]').forEach((element) => {
+    const sentenceId = Number(element.dataset.sentenceId)
+    const rect = element.getBoundingClientRect()
+    const visible = rect.top < window.innerHeight && rect.bottom > 0
+
+    if (visible && !Number.isNaN(sentenceId)) {
+      handleSentenceRead(sentenceId)
+    }
+  })
+}
+
+async function hydrateChapterState(chapterResponse, progressResponse) {
+  isHydratingProgress.value = true
+  chapter.chapterId = chapterResponse.chapterId
+  chapter.title = chapterResponse.title
+  chapter.sentences = chapterResponse.sentences
+  mergeProgressState(progressResponse)
+  await nextTick()
+  isHydratingProgress.value = false
+}
+
 async function loadPage() {
   const [chapterResponse, progressResponse] = await Promise.all([
     fetchChapter(chapterId),
     fetchProgress(chapterId)
   ])
 
-  chapter.chapterId = chapterResponse.chapterId
-  chapter.title = chapterResponse.title
-  chapter.sentences = chapterResponse.sentences
-  mergeProgressState(progressResponse)
-
-  await nextTick()
+  await hydrateChapterState(chapterResponse, progressResponse)
   if (progress.lastSentenceId) {
     scrollToSentence(progress.lastSentenceId)
   }
@@ -203,12 +292,47 @@ function buildObserver() {
   })
 }
 
-watch(() => progress.globalExpanded, (enabled, previous) => {
-  if (enabled === previous) {
+function openImportModal() {
+  importError.value = ''
+  isImportModalOpen.value = true
+}
+
+function closeImportModal() {
+  if (isImporting.value) {
     return
   }
-  applyGlobalExplanationState(enabled)
-})
+  isImportModalOpen.value = false
+  importError.value = ''
+}
+
+async function submitImport() {
+  if (!importForm.markdown.trim()) {
+    importError.value = 'Paste markdown content first.'
+    return
+  }
+
+  isImporting.value = true
+  importError.value = ''
+
+  try {
+    const chapterResponse = await importChapter(chapterId, {
+        title: importForm.title.trim(),
+        markdown: importForm.markdown
+      })
+
+    await hydrateChapterState(chapterResponse, createEmptyProgress())
+    importForm.title = ''
+    importForm.markdown = ''
+    closeImportModal()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    markBottomVisibleSentencesAsRead()
+  } catch (error) {
+    importError.value = 'Import failed. Check the pasted markdown format and try again.'
+    console.error('Failed to import chapter markdown', error)
+  } finally {
+    isImporting.value = false
+  }
+}
 
 watch(progress, () => {
   schedulePersist()
@@ -216,13 +340,17 @@ watch(progress, () => {
 
 onMounted(async () => {
   buildObserver()
+  window.addEventListener('scroll', markBottomVisibleSentencesAsRead, { passive: true })
   await loadPage()
+  markBottomVisibleSentencesAsRead()
 })
 
 onBeforeUnmount(() => {
   if (sentenceObserver.value) {
     sentenceObserver.value.disconnect()
   }
+  window.removeEventListener('scroll', markBottomVisibleSentencesAsRead)
   window.clearTimeout(persistTimer.value)
 })
 </script>
+

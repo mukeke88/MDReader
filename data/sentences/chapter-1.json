@@ -1,172 +1,461 @@
-[
-  {
-    "id": 1,
-    "text": "Starting out on the biography of my hero, Alexei Fyodorovich Karamazov, I find myself in some perplexity.",
-    "explanation": "The narrator begins with uncertainty and admits he is not fully confident about how to present Alexei's life."
-  },
-  {
-    "id": 2,
-    "text": "Namely, that while I do call Alexei Fyodorovich my hero, still, I myself know that he is by no means a great man, so that I can foresee the inevitable questions, such as: What is notable about your Alexei Fyodorovich that you should choose him for your hero?",
-    "explanation": "He calls Alexei the hero, but immediately admits Alexei is not obviously great, so readers may question that choice."
-  },
-  {
-    "id": 3,
-    "text": "What has he really done?",
-    "explanation": "The narrator imagines readers asking what concrete achievements Alexei has."
-  },
-  {
-    "id": 4,
-    "text": "To whom is he known, and for what?",
-    "explanation": "The question shifts to Alexei's reputation and whether anyone has reason to care about him."
-  },
-  {
-    "id": 5,
-    "text": "Why should I, the reader, spend my time studying the facts of his life?",
-    "explanation": "The narrator anticipates resistance from readers who are unsure the story is worth their attention."
-  },
-  {
-    "id": 6,
-    "text": "This last question is the most fateful one, for I can only reply: perhaps you will see from the novel.",
-    "explanation": "He admits the only defense is that the novel itself may eventually justify Alexei's importance."
-  },
-  {
-    "id": 7,
-    "text": "But suppose they read the novel and do not see, do not agree with the noteworthiness of my Alexei Fyodorovich?",
-    "explanation": "The narrator worries that even after reading, people may still reject his claim that Alexei matters."
-  },
-  {
-    "id": 8,
-    "text": "I say this because, to my sorrow, I foresee it.",
-    "explanation": "He expects that skeptical reaction and says so with regret."
-  },
-  {
-    "id": 9,
-    "text": "To me he is noteworthy, but I decidedly doubt that I shall succeed in proving it to the reader.",
-    "explanation": "The narrator believes in Alexei's significance personally, but doubts he can persuade others."
-  },
-  {
-    "id": 10,
-    "text": "The thing is that he does, perhaps, make a figure, but a figure of an indefinite, indeterminate sort.",
-    "explanation": "Alexei may be meaningful, but not in a clear or easily defined way."
-  },
-  {
-    "id": 11,
-    "text": "Though it would be strange to demand clarity from people in a time like ours.",
-    "explanation": "The narrator broadens the point and says confusion is natural in a confused age."
-  },
-  {
-    "id": 12,
-    "text": "One thing, perhaps, is rather doubtless: he is a strange man, even an odd one.",
-    "explanation": "If nothing else is certain, Alexei is at least unusual."
-  },
-  {
-    "id": 13,
-    "text": "But strangeness and oddity will sooner harm than justify any claim to attention, especially when everyone is striving to unite particulars and find at least some general sense in the general senselessness.",
-    "explanation": "Oddity usually makes a person harder to accept, especially when society wants order and common meaning."
-  },
-  {
-    "id": 14,
-    "text": "Whereas an odd man is most often a particular and isolated case.",
-    "explanation": "An eccentric person is usually treated as an exception, not as someone central."
-  },
-  {
-    "id": 15,
-    "text": "Is that not so?",
-    "explanation": "The narrator pauses and asks the reader to agree with that idea."
-  },
-  {
-    "id": 16,
-    "text": "Now if you do not agree with this last point and reply: 'Not so' or 'Not always,' then perhaps I shall take heart concerning the significance of my hero, Alexei Fyodorovich.",
-    "explanation": "If the reader rejects the idea that odd people are always isolated, the narrator feels more hopeful about Alexei's importance."
-  },
-  {
-    "id": 17,
-    "text": "For not only is an odd man 'not always' a particular and isolated case, but, on the contrary, it sometimes happens that it is precisely he, perhaps, who bears within himself the heart of the whole, while the other people of his epoch have all for some reason been torn away from it for a time by some kind of flooding wind.",
-    "explanation": "Sometimes the strange person actually carries the essential truth of an era, while everyone else has drifted away from it."
-  },
-  {
-    "id": 18,
-    "text": "I would not, in fact, venture into these rather vague and uninteresting explanations but would simply begin without any introduction, if they like it, they'll read it as it is, but the trouble is that while I have just one biography, I have two novels.",
-    "explanation": "The narrator says he would rather skip the preface, but the structure of the story forces him to explain himself."
-  },
-  {
-    "id": 19,
-    "text": "The main novel is the second one, about the activities of my hero in our time, that is, in our present, current moment.",
-    "explanation": "He clarifies that the real focus is the second novel, which covers Alexei in the present."
-  },
-  {
-    "id": 20,
-    "text": "As for the first novel, it already took place thirteen years ago and is even almost not a novel at all but just one moment from my hero's early youth.",
-    "explanation": "The first novel is more like a background episode from Alexei's earlier life."
-  },
-  {
-    "id": 21,
-    "text": "It is impossible for me to do without this first novel, or much in the second novel will be incomprehensible.",
-    "explanation": "The narrator insists the earlier material is necessary for understanding what comes later."
-  },
-  {
-    "id": 22,
-    "text": "Thus my original difficulty becomes even more complicated: for if I, that is, the biographer himself, think that even one novel may, perhaps, be unwarranted for such a humble and indefinite hero, then how will it look if I appear with two; and what can explain such presumption on my part?",
-    "explanation": "His justification problem gets worse because he is asking readers to accept not one book about Alexei, but two."
-  },
-  {
-    "id": 23,
-    "text": "Being at a loss to resolve these questions, I am resolved to leave them without any resolution.",
-    "explanation": "He gives up trying to settle the issue neatly."
-  },
-  {
-    "id": 24,
-    "text": "To be sure, the keen-sighted reader will already have guessed long ago that that is what I've been getting at from the very beginning and will only be annoyed with me for wasting fruitless words and precious time.",
-    "explanation": "The narrator knows attentive readers may be irritated because his preface only circles around unresolved doubts."
-  },
-  {
-    "id": 25,
-    "text": "To this I have a ready answer: I have been wasting fruitless words and precious time, first, out of politeness, and, second, out of cunning.",
-    "explanation": "He jokingly defends the preface as partly courteous and partly strategic."
-  },
-  {
-    "id": 26,
-    "text": "At least I have given some warning beforehand.",
-    "explanation": "He says the introduction has at minimum served as a warning to readers."
-  },
-  {
-    "id": 27,
-    "text": "In fact, I am even glad that my novel broke itself into two stories while preserving the essential unity of the whole, having acquainted himself with the first story, the reader can decide for himself whether it is worth his while to begin the second.",
-    "explanation": "He sees an advantage in the split structure because readers can test the first part before deciding to continue."
-  },
-  {
-    "id": 28,
-    "text": "Of course, no one is bound by anything; he can also drop the book after two pages of the first story and never pick it up again.",
-    "explanation": "Readers are free to abandon the book at any point."
-  },
-  {
-    "id": 29,
-    "text": "But still there are readers of such delicacy that they will certainly want to read to the very end so as to make no mistake in their impartial judgment.",
-    "explanation": "Some readers will continue out of fairness and seriousness."
-  },
-  {
-    "id": 30,
-    "text": "Such, for instance, are all Russian critics.",
-    "explanation": "The narrator adds a dry, slightly ironic example: literary critics."
-  },
-  {
-    "id": 31,
-    "text": "Faced with these people, I feel easier in my heart: for, in spite of their care and conscientiousness, I am nonetheless providing them with the most valid pretext for dropping the story at the first episode of the novel.",
-    "explanation": "He is relieved because even conscientious readers now have a legitimate excuse to stop early if they want."
-  },
-  {
-    "id": 32,
-    "text": "Well, that is the end of my introduction.",
-    "explanation": "The narrator formally closes the preface."
-  },
-  {
-    "id": 33,
-    "text": "I quite agree that it is superfluous, but since it is already written, let it stand.",
-    "explanation": "He admits the introduction may be unnecessary, but keeps it anyway."
-  },
-  {
-    "id": 34,
-    "text": "And now to business.",
-    "explanation": "The narrator finally moves from preface to the real story."
-  }
-]
+[ {
+  "id" : 1,
+  "paragraphId" : 1,
+  "text" : "Alexei Fyodorovich Karamazov was the third son of a landowner from our district, Fyodor Pavlovich Karamazov, well known in his own day and still remembered among us because of his dark and tragic death, which happened exactly thirteen years ago and which I shall speak of in its proper place.",
+  "explanation" : "This sentence introduces Alexei as the third son of Fyodor Pavlovich, a local landowner famous for his mysterious and tragic death thirteen years prior, with the narrator promising to discuss it later."
+}, {
+  "id" : 2,
+  "paragraphId" : 1,
+  "text" : "This sentence introduces Alexei as the third son of Fyodor Pavlovich, a local landowner famous for his mysterious and tragic death thirteen years prior, with the narrator promising to discuss it later.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 3,
+  "paragraphId" : 1,
+  "text" : "For the moment I will only say of this “landowner” as we used to call him, though for all his life he hardly ever lived on his estate that he was a strange type, yet one rather frequently met with, precisely the type of man who is not only worthless and depraved but muddleheaded as well—one of those muddleheaded people who still handle their own little business deals quite skillfully, if nothing else.",
+  "explanation" : "Here, the narrator briefly describes Fyodor as an odd but common character: morally corrupt, foolish in judgment, yet adept at managing small financial matters despite rarely residing on his property."
+}, {
+  "id" : 4,
+  "paragraphId" : 1,
+  "text" : "Here, the narrator briefly describes Fyodor as an odd but common character: morally corrupt, foolish in judgment, yet adept at managing small financial matters despite rarely residing on his property.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 5,
+  "paragraphId" : 1,
+  "text" : "Fyodor Pavlovich, for instance, started with next to nothing, he was a very small landowner, he ran around having dinner at other men’s tables, he tried to foist himself off as a sponger, and yet at his death he was discovered to have as much as a hundred thousand roubles in hard cash.",
+  "explanation" : "This illustrates Fyodor's humble beginnings as a minor landowner who lived off others' hospitality and acted as a parasite, yet surprisingly amassed a fortune of 100,000 roubles by the time of his death."
+}, {
+  "id" : 6,
+  "paragraphId" : 1,
+  "text" : "This illustrates Fyodor's humble beginnings as a minor landowner who lived off others' hospitality and acted as a parasite, yet surprisingly amassed a fortune of 100,000 roubles by the time of his death.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 7,
+  "paragraphId" : 1,
+  "text" : "At the same time he remained all his life one of the most muddleheaded madcaps in our district.",
+  "explanation" : "Despite his financial success, Fyodor stayed one of the most foolish and reckless individuals in the area throughout his life."
+}, {
+  "id" : 8,
+  "paragraphId" : 1,
+  "text" : "Despite his financial success, Fyodor stayed one of the most foolish and reckless individuals in the area throughout his life.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 9,
+  "paragraphId" : 1,
+  "text" : "Again I say it was not stupidity—most of these madcaps are rather clever and shrewd—but precisely muddleheadedness, even a special, national form of it.",
+  "explanation" : "The narrator clarifies that this isn't mere stupidity, as such wild people are often intelligent and cunning, but rather a specific kind of confusion or irrationality, possibly unique to Russian culture."
+}, {
+  "id" : 10,
+  "paragraphId" : 1,
+  "text" : "The narrator clarifies that this isn't mere stupidity, as such wild people are often intelligent and cunning, but rather a specific kind of confusion or irrationality, possibly unique to Russian culture.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 11,
+  "paragraphId" : 2,
+  "text" : "He was married twice and had three sons—the eldest, Dmitri Fyodorovich, by his first wife, and the other two, Ivan and Alexei, by his second.",
+  "explanation" : "This states that Fyodor married twice, fathering Dmitri with his first wife and Ivan and Alexei with his second."
+}, {
+  "id" : 12,
+  "paragraphId" : 2,
+  "text" : "This states that Fyodor married twice, fathering Dmitri with his first wife and Ivan and Alexei with his second.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 13,
+  "paragraphId" : 2,
+  "text" : "Fyodor Pavlovich’s first wife belonged to a rather wealthy aristocratic family, the Miusovs, also landowners in our district.",
+  "explanation" : "Fyodor's first wife came from the affluent and noble Miusov family, who were fellow landowners in the same region."
+}, {
+  "id" : 14,
+  "paragraphId" : 2,
+  "text" : "Fyodor's first wife came from the affluent and noble Miusov family, who were fellow landowners in the same region.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 15,
+  "paragraphId" : 2,
+  "text" : "Precisely how it happened that a girl with a dowry, a beautiful girl, too, and moreover one of those pert, intelligent girls not uncommon in this generation but sometimes also to be found in the last, could have married such a worthless “runt,” as everyone used to call him, I cannot begin to explain.",
+  "explanation" : "The narrator expresses puzzlement over why an attractive, spirited, and smart young woman from a good family with a dowry would marry someone as insignificant and despised as Fyodor, whom people called a \"runt.\""
+}, {
+  "id" : 16,
+  "paragraphId" : 2,
+  "text" : "The narrator expresses puzzlement over why an attractive, spirited, and smart young woman from a good family with a dowry would marry someone as insignificant and despised as Fyodor, whom people called a \"runt.\"",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 17,
+  "paragraphId" : 2,
+  "text" : "But then, I once knew a young lady still of the last “romantic” generation who, after several years of enigmatic love for a certain gentleman, whom, by the way, she could have married quite easily at any moment, ended up, after inventing all sorts of insurmountable obstacles, by throwing herself on a stormy night into a rather deep and swift river from a high bank somewhat resembling a cliff, and perished there decidedly by her own caprice, only because she wanted to be like Shakespeare’s Ophelia.",
+  "explanation" : "To illustrate irrational romantic behavior, the narrator recounts knowing a woman from an earlier romantic era who, after years of mysterious affection for a man she could easily marry, created imaginary barriers and dramatically drowned herself in a river during a storm, imitating Shakespeare's Ophelia out of whim."
+}, {
+  "id" : 18,
+  "paragraphId" : 2,
+  "text" : "To illustrate irrational romantic behavior, the narrator recounts knowing a woman from an earlier romantic era who, after years of mysterious affection for a man she could easily marry, created imaginary barriers and dramatically drowned herself in a river during a storm, imitating Shakespeare's Ophelia out of whim.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 19,
+  "paragraphId" : 2,
+  "text" : "Even then, if the cliff, chosen and cherished from long ago, had not been so picturesque, if it had been merely a flat, prosaic bank, the suicide might not have taken place at all.",
+  "explanation" : "The narrator suggests that the woman's suicide was motivated by the scenic appeal of the location, implying it might not have happened if the site were ordinary and unromantic."
+}, {
+  "id" : 20,
+  "paragraphId" : 2,
+  "text" : "The narrator suggests that the woman's suicide was motivated by the scenic appeal of the location, implying it might not have happened if the site were ordinary and unromantic.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 21,
+  "paragraphId" : 2,
+  "text" : "This is a true fact, and one can assume that in our Russian life of the past two or three generations there have been not a few similar facts.",
+  "explanation" : "This anecdote is presented as real, and the narrator posits that similar whimsical events have occurred in Russian society over recent generations."
+}, {
+  "id" : 22,
+  "paragraphId" : 2,
+  "text" : "This anecdote is presented as real, and the narrator posits that similar whimsical events have occurred in Russian society over recent generations.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 23,
+  "paragraphId" : 2,
+  "text" : "In the same way, the action of Adelaida Ivanovna Miusov was doubtless an echo of foreign influences, the chafings of a mind imprisoned.1",
+  "explanation" : "Similarly, Adelaida Miusov's marriage to Fyodor is attributed to external cultural influences and the frustrations of a constrained intellect."
+}, {
+  "id" : 24,
+  "paragraphId" : 2,
+  "text" : "Similarly, Adelaida Miusov's marriage to Fyodor is attributed to external cultural influences and the frustrations of a constrained intellect.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 25,
+  "paragraphId" : 2,
+  "text" : "Perhaps she wanted to assert her feminine independence, to go against social conventions, against the despotism of her relatives and family, and her obliging imagination convinced her, if only briefly, that Fyodor Pavlovich, despite his dignity as a sponger, was still one of the boldest and most sarcastic spirits of that transitional epoch—transitional to everything better—whereas he was simply an evil buffoon and nothing more.",
+  "explanation" : "She may have sought to claim her independence by defying societal norms and family control, with her fantasy portraying Fyodor as a daring, ironic figure of progress, though he was actually just a malicious clown."
+}, {
+  "id" : 26,
+  "paragraphId" : 2,
+  "text" : "She may have sought to claim her independence by defying societal norms and family control, with her fantasy portraying Fyodor as a daring, ironic figure of progress, though he was actually just a malicious clown.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 27,
+  "paragraphId" : 2,
+  "text" : "The affair gained piquancy from elopement, which strongly appealed to Adelaida Ivanovna.",
+  "explanation" : "The excitement of eloping added spice to the situation, which particularly attracted Adelaida."
+}, {
+  "id" : 28,
+  "paragraphId" : 2,
+  "text" : "The excitement of eloping added spice to the situation, which particularly attracted Adelaida.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 29,
+  "paragraphId" : 2,
+  "text" : "As for Fyodor Pavlovich, his social position at the time made him quite ready for any such venture, for he passionately desired to set himself up by whatever means.",
+  "explanation" : "Fyodor's low status made him eager for the opportunity, as he desperately wanted to improve his circumstances through any method."
+}, {
+  "id" : 30,
+  "paragraphId" : 2,
+  "text" : "Fyodor's low status made him eager for the opportunity, as he desperately wanted to improve his circumstances through any method.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 31,
+  "paragraphId" : 2,
+  "text" : "To squeeze into a good family and get a dowry was tempting indeed.",
+  "explanation" : "Marrying into a prestigious family and acquiring a dowry was highly appealing to him."
+}, {
+  "id" : 32,
+  "paragraphId" : 2,
+  "text" : "Marrying into a prestigious family and acquiring a dowry was highly appealing to him.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 33,
+  "paragraphId" : 2,
+  "text" : "As for mutual love, it seems there never was any either on the bride’s part or on his own, despite the beauty of Adelaida Ivanovna.",
+  "explanation" : "There appeared to be no genuine love from either side, even given Adelaida's attractiveness."
+}, {
+  "id" : 34,
+  "paragraphId" : 2,
+  "text" : "There appeared to be no genuine love from either side, even given Adelaida's attractiveness.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 35,
+  "paragraphId" : 2,
+  "text" : "This was, perhaps, the only case of its kind in Fyodor Pavlovich’s life, for he was a great sensualist all his days, always ready to hang onto any skirt that merely beckoned to him.",
+  "explanation" : "This marriage was unique in Fyodor's life because he was typically a extreme womanizer, eager for any casual encounter."
+}, {
+  "id" : 36,
+  "paragraphId" : 2,
+  "text" : "This marriage was unique in Fyodor's life because he was typically a extreme womanizer, eager for any casual encounter.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 37,
+  "paragraphId" : 2,
+  "text" : "This one woman alone, sensually speaking, made no particular impression on him.",
+  "explanation" : "Adelaida was the sole woman who did not sexually captivate him."
+}, {
+  "id" : 38,
+  "paragraphId" : 2,
+  "text" : "Adelaida was the sole woman who did not sexually captivate him.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 39,
+  "paragraphId" : 3,
+  "text" : "They had no sooner eloped than it became clear to Adelaida Ivanovna that she felt only contempt for her husband and nothing more.",
+  "explanation" : "Immediately after eloping, Adelaida realized she harbored only disdain for Fyodor."
+}, {
+  "id" : 40,
+  "paragraphId" : 3,
+  "text" : "Immediately after eloping, Adelaida realized she harbored only disdain for Fyodor.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 41,
+  "paragraphId" : 3,
+  "text" : "Thus the consequences of their marriage revealed themselves extraordinarily quickly.",
+  "explanation" : "The negative outcomes of their union became apparent very rapidly."
+}, {
+  "id" : 42,
+  "paragraphId" : 3,
+  "text" : "The negative outcomes of their union became apparent very rapidly.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 43,
+  "paragraphId" : 3,
+  "text" : "And though her family even accepted the situation fairly soon and allotted the runaway bride her dowry, the married couple began leading a very disorderly life, full of eternal scenes.",
+  "explanation" : "Despite her family quickly reconciling and providing her dowry, the couple's life turned chaotic, marked by constant arguments."
+}, {
+  "id" : 44,
+  "paragraphId" : 3,
+  "text" : "Despite her family quickly reconciling and providing her dowry, the couple's life turned chaotic, marked by constant arguments.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 45,
+  "paragraphId" : 3,
+  "text" : "It was said that in the circumstances the young wife showed far more dignity and high-mindedness than did Fyodor Pavlovich, who, as is now known, filched all her cash from her, as much as twenty-five thousand roubles, the moment she got it, so that from then on as far as she was concerned all those thousands positively vanished, as it were, into thin air.",
+  "explanation" : "Reports indicate Adelaida behaved with greater nobility than Fyodor, who stole her 25,000 roubles as soon as she received it, making the money disappear from her perspective."
+}, {
+  "id" : 46,
+  "paragraphId" : 3,
+  "text" : "Reports indicate Adelaida behaved with greater nobility than Fyodor, who stole her 25,000 roubles as soon as she received it, making the money disappear from her perspective.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 47,
+  "paragraphId" : 3,
+  "text" : "As for the little village and the rather fine town house that came with her dowry, for a long time he tried very hard to have them transferred to his name by means of some appropriate deed, and he would probably have succeeded, merely because of the contempt and loathing, so to speak, that his shameless extortions and entreaties aroused in his wife, merely because of her emotional exhaustion—anything to be rid of him.",
+  "explanation" : "Fyodor persistently attempted to legally transfer her dowry properties—a village and town house—to himself, and likely would have if not for her growing hatred and fatigue from his brazen demands, which made her desperate to escape him."
+}, {
+  "id" : 48,
+  "paragraphId" : 3,
+  "text" : "Fyodor persistently attempted to legally transfer her dowry properties—a village and town house—to himself, and likely would have if not for her growing hatred and fatigue from his brazen demands, which made her desperate to escape him.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 49,
+  "paragraphId" : 3,
+  "text" : "Fortunately, Adelaida Ivanov-na’s family intervened and put a stop to his hogging.",
+  "explanation" : "Luckily, her family stepped in to prevent his greedy acquisition."
+}, {
+  "id" : 50,
+  "paragraphId" : 3,
+  "text" : "Luckily, her family stepped in to prevent his greedy acquisition.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 51,
+  "paragraphId" : 3,
+  "text" : "It is well known that there were frequent fights between husband and wife, but according to tradition it was not Fyodor Pavlovich who did the beating but Adelaida Ivanovna, a hot-tempered lady, bold, dark-skinned, impatient, and endowed with remarkable physical strength.",
+  "explanation" : "It's commonly known they fought often, but contrary to expectation, Adelaida—described as fiery, courageous, dark-complexioned, impatient, and strong— was the one who physically assaulted Fyodor."
+}, {
+  "id" : 52,
+  "paragraphId" : 3,
+  "text" : "It's commonly known they fought often, but contrary to expectation, Adelaida—described as fiery, courageous, dark-complexioned, impatient, and strong— was the one who physically assaulted Fyodor.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 53,
+  "paragraphId" : 3,
+  "text" : "Finally she fled the house and ran away from Fyodor Pavlovich with a destitute seminarian, leaving the three-year-old Mitya in his father’s hands.",
+  "explanation" : "Eventually, she escaped with a poor theology student, abandoning their three-year-old son Mitya Dmitri to Fyodor."
+}, {
+  "id" : 54,
+  "paragraphId" : 3,
+  "text" : "Eventually, she escaped with a poor theology student, abandoning their three-year-old son Mitya Dmitri to Fyodor.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 55,
+  "paragraphId" : 3,
+  "text" : "Fyodor Pavlovich immediately set up a regular harem in his house and gave himself to the most unbridled drinking.",
+  "explanation" : "Fyodor promptly turned his home into a place of multiple concubines and indulged in excessive alcohol consumption."
+}, {
+  "id" : 56,
+  "paragraphId" : 3,
+  "text" : "Fyodor promptly turned his home into a place of multiple concubines and indulged in excessive alcohol consumption.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 57,
+  "paragraphId" : 3,
+  "text" : "In the intermissions, he drove over most of the province, tearfully complaining to all and sundry that Adelaide had abandoned him, going into details that any husband ought to have been too ashamed to reveal about his married life.",
+  "explanation" : "During breaks from his debauchery, he traveled the region, weeping and sharing embarrassing intimate details of their marriage that a typical husband would hide."
+}, {
+  "id" : 58,
+  "paragraphId" : 3,
+  "text" : "During breaks from his debauchery, he traveled the region, weeping and sharing embarrassing intimate details of their marriage that a typical husband would hide.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 59,
+  "paragraphId" : 3,
+  "text" : "The thing was that he seemed to enjoy and even feel flattered by playing the ludicrous role of the offended husband, embroidering on and embellishing the details of the offense.",
+  "explanation" : "He appeared to take pleasure and pride in portraying himself as the ridiculous wronged spouse, exaggerating the stories for effect."
+}, {
+  "id" : 60,
+  "paragraphId" : 3,
+  "text" : "He appeared to take pleasure and pride in portraying himself as the ridiculous wronged spouse, exaggerating the stories for effect.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 61,
+  "paragraphId" : 3,
+  "text" : "“One would think you had been promoted, Fyodor Pavlovich,” the scoffers used to say, “you’re so pleased despite all your woes!”",
+  "explanation" : "Mockers remarked that he seemed as happy as if promoted, given his apparent satisfaction amid his troubles."
+}, {
+  "id" : 62,
+  "paragraphId" : 3,
+  "text" : "Mockers remarked that he seemed as happy as if promoted, given his apparent satisfaction amid his troubles.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 63,
+  "paragraphId" : 3,
+  "text" : "Many even added that he was glad to brush up his old role of buffoon, and that, to make things funnier still, he pretended not to notice his ridiculous position.",
+  "explanation" : "Others suggested he enjoyed reviving his clownish persona and feigned ignorance of how absurd he looked to heighten the comedy."
+}, {
+  "id" : 64,
+  "paragraphId" : 3,
+  "text" : "Others suggested he enjoyed reviving his clownish persona and feigned ignorance of how absurd he looked to heighten the comedy.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 65,
+  "paragraphId" : 3,
+  "text" : "But who knows, perhaps he was simply naive.",
+  "explanation" : "However, it's possible he was genuinely innocent or unaware."
+}, {
+  "id" : 66,
+  "paragraphId" : 3,
+  "text" : "However, it's possible he was genuinely innocent or unaware.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 67,
+  "paragraphId" : 3,
+  "text" : "At last he managed to find the trail of his runaway wife.",
+  "explanation" : "Eventually, he located his escaped wife."
+}, {
+  "id" : 68,
+  "paragraphId" : 3,
+  "text" : "Eventually, he located his escaped wife.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 69,
+  "paragraphId" : 3,
+  "text" : "The poor woman turned out to be in Petersburg, where she had gone to live with her seminarian and where she had thrown herself wholeheartedly into the most complete emancipation.",
+  "explanation" : "She was found in Petersburg, living with her companion and fully embracing a liberated lifestyle."
+}, {
+  "id" : 70,
+  "paragraphId" : 3,
+  "text" : "She was found in Petersburg, living with her companion and fully embracing a liberated lifestyle.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 71,
+  "paragraphId" : 3,
+  "text" : "Fyodor Pavlovich at once began bustling about, making ready to go to Petersburg.",
+  "explanation" : "Fyodor immediately prepared to travel there."
+}, {
+  "id" : 72,
+  "paragraphId" : 3,
+  "text" : "Fyodor immediately prepared to travel there.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 73,
+  "paragraphId" : 3,
+  "text" : "Why?",
+  "explanation" : "The narrator questions his motive."
+}, {
+  "id" : 74,
+  "paragraphId" : 3,
+  "text" : "The narrator questions his motive.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 75,
+  "paragraphId" : 3,
+  "text" : "He, of course, had no idea.",
+  "explanation" : "Fyodor himself was uncertain why."
+}, {
+  "id" : 76,
+  "paragraphId" : 3,
+  "text" : "Fyodor himself was uncertain why.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 77,
+  "paragraphId" : 3,
+  "text" : "True, he might even have gone; but having undertaken such a decision, he at once felt fully entitled to get up his courage for the journey by throwing himself into more boundless drinking.",
+  "explanation" : "He could have gone, but deciding to do so gave him an excuse to drink even more excessively to build his nerve."
+}, {
+  "id" : 78,
+  "paragraphId" : 3,
+  "text" : "He could have gone, but deciding to do so gave him an excuse to drink even more excessively to build his nerve.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 79,
+  "paragraphId" : 3,
+  "text" : "Just then his wife’s family received news of her death in Petersburg.",
+  "explanation" : "At that moment, her family learned of her death in Petersburg."
+}, {
+  "id" : 80,
+  "paragraphId" : 3,
+  "text" : "At that moment, her family learned of her death in Petersburg.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 81,
+  "paragraphId" : 3,
+  "text" : "She died somehow suddenly, in some garret, of typhus according to one version, of starvation according to another.",
+  "explanation" : "Her death was abrupt, in a poor attic, attributed to typhus or starvation depending on the account."
+}, {
+  "id" : 82,
+  "paragraphId" : 3,
+  "text" : "Her death was abrupt, in a poor attic, attributed to typhus or starvation depending on the account.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 83,
+  "paragraphId" : 3,
+  "text" : "Fyodor Pavlovich was drunk when he learned of his wife’s death, and the story goes that he ran down the street, lifting his hands to the sky and joyfully shouting: “Now lettest thou thy servant depart in peace.”2",
+  "explanation" : "Intoxicated upon hearing the news, he reportedly ran outside, raising his arms heavenward and exclaiming a biblical phrase of relief and release."
+}, {
+  "id" : 84,
+  "paragraphId" : 3,
+  "text" : "Intoxicated upon hearing the news, he reportedly ran outside, raising his arms heavenward and exclaiming a biblical phrase of relief and release.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 85,
+  "paragraphId" : 3,
+  "text" : "Others say that he wept and sobbed like a little child, so much so that they say he was pitiful to see, however repulsive they found him.",
+  "explanation" : "Alternative accounts describe him crying inconsolably like a child, evoking pity despite his general repulsiveness."
+}, {
+  "id" : 86,
+  "paragraphId" : 3,
+  "text" : "Alternative accounts describe him crying inconsolably like a child, evoking pity despite his general repulsiveness.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 87,
+  "paragraphId" : 3,
+  "text" : "Both versions may very well be true—that is, that he rejoiced at his release and wept for her who released him, all at the same time.",
+  "explanation" : "The narrator proposes both reactions could coexist: joy at freedom and grief for his liberator."
+}, {
+  "id" : 88,
+  "paragraphId" : 3,
+  "text" : "The narrator proposes both reactions could coexist: joy at freedom and grief for his liberator.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 89,
+  "paragraphId" : 3,
+  "text" : "In most cases, people, even wicked people, are far more naive and simple-hearted than one generally assumes.",
+  "explanation" : "Generally, humans, including the evil ones, are more innocent and straightforward than commonly believed."
+}, {
+  "id" : 90,
+  "paragraphId" : 3,
+  "text" : "Generally, humans, including the evil ones, are more innocent and straightforward than commonly believed.",
+  "explanation" : "Explanation not provided yet."
+}, {
+  "id" : 91,
+  "paragraphId" : 3,
+  "text" : "And so are we.",
+  "explanation" : "This applies to everyone, including the narrator and readers."
+}, {
+  "id" : 92,
+  "paragraphId" : 3,
+  "text" : "This applies to everyone, including the narrator and readers.",
+  "explanation" : "Explanation not provided yet."
+} ]

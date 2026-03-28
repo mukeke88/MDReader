@@ -1,5 +1,5 @@
 <template>
-  <div class="score-indicator">
+  <div class="floating-score">
     <span class="score-label">Total Score</span>
     <strong>{{ score }}</strong>
   </div>

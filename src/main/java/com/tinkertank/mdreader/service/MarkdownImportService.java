@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 @Service
 public class MarkdownImportService {
 
-    private static final Pattern BOLD_LINE_PATTERN = Pattern.compile("^\\*\\*(.+?)\\*\\*$");
     private static final Pattern HEADING_PATTERN = Pattern.compile("^#{1,6}\\s+(.+)$");
     private static final Pattern SENTENCE_SPLIT_PATTERN = Pattern.compile("(?<=[.!?])\\s+");
     private static final Pattern PARAGRAPH_MARKER_PATTERN = Pattern.compile("(?m)^PARAGRAPH\\s*$");
@@ -59,15 +58,18 @@ public class MarkdownImportService {
                 continue;
             }
 
-            Matcher boldMatcher = BOLD_LINE_PATTERN.matcher(line);
-            if (boldMatcher.matches()) {
+            if (isSentenceMarkerLine(line)) {
                 sentenceId = flushGenericBuffer(sentences, genericBuffer, paragraphId, sentenceId);
+                ExplanationParseResult explanationResult = extractExplanation(lines, i + 1);
+
                 Sentence sentence = new Sentence();
                 sentence.setId(sentenceId++);
                 sentence.setParagraphId(paragraphId);
-                sentence.setText(cleanInlineMarkdown(boldMatcher.group(1)));
-                sentence.setExplanation(findExplanation(lines, i + 1));
+                sentence.setText(parseSentenceText(line));
+                sentence.setExplanation(explanationResult.getExplanation());
                 sentences.add(sentence);
+
+                i = explanationResult.getLastConsumedIndex();
                 continue;
             }
 
@@ -81,6 +83,18 @@ public class MarkdownImportService {
         }
 
         return new ImportResult(title, sentences, new ReadingProgress());
+    }
+
+    private boolean isSentenceMarkerLine(String line) {
+        return StringUtils.hasText(line) && line.startsWith("**");
+    }
+
+    private String parseSentenceText(String line) {
+        String text = line.substring(2).trim();
+        while (text.endsWith("*")) {
+            text = text.substring(0, text.length() - 1).trim();
+        }
+        return cleanInlineMarkdown(text);
     }
 
     private int flushGenericBuffer(List<Sentence> sentences,
@@ -113,7 +127,7 @@ public class MarkdownImportService {
         return nextSentenceId;
     }
 
-    private String findExplanation(String[] lines, int startIndex) {
+    private ExplanationParseResult extractExplanation(String[] lines, int startIndex) {
         for (int i = startIndex; i < lines.length; i++) {
             String line = lines[i] == null ? "" : lines[i].trim();
             if (!StringUtils.hasText(line)) {
@@ -125,12 +139,12 @@ public class MarkdownImportService {
             if (HEADING_PATTERN.matcher(line).matches()) {
                 break;
             }
-            if (BOLD_LINE_PATTERN.matcher(line).matches()) {
+            if (isSentenceMarkerLine(line)) {
                 break;
             }
-            return cleanInlineMarkdown(line);
+            return new ExplanationParseResult(cleanInlineMarkdown(line), i);
         }
-        return DEFAULT_EXPLANATION;
+        return new ExplanationParseResult(DEFAULT_EXPLANATION, startIndex - 1);
     }
 
     private String cleanInlineMarkdown(String text) {
@@ -167,6 +181,25 @@ public class MarkdownImportService {
 
         public ReadingProgress getProgress() {
             return progress;
+        }
+    }
+
+    private static class ExplanationParseResult {
+
+        private final String explanation;
+        private final int lastConsumedIndex;
+
+        private ExplanationParseResult(String explanation, int lastConsumedIndex) {
+            this.explanation = explanation;
+            this.lastConsumedIndex = lastConsumedIndex;
+        }
+
+        private String getExplanation() {
+            return explanation;
+        }
+
+        private int getLastConsumedIndex() {
+            return lastConsumedIndex;
         }
     }
 }

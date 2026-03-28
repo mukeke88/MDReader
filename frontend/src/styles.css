@@ -192,7 +192,8 @@ h2 {
 .toggle-button {
   border: 0;
   border-radius: 999px;
-  padding: 7px 12px;
+  padding: 4px 10px;
+  line-height: 1;
   transition: transform 120ms ease;
 }
 
@@ -204,9 +205,12 @@ h2 {
 }
 
 .toggle-button {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
   background: #fed7aa;
   color: #7c2d12;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -266,15 +270,21 @@ h2 {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 6px;
-  min-height: 28px;
+  min-height: 22px;
 }
 
 .read-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
   margin-right: auto;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
   color: #047857;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -403,6 +413,7 @@ h2 {
     flex-direction: column;
   }
 }
+
 
 
 

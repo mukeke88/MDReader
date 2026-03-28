@@ -218,6 +218,13 @@ function handleSentenceRead(sentenceId) {
   scoreSentence(sentenceId)
 }
 
+function markSentenceAndPreviousAsRead(triggerSentenceId) {
+  const previousSentenceId = triggerSentenceId - 1
+  if (previousSentenceId >= 1) {
+    handleSentenceRead(previousSentenceId)
+  }
+}
+
 function scrollToSentence(sentenceId) {
   nextTick(() => {
     const target = document.getElementById(`sentence-${sentenceId}`)
@@ -288,7 +295,7 @@ function buildObserver() {
 
       const sentenceId = Number(entry.target.dataset.sentenceId)
       if (!Number.isNaN(sentenceId)) {
-        handleSentenceRead(sentenceId)
+        markSentenceAndPreviousAsRead(sentenceId)
       }
     })
   }, {
@@ -359,5 +366,6 @@ onBeforeUnmount(() => {
   window.clearTimeout(persistTimer.value)
 })
 </script>
+
 
 

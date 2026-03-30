@@ -1,6 +1,6 @@
 <template>
   <div class="page-shell">
-    <ScoreIndicator :score="progress.totalScore" />
+    <ScoreIndicator :green-score="progress.greenScore" :red-score="progress.redScore" />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
       @update:modelValue="setGlobalExplanationEnabled"
@@ -103,6 +103,8 @@ const progress = reactive({
   chapterId,
   lastSentenceId: null,
   totalScore: 0,
+  greenScore: 0,
+  redScore: 0,
   globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
@@ -145,14 +147,31 @@ function dedupe(ids) {
   return Array.from(new Set(ids)).sort((a, b) => a - b)
 }
 
+function deriveGreenScore(scoredIds, explanationUsedIds) {
+  return scoredIds.filter(id => !explanationUsedIds.includes(id)).length
+}
+
+function deriveRedScore(scoredIds, explanationUsedIds) {
+  return scoredIds.filter(id => explanationUsedIds.includes(id)).length
+}
+
 function mergeProgressState(savedProgress) {
+  const scoredSentenceIds = dedupe(savedProgress.scoredSentenceIds || [])
+  const explanationUsedSentenceIds = dedupe(savedProgress.explanationUsedSentenceIds || [])
+
   progress.lastSentenceId = savedProgress.lastSentenceId || null
   progress.totalScore = savedProgress.totalScore || 0
+  progress.greenScore = Number.isFinite(savedProgress.greenScore)
+    ? savedProgress.greenScore
+    : deriveGreenScore(scoredSentenceIds, explanationUsedSentenceIds)
+  progress.redScore = Number.isFinite(savedProgress.redScore)
+    ? savedProgress.redScore
+    : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
   progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
-  progress.scoredSentenceIds = dedupe(savedProgress.scoredSentenceIds || [])
-  progress.explanationUsedSentenceIds = dedupe(savedProgress.explanationUsedSentenceIds || [])
+  progress.scoredSentenceIds = scoredSentenceIds
+  progress.explanationUsedSentenceIds = explanationUsedSentenceIds
 }
 
 function createEmptyProgress() {
@@ -160,6 +179,8 @@ function createEmptyProgress() {
     chapterId,
     lastSentenceId: null,
     totalScore: 0,
+    greenScore: 0,
+    redScore: 0,
     globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
@@ -206,7 +227,12 @@ function scoreSentence(sentenceId) {
     return
   }
 
-  progress.totalScore += explanationUsedIdSet.value.has(sentenceId) ? -1 : 1
+  if (explanationUsedIdSet.value.has(sentenceId)) {
+    progress.redScore += 1
+  } else {
+    progress.greenScore += 1
+  }
+
   progress.scoredSentenceIds = dedupe(progress.scoredSentenceIds.concat(sentenceId))
 }
 
@@ -301,7 +327,7 @@ function buildObserver() {
   }, {
     root: null,
     threshold: 0,
-    rootMargin: '0px 0px -55% 0px'
+    rootMargin: '0px 0px -90% 0px'
   })
 }
 
@@ -329,9 +355,9 @@ async function submitImport() {
 
   try {
     const chapterResponse = await importChapter(chapterId, {
-        title: importForm.title.trim(),
-        markdown: importForm.markdown
-      })
+      title: importForm.title.trim(),
+      markdown: importForm.markdown
+    })
 
     await hydrateChapterState(chapterResponse, createEmptyProgress())
     importForm.title = ''
@@ -366,6 +392,3 @@ onBeforeUnmount(() => {
   window.clearTimeout(persistTimer.value)
 })
 </script>
-
-
-

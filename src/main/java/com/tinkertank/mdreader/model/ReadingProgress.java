@@ -8,6 +8,8 @@ public class ReadingProgress {
     private String chapterId;
     private Integer lastSentenceId;
     private int totalScore;
+    private int greenScore;
+    private int redScore;
     private boolean globalExpanded;
     private List<Integer> openedSentenceIds = new ArrayList<Integer>();
     private List<Integer> readSentenceIds = new ArrayList<Integer>();
@@ -36,6 +38,22 @@ public class ReadingProgress {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public int getGreenScore() {
+        return greenScore;
+    }
+
+    public void setGreenScore(int greenScore) {
+        this.greenScore = greenScore;
+    }
+
+    public int getRedScore() {
+        return redScore;
+    }
+
+    public void setRedScore(int redScore) {
+        this.redScore = redScore;
     }
 
     public boolean isGlobalExpanded() {

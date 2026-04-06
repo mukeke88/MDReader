@@ -13,7 +13,7 @@
 
     <div class="read-zone-overlay" aria-hidden="true">
       <div class="read-zone-overlay__active" :style="readZoneStyle">
-        <span class="read-zone-overlay__label">Read trigger zone: top {{ progress.readTriggerPercent }}%</span>
+        <span class="read-zone-overlay__label">Read trigger zone: top {{ READ_TRIGGER_PERCENT }}%</span>
       </div>
       <div class="read-zone-overlay__inactive"></div>
     </div>
@@ -23,17 +23,6 @@
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
       </div>
       <div class="header-actions">
-        <label class="read-zone-control">
-          <span class="read-zone-control__label">Read trigger zone</span>
-          <select
-            v-model.number="progress.readTriggerPercent"
-            class="read-zone-control__select"
-          >
-            <option v-for="value in triggerZoneOptions" :key="value" :value="value">
-              Top {{ value }}%
-            </option>
-          </select>
-        </label>
         <button class="ghost-button" @click="openImportModal">Paste Markdown</button>
         <button
           v-if="progress.lastSentenceId"
@@ -108,7 +97,7 @@ import SentenceBlock from '../components/SentenceBlock.vue'
 import { fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
 
 const chapterId = 'chapter-1'
-const triggerZoneOptions = [10, 15, 20, 25, 30, 35, 40]
+const READ_TRIGGER_PERCENT = 15
 
 const chapter = reactive({
   chapterId,
@@ -122,7 +111,6 @@ const progress = reactive({
   totalScore: 0,
   greenScore: 0,
   redScore: 0,
-  readTriggerPercent: 10,
   globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
@@ -147,7 +135,7 @@ const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
 const orderedSentenceIds = computed(() => chapter.sentences.map(sentence => sentence.id))
 const readZoneStyle = computed(() => ({
-  height: `${progress.readTriggerPercent}vh`
+  height: `${READ_TRIGGER_PERCENT}vh`
 }))
 
 const paragraphGroups = computed(() => {
@@ -189,9 +177,6 @@ function mergeProgressState(savedProgress) {
   progress.redScore = Number.isFinite(savedProgress.redScore)
     ? savedProgress.redScore
     : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
-  progress.readTriggerPercent = triggerZoneOptions.includes(savedProgress.readTriggerPercent)
-    ? savedProgress.readTriggerPercent
-    : 10
   progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
@@ -206,7 +191,6 @@ function createEmptyProgress() {
     totalScore: 0,
     greenScore: 0,
     redScore: 0,
-    readTriggerPercent: 10,
     globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
@@ -391,7 +375,7 @@ async function loadPage() {
 }
 
 function buildObserver() {
-  const bottomMargin = -(100 - progress.readTriggerPercent)
+  const bottomMargin = -(100 - READ_TRIGGER_PERCENT)
   sentenceObserver.value = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
@@ -455,17 +439,6 @@ async function submitImport() {
 watch(progress, () => {
   schedulePersist()
 }, { deep: true })
-
-watch(() => progress.readTriggerPercent, () => {
-  if (isHydratingProgress.value) {
-    return
-  }
-
-  buildObserver()
-  nextTick(() => {
-    refreshObservedSentences()
-  })
-})
 
 watch(() => [progress.greenScore, progress.redScore], ([greenScore, redScore]) => {
   progress.totalScore = greenScore + redScore

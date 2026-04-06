@@ -6,15 +6,17 @@
     :data-sentence-id="sentence.id"
     ref="sentenceElement"
   >
-    <div class="sentence-topline">
-      <span v-if="isRead" class="read-badge">Read</span>
-      <button class="toggle-button" @click="toggleExplanation">
-        {{ isExplanationOpen ? 'Hide Explanation' : 'Show Explanation' }}
-      </button>
-    </div>
-    <p class="sentence-text">{{ sentence.text }}</p>
-    <div v-if="isExplanationOpen" class="explanation-panel">
-      {{ sentence.explanation }}
+    <div v-if="isRead" class="read-badge" aria-label="Read">R</div>
+    <div class="sentence-main">
+      <div class="sentence-topline">
+        <button class="toggle-button" @click="toggleExplanation">
+          {{ isExplanationOpen ? 'Hide Explanation' : 'Show Explanation' }}
+        </button>
+      </div>
+      <p class="sentence-text">{{ sentence.text }}</p>
+      <div v-if="isExplanationOpen" class="explanation-panel">
+        {{ sentence.explanation }}
+      </div>
     </div>
   </article>
 </template>

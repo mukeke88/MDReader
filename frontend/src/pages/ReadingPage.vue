@@ -40,7 +40,7 @@
         :key="paragraph.id"
         class="paragraph-group"
       >
-        <div class="paragraph-label">PARAGRAPH {{ paragraph.id }}</div>
+        <div class="paragraph-label" aria-hidden="true">P</div>
         <div class="paragraph-sentences">
           <SentenceBlock
             v-for="sentence in paragraph.sentences"

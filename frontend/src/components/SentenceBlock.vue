@@ -16,9 +16,7 @@
       class="toggle-button sentence-toggle"
       :aria-label="isExplanationOpen ? 'Hide Explanation' : 'Show Explanation'"
       @click="toggleExplanation"
-    >
-      S
-    </button>
+    />
   </article>
 </template>
 

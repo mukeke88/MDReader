@@ -1,14 +1,14 @@
 {
   "chapter-1" : {
     "chapterId" : "chapter-1",
-    "lastSentenceId" : 18,
-    "totalScore" : 18,
-    "greenScore" : 18,
+    "lastSentenceId" : 7,
+    "totalScore" : 24,
+    "greenScore" : 24,
     "redScore" : 0,
     "globalExpanded" : false,
-    "openedSentenceIds" : [ ],
-    "readSentenceIds" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ],
-    "scoredSentenceIds" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ],
+    "openedSentenceIds" : [ 24 ],
+    "readSentenceIds" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ],
+    "scoredSentenceIds" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ],
     "explanationUsedSentenceIds" : [ ]
   }
 }

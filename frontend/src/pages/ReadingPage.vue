@@ -216,6 +216,7 @@ function toggleSentenceExplanation(sentenceId) {
     return
   }
 
+  handleSentenceRead(sentenceId)
   markExplanationUsed(sentenceId)
   progress.openedSentenceIds = dedupe(progress.openedSentenceIds.concat(sentenceId))
 }
@@ -322,36 +323,6 @@ function refreshObservedSentences() {
   })
 }
 
-function findSentenceElementFromSelection() {
-  const selection = window.getSelection()
-  if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
-    return null
-  }
-
-  let node = selection.anchorNode
-  if (!node) {
-    return null
-  }
-
-  if (node.nodeType === Node.TEXT_NODE) {
-    node = node.parentElement
-  }
-
-  return node instanceof Element ? node.closest('[data-sentence-id]') : null
-}
-
-function syncReadProgressFromSelection() {
-  const sentenceElement = findSentenceElementFromSelection()
-  if (!sentenceElement) {
-    return
-  }
-
-  const sentenceId = Number(sentenceElement.dataset.sentenceId)
-  if (!Number.isNaN(sentenceId)) {
-    markSentencesUpTo(sentenceId)
-  }
-}
-
 async function hydrateChapterState(chapterResponse, progressResponse) {
   isHydratingProgress.value = true
   chapter.chapterId = chapterResponse.chapterId
@@ -447,7 +418,6 @@ watch(() => [progress.greenScore, progress.redScore], ([greenScore, redScore]) =
 onMounted(async () => {
   buildObserver()
   window.addEventListener('scroll', markBottomVisibleSentencesAsRead, { passive: true })
-  document.addEventListener('selectionchange', syncReadProgressFromSelection)
   await loadPage()
   refreshObservedSentences()
   markBottomVisibleSentencesAsRead()
@@ -458,7 +428,6 @@ onBeforeUnmount(() => {
     sentenceObserver.value.disconnect()
   }
   window.removeEventListener('scroll', markBottomVisibleSentencesAsRead)
-  document.removeEventListener('selectionchange', syncReadProgressFromSelection)
   window.clearTimeout(persistTimer.value)
 })
 </script>

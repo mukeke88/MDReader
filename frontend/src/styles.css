@@ -318,11 +318,11 @@ h2 {
 
 .sentence-card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 14px;
+  grid-template-columns: minmax(0, 1fr) 3px;
   align-items: stretch;
   gap: 6px;
-  padding: 10px 0 10px 12px;
-  border-radius: 14px;
+  padding: 0 0 0 12px;
+  border-radius: 14px 0 0 14px;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(31, 41, 55, 0.06);
   border-left: 3px solid transparent;
@@ -335,7 +335,7 @@ h2 {
 
 .sentence-main {
   min-width: 0;
-  padding-right: 6px;
+  padding: 10px 6px 10px 0;
 }
 
 .sentence-text {
@@ -345,10 +345,10 @@ h2 {
 
 .sentence-toggle {
   align-self: stretch;
-  width: 14px;
-  min-width: 14px;
+  width: 3px;
+  min-width: 3px;
   padding: 0;
-  border-radius: 0 14px 14px 0;
+  border-radius: 0;
   background: rgba(249, 115, 22, 0.6);
   color: transparent;
   font-size: 0;
@@ -481,7 +481,7 @@ h2 {
   }
 
   .sentence-card {
-    grid-template-columns: minmax(0, 1fr) 14px;
+    grid-template-columns: minmax(0, 1fr) 3px;
   }
 
   .import-modal__header,
@@ -489,5 +489,10 @@ h2 {
     flex-direction: column;
   }
 }
+
+
+
+
+
 
 

@@ -1,7 +1,7 @@
 {
   "chapter-1" : {
     "chapterId" : "chapter-1",
-    "lastSentenceId" : 2,
+    "lastSentenceId" : 10,
     "totalScore" : 14,
     "greenScore" : 14,
     "redScore" : 0,

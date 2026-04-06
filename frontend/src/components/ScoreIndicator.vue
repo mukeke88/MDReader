@@ -2,16 +2,36 @@
   <div class="floating-score">
     <span class="score-label">Score</span>
     <div class="score-values">
-      <strong class="score-values__green">{{ greenScore }}</strong>
+      <label class="score-input-group">
+        <span class="sr-only">Green score</span>
+        <input
+          class="score-input score-input--green"
+          :value="greenScore"
+          type="number"
+          min="0"
+          step="1"
+          @input="updateScore('green', $event)"
+        />
+      </label>
       <span class="score-values__divider">/</span>
-      <strong class="score-values__red">{{ redScore }}</strong>
+      <label class="score-input-group">
+        <span class="sr-only">Red score</span>
+        <input
+          class="score-input score-input--red"
+          :value="redScore"
+          type="number"
+          min="0"
+          step="1"
+          @input="updateScore('red', $event)"
+        />
+      </label>
     </div>
     <p class="score-caption">Green / Red</p>
   </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   greenScore: {
     type: Number,
     required: true
@@ -21,4 +41,28 @@ defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['update:greenScore', 'update:redScore'])
+
+function normalizeScore(value) {
+  const parsed = Number.parseInt(value, 10)
+  if (Number.isNaN(parsed)) {
+    return 0
+  }
+
+  return Math.max(0, parsed)
+}
+
+function updateScore(type, event) {
+  const normalizedValue = normalizeScore(event.target.value)
+  event.target.value = normalizedValue
+
+  if (type === 'green' && normalizedValue !== props.greenScore) {
+    emit('update:greenScore', normalizedValue)
+  }
+
+  if (type === 'red' && normalizedValue !== props.redScore) {
+    emit('update:redScore', normalizedValue)
+  }
+}
 </script>

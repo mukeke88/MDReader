@@ -1,931 +1,826 @@
 [ {
   "id" : 1,
   "paragraphId" : 1,
-  "text" : "And so Mitya was sitting and staring around with wild eyes at those present, without understanding what was being said to him.271",
-  "explanation" : "Mitya, deeply disturbed, sat amongst the people, looking wildly at them and failing to comprehend the ongoing conversation or situation."
+  "text" : "“You would not believe how encouraged we are, Dmitri Fyodorovich, by this readiness of yours ... ,” Nikolai Parfenovich started saying, with an animated look and with visible pleasure shining in his big, protruding, pale gray, and, by the way, extremely myopic eyes, from which he had just removed his spectacles a moment before.",
+  "explanation" : "Nikolai Parfenovich expresses extreme encouragement and visible pleasure seen in his big, pale, myopic eyes, which he'd just removed his glasses from at Dmitri Fyodorovich's Mitya's willingness to cooperate."
 }, {
   "id" : 2,
   "paragraphId" : 1,
-  "text" : "Suddenly he rose, threw up his hands, and cried loudly:",
-  "explanation" : "Abruptly, he stood up, raised his hands in a dramatic gesture, and shouted."
+  "text" : "“And you have made a very just observation concerning our mutual confidentiality, without which it is sometimes even impossible to proceed in matters of such importance, in the case and sense that the suspected person indeed wishes, hopes, and is able to vindicate himself.",
+  "explanation" : "Nikolai Parfenovich agrees that Mitya's point about mutual confidentiality is correct, stating that such discretion is essential in serious cases where the suspected individual is trying to prove his innocence."
 }, {
   "id" : 3,
-  "paragraphId" : 2,
-  "text" : "“Not guilty! Of that blood I am not guilty! Of my father’s blood I am not guilty ... I wanted to kill him, but I’m not guilty. Not me!”",
-  "explanation" : "Mitya vehemently protests his innocence regarding the murder, specifically the death of his father, acknowledging only the *desire* to kill him, but denying the actual commission of the act."
+  "paragraphId" : 1,
+  "text" : "For our part, we shall do everything possible, and you have already been able to see how we are conducting this case ...",
+  "explanation" : "He promises that they the investigators/officials will do their best, implying Mitya has already witnessed their appropriate handling of the investigation."
 }, {
   "id" : 4,
-  "paragraphId" : 3,
-  "text" : "But no sooner had he cried it than Grushenka jumped out from behind the curtains and simply collapsed at the feet of the police commissioner.",
-  "explanation" : "Immediately after Mitya's outburst, Grushenka emerged suddenly from behind a curtain and fell dramatically to the feet of the police commissioner."
+  "paragraphId" : 1,
+  "text" : "Do you approve, Ippolit Kirillovich?” he suddenly turned to the prosecutor.",
+  "explanation" : "He abruptly asks the prosecutor, Ippolit Kirillovich, for his approval of the way the case is being handled."
 }, {
   "id" : 5,
-  "paragraphId" : 4,
-  "text" : "“It’s me, me, the cursed one, I am guilty!” she cried in a heartrending howl, all in tears, stretching her arms out to everyone, “it’s because of me that he killed him...! I tormented him and drove him to it! I tormented that poor old dead man, too, out of spite, and drove things to this! I am the guilty one, first and most of all, I am the guilty one!”",
-  "explanation" : "Grushenka hysterically confesses her own guilt, weeping profusely and extending her arms to those present, claiming that her actions tormenting Mitya and the deceased father out of spite were the underlying cause that drove Mitya to the crime, making her the primary culprit."
+  "paragraphId" : 2,
+  "text" : "“Oh, indubitably,” the prosecutor approved, though somewhat drily compared with Nikolai Parfenovich’s outburst.",
+  "explanation" : "The prosecutor agrees, using the word \"indubitably\" undoubtedly, but his response lacks the enthusiasm shown by Nikolai Parfenovich."
 }, {
   "id" : 6,
-  "paragraphId" : 5,
-  "text" : "“Yes, you are the guilty one! You are the chief criminal! You are violent, you are depraved, you are the guilty one, you most of all,” screamed the commissioner, shaking his finger at her, but this time he was quickly and resolutely suppressed.",
-  "explanation" : "The commissioner vehemently agreed with Grushenka's self-accusation, calling her the primary criminal, violent, and immoral, but his outburst was quickly and forcefully shut down."
+  "paragraphId" : 3,
+  "text" : "I will note once and for all that the newly arrived Nikolai Parfenovich, from the very beginning of his career among us, felt a marked respect for our Ippolit Kirillovich, the prosecutor, and became almost heart-to-heart friends with him.",
+  "explanation" : "The narrator interjects to state that Nikolai Parfenovich the newly arrived official immediately developed deep respect for the prosecutor, Ippolit Kirillovich, leading to a close friendship."
 }, {
   "id" : 7,
-  "paragraphId" : 5,
-  "text" : "The prosecutor even seized him with both arms.",
-  "explanation" : "The prosecutor physically restrained the commissioner to stop him."
+  "paragraphId" : 3,
+  "text" : "He was almost the only man who believed without reservation in the remarkable psychological and oratorical talents of our “passed-over” Ippolit Kirillovich, and also fully believed that he had indeed been passed over.",
+  "explanation" : "Nikolai Parfenovich was nearly the sole person who genuinely trusted in the superior mind-reading and public-speaking abilities of Ippolit Kirillovich who had supposedly been overlooked for promotion."
 }, {
   "id" : 8,
-  "paragraphId" : 6,
-  "text" : "“This is entirely out of order, Mikhail Makarovich,” he cried, “you are positively hindering the investigation ... ruining the whole thing ... ,”he was all but choking.",
-  "explanation" : "The prosecutor rebuked the commissioner Mikhail Makarovich, stating that his behavior was completely inappropriate and actively interfering with or destroying the integrity of the investigation, to the point where the prosecutor could barely speak."
+  "paragraphId" : 3,
+  "text" : "He had heard of him while still in Petersburg.",
+  "explanation" : "Nikolai Parfenovich had known of the prosecutor's reputation even before coming to the area."
 }, {
   "id" : 9,
-  "paragraphId" : 7,
-  "text" : "“Measures, measures, we must take measures!” Nikolai Parfenovich, too, began seething terribly, “otherwise it’s positively impossible...!”",
-  "explanation" : "Nikolai Parfenovich also became extremely agitated, demanding that steps be taken immediately, asserting that proceeding under the current chaotic conditions was absolutely impossible."
+  "paragraphId" : 3,
+  "text" : "And in turn the young Nikolai Parfenovich happened to be the only man in the whole world whom our “passed-over” prosecutor came sincerely to love.",
+  "explanation" : "Reciprocally, the prosecutor sincerely loved the young Nikolai Parfenovich, who was unique in this regard."
 }, {
   "id" : 10,
-  "paragraphId" : 8,
-  "text" : "“Judge us together!” Grushenka went on exclaiming frenziedly, still on her knees.",
-  "explanation" : "Remaining in her distraught, kneeling position, Grushenka frantically insisted that she and Mitya be judged as one."
+  "paragraphId" : 3,
+  "text" : "On the way there they had had time to set up a few things and make arrangements for the impending case, and now, at the table, the sharp little mind of Nikolai Parfenovich caught on the wing and understood every indication, every movement in the face of his older colleague, from half a word, a look, a wink of the eye.",
+  "explanation" : "During their journey, they had already coordinated details for the case, and now, as they sat together, Nikolai Parfenovich's quick intelligence allowed him to instantly grasp his senior colleague's thoughts, even from the smallest non-verbal cues."
 }, {
   "id" : 11,
-  "paragraphId" : 8,
-  "text" : "“Punish us together, I’ll go with him now even to execution!”",
-  "explanation" : "She declared her willingness to share Mitya's punishment, even if it meant facing execution alongside him immediately."
+  "paragraphId" : 4,
+  "text" : "“Gentlemen, give me leave to tell my own story and do not interrupt me with trifles, and I will lay it all out for you in no time,” Mitya was seething.",
+  "explanation" : "Mitya, agitated, insists that the officials allow him to narrate his entire story uninterrupted by insignificant details, promising to finish quickly."
 }, {
   "id" : 12,
-  "paragraphId" : 9,
-  "text" : "“Grusha, my life, my blood, my holy one!” Mitya threw himself on his knees beside her and caught her tightly in his arms.",
-  "explanation" : "Mitya responded with extreme emotion, kneeling next to Grushenka, embracing her closely, and addressing her with passionate, loving terms."
+  "paragraphId" : 5,
+  "text" : "“Excellent, sir.",
+  "explanation" : "Nikolai Parfenovich agrees to Mitya's request."
 }, {
   "id" : 13,
-  "paragraphId" : 9,
-  "text" : "“Don’t believe her,” he shouted, “she’s not guilty of anything, of any blood, or anything!”",
-  "explanation" : "He vehemently urged the others not to believe her confession, insisting that she was completely innocent of any crime or wrongdoing."
+  "paragraphId" : 5,
+  "text" : "Thank you.",
+  "explanation" : "He expresses gratitude."
 }, {
   "id" : 14,
-  "paragraphId" : 10,
-  "text" : "He remembered afterwards that several men pulled him away from her by force, that she was suddenly taken out, and that when he came to his senses he was already sitting at the table.",
-  "explanation" : "Mitya later recalled being forcibly separated from Grushenka, her swift removal from the room, and his return to awareness finding himself seated at a table."
+  "paragraphId" : 5,
+  "text" : "But before we go on to hear your account, allow me simply to mention one more little fact, of great interest for us, namely, the ten roubles you borrowed yesterday, at around five o’clock, by pawning your pistols to your friend Pyotr Ilyich Perkhotin.”",
+  "explanation" : "However, before Mitya begins, Nikolai Parfenovich wishes to mention a highly relevant detail: Mitya's action of borrowing ten roubles from his friend Perkhotin by pawning his pistols around five o'clock the previous day."
 }, {
   "id" : 15,
-  "paragraphId" : 10,
-  "text" : "Beside him and behind him stood people with badges.",
-  "explanation" : "He was surrounded by officials likely police or guards identifiable by their badges."
+  "paragraphId" : 6,
+  "text" : "“I pawned them, gentlemen, I pawned them for ten roubles, that’s all.",
+  "explanation" : "Mitya confirms that he pawned his pistols for ten roubles and nothing more."
 }, {
   "id" : 16,
-  "paragraphId" : 10,
-  "text" : "On the sofa across the table from him, Nikolai Parfenovich, the district attorney, sat trying to persuade him to sip some water from a glass that stood on the table: “It will refresh you, it will calm you down, you needn’t be afraid, you needn’t worry,” he kept adding with extreme politeness.",
-  "explanation" : "Across the table, the district attorney, Nikolai Parfenovich, was seated and very politely encouraging Mitya to drink water, assuring him it would be restorative and soothing, and that he had nothing to fear."
+  "paragraphId" : 6,
+  "text" : "What of it?",
+  "explanation" : "He challenges the relevance of the fact."
 }, {
   "id" : 17,
-  "paragraphId" : 10,
-  "text" : "And Mitya, as he remembered, suddenly became terribly interested in his big rings, one with an amethyst, and another with a bright yellow stone, transparent and of a most wonderful brilliance.",
-  "explanation" : "Mitya's attention became unexpectedly and intensely focused on the district attorney's large, impressive rings, specifically mentioning an amethyst and a brilliant yellow stone."
+  "paragraphId" : 6,
+  "text" : "As soon as I got back to town from my trip, I pawned them at once.”",
+  "explanation" : "He states that the pawning occurred immediately upon his return to town from a trip."
 }, {
   "id" : 18,
-  "paragraphId" : 10,
-  "text" : "And for a long time afterwards he recalled with surprise how these rings irresistibly drew his eye even through all those terrible hours of interrogation, so that for some reason he was unable to tear himself away and forget them as something quite unsuitable in his position.",
-  "explanation" : "He was later astonished that his gaze was so powerfully and continuously drawn to the rings throughout the stressful interrogation, making it impossible for him to dismiss them, despite their irrelevance to his dire situation."
+  "paragraphId" : 7,
+  "text" : "“Got back?",
+  "explanation" : "Nikolai Parfenovich questions Mitya, noting that his phrasing implies a return."
 }, {
   "id" : 19,
-  "paragraphId" : 10,
-  "text" : "On the left, at Mitya’s side, where Maximov had been sitting at the start of the evening, the prosecutor now sat down, and to Mitya’s right, where Grushenka had been, a pink-cheeked young man settled himself, dressed in a rather threadbare sort of hunting jacket, and in front of him appeared an inkstand and some paper.",
-  "explanation" : "The seating arrangements changed: the prosecutor took the seat to Mitya's left, and a young man with a pale face, wearing a worn hunting jacket, sat to Mitya's right where Grushenka had been, preparing to take notes with an inkstand and paper."
+  "paragraphId" : 7,
+  "text" : "So you left town?”",
+  "explanation" : "He clarifies by asking if Mitya had been out of town."
 }, {
   "id" : 20,
-  "paragraphId" : 10,
-  "text" : "He turned out to be the district attorney’s clerk, who had come with him.",
-  "explanation" : "The young man was identified as the clerk assisting the district attorney."
+  "paragraphId" : 8,
+  "text" : "“I did, gentlemen, I went thirty miles out of town, didn’t you know that?”",
+  "explanation" : "Mitya confirms that he had traveled thirty miles outside of town and expresses surprise that the officials were unaware of this."
 }, {
   "id" : 21,
-  "paragraphId" : 10,
-  "text" : "The police commissioner now stood near the window, at the other end of the room, next to Kalganov, who was sitting in a chair by the same window.",
-  "explanation" : "The police commissioner, having stepped away from the main action, was now standing near the window, alongside Kalganov, who was seated there."
+  "paragraphId" : 9,
+  "text" : "The prosecutor and Nikolai Parfenovich exchanged glances.",
+  "explanation" : "The two officials look at each other, signaling shared acknowledgment or surprise at Mitya's admission."
 }, {
   "id" : 22,
-  "paragraphId" : 11,
-  "text" : "“Drink some water!” the district attorney gently repeated for the tenth time.",
-  "explanation" : "The district attorney continued his calm, repeated suggestion that Mitya drink water."
+  "paragraphId" : 10,
+  "text" : "“Suppose you begin your story with a systematic description of your whole day yesterday, starting from the morning?",
+  "explanation" : "The official suggests Mitya begin his account by systematically describing everything that happened the previous day, starting in the morning."
 }, {
   "id" : 23,
-  "paragraphId" : 12,
-  "text" : "“I drank some, gentlemen, I drank some ... but ... come, gentlemen, crush me, punish me, decide my fate!” Mitya exclaimed, staring with horribly fixed, bulging eyes at the district attorney.",
-  "explanation" : "Mitya confirmed he had drunk the water but then desperately urged the officials to move past the preliminaries and impose their judgment and punishment upon him, fixing his wide, intense gaze on the district attorney."
+  "paragraphId" : 10,
+  "text" : "Let us know, for example, why you left town, and precisely when you went and came back ... and all these facts ...”",
+  "explanation" : "He specifies that Mitya should include his reasons for leaving town, the exact times of his departure and return, and all related events."
 }, {
   "id" : 24,
-  "paragraphId" : 13,
-  "text" : "“So you positively assert that you are not guilty of the death of your father, Fyodor Pavlovich?” the district attorney asked gently but insistently.",
-  "explanation" : "The district attorney asked a crucial question, requiring a definitive confirmation from Mitya that he was not responsible for the murder of his father, Fyodor Pavlovich, using a tone that was both soft and firm."
+  "paragraphId" : 11,
+  "text" : "“But you should have asked me that from the very beginning,” Mitya laughed loudly, “and, if you please, I should start not from yesterday but from the day before yesterday, from that morning; then you’ll understand where, how, and why I went or drove.",
+  "explanation" : "Mitya laughs, pointing out that this detail should have been asked earlier, and suggests that for a proper understanding, he needs to start his narrative from the morning of the day before yesterday."
 }, {
   "id" : 25,
-  "paragraphId" : 14,
-  "text" : "“Not guilty! I’m guilty of other blood, of another old man’s blood, but not of my father’s.",
-  "explanation" : "Mitya clearly stated his innocence regarding his father's murder, but admitted guilt for the non-fatal assault the \"other blood\" on a different old man."
+  "paragraphId" : 11,
+  "text" : "The day before yesterday, gentlemen, I went to a local merchant, Samsonov, to borrow three thousand roubles from him on the best security—a sudden itch, gentlemen, a sudden itch...”",
+  "explanation" : "He begins his story by stating that two days prior, he visited the merchant Samsonov to borrow three thousand roubles against good collateral, driven by a sudden, intense impulse the \"itch\"."
 }, {
   "id" : 26,
-  "paragraphId" : 14,
-  "text" : "And I weep for it!",
-  "explanation" : "He expressed profound sorrow and regret for that act of violence."
+  "paragraphId" : 12,
+  "text" : "“Allow me to interrupt you,” the prosecutor interjected politely, “why did you so suddenly need precisely that amount, that is, three thousand roubles? “",
+  "explanation" : "The prosecutor politely breaks in to ask why Mitya suddenly needed the exact sum of three thousand roubles."
 }, {
   "id" : 27,
-  "paragraphId" : 14,
-  "text" : "I killed, I killed the old man, killed him and struck him down ...",
-  "explanation" : "He confirmed that he had violently assaulted and struck down the *other* old man Grigory."
+  "paragraphId" : 13,
+  "text" : "“Eh, gentlemen, why pick on such little things: how, when, and why, and precisely this much money and not that much, and all that claptrap ... if you keep on, it’ll take you three volumes and an epilogue to cram it all in.”",
+  "explanation" : "Mitya dismisses the question as nitpicking over minor details the logistics of the need, the specific amount, claiming that continuing such detailed inquiries would require an impossibly long account."
 }, {
   "id" : 28,
   "paragraphId" : 14,
-  "text" : "But it’s hard to have to answer for that blood with this other blood, this terrible blood, which I’m not guilty of ...",
-  "explanation" : "He found it intensely distressing to be held accountable for the assault on the old servant while simultaneously facing the much graver, terrifying charge of his father's murder, which he denied."
+  "text" : "All this Mitya said with the good-natured but impatient familiarity of a man who wishes to tell the whole truth and is full of the best intentions.",
+  "explanation" : "The narrator notes that Mitya spoke with a friendly but restless confidence, characteristic of someone sincere and eager to tell the complete truth."
 }, {
   "id" : 29,
-  "paragraphId" : 14,
-  "text" : "A terrible accusation, gentlemen, as if you’d stunned me on the head!",
-  "explanation" : "He described the murder charge as a sudden, paralyzing shock."
+  "paragraphId" : 15,
+  "text" : "“Gentlemen,” he caught himself, as it were, “don’t murmur against me for my bristliness.",
+  "explanation" : "Mitya checks his behavior and asks the officials not to criticize his impatience or irritability."
 }, {
   "id" : 30,
-  "paragraphId" : 14,
-  "text" : "But who killed my father, who killed him? Who could have killed him if not me? It’s a wonder, an absurdity, an impossibility . . .!”",
-  "explanation" : "He expressed his own bewilderment and confusion, acknowledging the extreme difficulty and irrationality of the situation: if he didn't commit the murder, who did, given the circumstances?"
+  "paragraphId" : 15,
+  "text" : "I ask you again: believe once more that I feel the utmost respect and fully understand the situation.",
+  "explanation" : "He reiterates his deep respect for them and his full awareness of the circumstances."
 }, {
   "id" : 31,
   "paragraphId" : 15,
-  "text" : "“Yes, who could have killed him ... ,” the district attorney began, but the prosecutor, Ippolit Kirillovich the deputy prosecutor, but for the sake of brevity we, too, shall call him the prosecutor, exchanging glances with the district attorney, said, turning to Mitya:",
-  "explanation" : "The district attorney started to speak, echoing Mitya's question, but the prosecutor, Ippolit Kirillovich who the narrator notes is technically the deputy prosecutor but will be referred to as the prosecutor, interrupted, sharing a look with the district attorney before addressing Mitya."
+  "text" : "And don’t think that I’m drunk.",
+  "explanation" : "He assures them he is not intoxicated."
 }, {
   "id" : 32,
-  "paragraphId" : 16,
-  "text" : "“You needn’t worry about the old servant, Grigory Vasiliev.",
-  "explanation" : "The prosecutor assured Mitya that he should not be concerned about the condition of the old servant, Grigory Vasiliev."
+  "paragraphId" : 15,
+  "text" : "I’ve sobered up now.",
+  "explanation" : "He states he is currently sober."
 }, {
   "id" : 33,
-  "paragraphId" : 16,
-  "text" : "I can tell you that he is alive, he has recovered, and despite the severe beating inflicted by you, according to his and now to your own evidence, it seems he will undoubtedly live, at least in the doctor’s opinion.”",
-  "explanation" : "He delivered the crucial news that Grigory was alive and recovering, and that despite the serious assault Mitya admitted to, the doctor believed the servant would certainly survive."
+  "paragraphId" : 15,
+  "text" : "And it would be no hindrance if I were drunk, because: Sober and wise, he’s stupid, Drunk and stupid, he’s wise.",
+  "explanation" : "He adds that even if he were drunk, it wouldn't matter, citing a paradoxical saying that a person is stupid when sober/wise, but wise when drunk/stupid."
 }, {
   "id" : 34,
-  "paragraphId" : 17,
-  "text" : "“Alive? So he’s alive!” Mitya suddenly shouted, clasping his hands.",
-  "explanation" : "Mitya reacted with a sudden, joyful shout of astonishment and relief, bringing his hands together."
+  "paragraphId" : 15,
+  "text" : "That’s how I am.",
+  "explanation" : "He claims this paradox applies to him."
 }, {
   "id" : 35,
-  "paragraphId" : 17,
-  "text" : "His whole face lit up.",
-  "explanation" : "His expression immediately became bright and joyous."
+  "paragraphId" : 15,
+  "text" : "Ha, ha!",
+  "explanation" : "He laughs."
 }, {
   "id" : 36,
-  "paragraphId" : 17,
-  "text" : "“Lord, I thank you for this greatest miracle, which you have done for me, a sinner and evildoer, according to my prayer!",
-  "explanation" : "He expressed profound gratitude to God, viewing the servant's survival as a great miracle granted to him, a self-proclaimed sinner, in response to his prayers."
+  "paragraphId" : 15,
+  "text" : "I see, by the way, that it’s not proper for me to be cracking jokes with you yet—that is, before we’ve explained everything.",
+  "explanation" : "He realizes that joking is inappropriate until the facts have been established."
 }, {
   "id" : 37,
-  "paragraphId" : 17,
-  "text" : "Yes, yes, it’s according to my prayer, I was praying all night!”",
-  "explanation" : "He emphatically confirmed that the outcome was exactly what he had prayed for throughout the night."
+  "paragraphId" : 15,
+  "text" : "Allow me to keep my dignity.",
+  "explanation" : "He asks for permission to maintain his composure."
 }, {
   "id" : 38,
-  "paragraphId" : 17,
-  "text" : "And he crossed himself three times.",
-  "explanation" : "He made the sign of the cross three times in an act of fervent religious devotion."
+  "paragraphId" : 15,
+  "text" : "I quite understand the present difference: I’m still sitting before you as a criminal, and, therefore, unequal to you in the highest degree, and your duty is to watch me:",
+  "explanation" : "He acknowledges the power imbalance, recognizing that he is currently viewed as a criminal, making him fundamentally unequal to them, and that they are obligated to observe him closely."
 }, {
   "id" : 39,
-  "paragraphId" : 17,
-  "text" : "He was nearly breathless.",
-  "explanation" : "The intensity of his emotion left him physically gasping."
+  "paragraphId" : 15,
+  "text" : "you really can’t pat me on the back for Grigory, one certainly can’t go breaking old men’s heads with impunity, you’ll probably try me and lock me up for, what, six months or a year in the penitentiary for that, or, I don’t know, whatever the sentence would be—but without loss of rights, it will be without loss of rights, won’t it, prosecutor?",
+  "explanation" : "He admits they cannot overlook the attack on Grigory breaking an old man's head, accepting that he will likely face a trial and a sentence perhaps six months to a year in prison, but anxiously seeks confirmation from the prosecutor that he will retain his civil rights."
 }, {
   "id" : 40,
-  "paragraphId" : 18,
-  "text" : "“And it is from this same Grigory that we have received such significant evidence regarding you, that ... ,” the prosecutor went on, but Mitya suddenly jumped up from his chair.",
-  "explanation" : "The prosecutor began to state that Grigory had provided important evidence concerning Mitya, but Mitya abruptly stood up from his seat, interrupting him."
+  "paragraphId" : 15,
+  "text" : "And so, gentlemen, I quite understand this difference ...",
+  "explanation" : "He summarizes by confirming his understanding of the difference in status."
 }, {
   "id" : 41,
-  "paragraphId" : 19,
-  "text" : "“One moment, gentlemen, for God’s sake, just one moment; I’ll run to her...”",
-  "explanation" : "Mitya desperately requested a pause, begging the men for just a moment to go and see Grushenka."
+  "paragraphId" : 15,
+  "text" : "But you must also agree that you could confuse even God himself with such questions: where I stepped, how I stepped, when I stepped, what I stepped in?",
+  "explanation" : "He argues that the officials' overly detailed questions e.g., about his movements and timing are so minute that they could confuse anyone."
 }, {
   "id" : 42,
-  "paragraphId" : 20,
-  "text" : "“Sorry! Right now it’s quite impossible!” Nikolai Parfenovich almost shrieked, and he, too, jumped to his feet.",
-  "explanation" : "Nikolai Parfenovich emphatically and loudly refused Mitya's request, simultaneously rising to his feet."
+  "paragraphId" : 15,
+  "text" : "I’ll get confused that way, and you’ll pick up every dropped stitch and write it down at once, and what will come of it?",
+  "explanation" : "He fears becoming confused, which would allow them to immediately record any inconsistencies, leading to no positive outcome."
 }, {
   "id" : 43,
-  "paragraphId" : 20,
-  "text" : "The men with badges laid hold of Mitya; however, he sat down on the chair himself . . .",
-  "explanation" : "The officials surrounding Mitya physically restrained him, but he voluntarily returned to his seat shortly after."
+  "paragraphId" : 15,
+  "text" : "Nothing will come of it!",
+  "explanation" : "He concludes that this method will be fruitless."
 }, {
   "id" : 44,
-  "paragraphId" : 21,
-  "text" : "“What a pity, gentlemen! I wanted to see her for just one moment ...",
-  "explanation" : "Mitya expressed regret that he couldn't see Grushenka briefly."
+  "paragraphId" : 15,
+  "text" : "And finally, since I’ve already begun telling my tale, I’ll finish it now, and you, gentlemen, being most noble and highly educated, will forgive me.",
+  "explanation" : "He states his intention to finish his story, trusting that the noble and educated officials will overlook his bluntness."
 }, {
   "id" : 45,
-  "paragraphId" : 21,
-  "text" : "I wanted to announce to her that this blood that was gnawing at my heart all night has been washed away, has disappeared, and I am no longer a murderer!",
-  "explanation" : "He explained that his urgent need to see her was to share the news that the dreadful burden of guilt and fear over the assault the 'blood' had lifted now that the victim was alive, meaning he wasn't a murderer."
+  "paragraphId" : 15,
+  "text" : "I’ll end precisely with a request: you, gentlemen, must unlearn this official method of interrogation, I mean, first you begin, say, with something measly and insignificant: how did you get up, what did you eat, how did you spit, and ‘having lulled the criminal’s attention,’ you suddenly catch him with a stunning question: ‘Whom did you kill, whom did you rob?’",
+  "explanation" : "He requests that they stop using their standard interrogation technique, which involves starting with trivial questions like getting up or eating to deliberately lower the accused's guard before springing a major, incriminating question on them."
 }, {
   "id" : 46,
-  "paragraphId" : 21,
-  "text" : "She is my fiancée, gentlemen!” he suddenly spoke ecstatically and reverently, looking around at them all.",
-  "explanation" : "He passionately and respectfully declared Grushenka's status as his fiancée to everyone present."
+  "paragraphId" : 15,
+  "text" : "Ha, ha!",
+  "explanation" : "He laughs."
 }, {
   "id" : 47,
-  "paragraphId" : 21,
-  "text" : "“Oh, thank you, gentlemen! Oh, how you’ve restored, how you’ve resurrected me in a moment ...",
-  "explanation" : "He thanked the officials for the relief the news had brought, saying they had instantly revived and restored him."
+  "paragraphId" : 15,
+  "text" : "That’s your official method, that’s your rule, that’s what all your cleverness is based on!",
+  "explanation" : "He identifies this as the foundation of their formal, clever interrogation strategy."
 }, {
   "id" : 48,
-  "paragraphId" : 21,
-  "text" : "‘.That old man—he carried me in his arms, gentlemen, he washed me in a tub when I was a three-year-old child and abandoned by everyone, he was my own father . . .!”",
-  "explanation" : "Mitya spoke emotionally of Grigory, revealing a deep, fatherly connection and history, as the old man had cared for him when he was a neglected three-year-old."
+  "paragraphId" : 15,
+  "text" : "You can lull peasants with your cleverness, but not me.",
+  "explanation" : "He asserts that while their method might trick less sophisticated people, it won't work on him."
 }, {
   "id" : 49,
-  "paragraphId" : 22,
-  "text" : "“And so you ... ,” the district attorney began.",
-  "explanation" : "The district attorney attempted to steer the conversation back to the investigation."
+  "paragraphId" : 15,
+  "text" : "I understand the system, I was in the service myself, ha, ha, ha!",
+  "explanation" : "He claims familiarity with their methods because he was once in a similar profession, concluding with laughter."
 }, {
   "id" : 50,
-  "paragraphId" : 23,
-  "text" : "“Sorry, gentlemen, sorry, just one more minute,” Mitya interrupted, putting both elbows on the table and covering his face with his hands, “let me collect myself a little, let me catch my breath, gentlemen.",
-  "explanation" : "Mitya apologized for the interruption and asked for another moment to compose himself, leaning on the table with his face hidden in his hands."
+  "paragraphId" : 15,
+  "text" : "You’re not angry, are you, gentlemen?",
+  "explanation" : "He asks if he has offended them."
 }, {
   "id" : 51,
-  "paragraphId" : 23,
-  "text" : "It’s all terribly shocking, terribly—a man is not a drumskin, gentlemen!”",
-  "explanation" : "He justified his need for a break by stating that the events were overwhelming and that a human being cannot endure such shocks impassively, like an inanimate drumskin."
+  "paragraphId" : 15,
+  "text" : "You’ll forgive my boldness?” he cried, looking at them with almost surprising good-naturedness.",
+  "explanation" : "He asks them to forgive his audacity while looking at them with unexpected good nature."
 }, {
   "id" : 52,
-  "paragraphId" : 24,
-  "text" : "“Have some more water,” muttered Nikolai Parfenovich.",
-  "explanation" : "Nikolai Parfenovich quietly repeated the suggestion for Mitya to drink more water."
+  "paragraphId" : 15,
+  "text" : "“Mitka Karamazov said it, so it’s excusable, because what would be inexcusable in an intelligent man is excusable in Mitka!",
+  "explanation" : "He excuses his comments by attributing them to his persona, \"Mitka Karamazov,\" suggesting that his foolishness makes his impudence forgivable where an intelligent person's would not be."
 }, {
   "id" : 53,
-  "paragraphId" : 25,
-  "text" : "Mitya took his hands away from his face and laughed.",
-  "explanation" : "Mitya removed his hands from his face and began to laugh."
+  "paragraphId" : 15,
+  "text" : "Ha, ha!”",
+  "explanation" : "He laughs again."
 }, {
   "id" : 54,
-  "paragraphId" : 25,
-  "text" : "His look was cheerful; he had quite changed, as it were, in a moment.",
-  "explanation" : "His expression was now happy, indicating a sudden, complete change in his demeanor."
+  "paragraphId" : 16,
+  "text" : "Nikolai Parfenovich listened and laughed, too.",
+  "explanation" : "Nikolai Parfenovich, listening to Mitya's outburst, joins in the laughter."
 }, {
   "id" : 55,
-  "paragraphId" : 25,
-  "text" : "And his whole tone was changed: here now sat a man once again the equal of all these men, of all these previous acquaintances of his, exactly as if they had all come together the day before, when nothing had happened yet, somewhere at a social gathering.",
-  "explanation" : "His manner of speaking also shifted, adopting a familiar, comfortable tone, as if he were an equal among his previous acquaintances, meeting them socially before any tragic events had transpired."
+  "paragraphId" : 16,
+  "text" : "The prosecutor, though he did not laugh, was studying Mitya intently, without taking his eyes off him, as if not wishing to miss the least word, the least movement, the least twitch of the least little line on his face.",
+  "explanation" : "The prosecutor, however, did not laugh but instead focused on Mitya intently, meticulously observing every minute detail of his expression and movement."
 }, {
   "id" : 56,
-  "paragraphId" : 25,
-  "text" : "Let us note, incidentally, that when he first came to our town, Mitya was warmly received at the commissioner’s house, but later, especially during the last month, Mitya hardly ever visited him, and the commissioner, meeting him in the street, for example, frowned deeply and bowed to him only out of politeness, which circumstance Mitya noted very well.",
-  "explanation" : "The narrator interjects a background detail: Mitya was initially welcomed by the commissioner upon arriving in town, but the relationship had cooled, with Mitya visiting less and the commissioner now treating him with distant, formal courtesy."
+  "paragraphId" : 17,
+  "text" : "“Incidentally, that is how we began with you from the beginning,” Nikolai Parfenovich replied, still laughing, “not confusing you with questions about how you got up in the morning and what you ate, but beginning even from what is all too essential.”",
+  "explanation" : "Nikolai Parfenovich, still laughing, contradicts Mitya's criticism by stating that they had, in fact, started with truly important matters rather than trivial ones like his morning routine."
 }, {
   "id" : 57,
-  "paragraphId" : 25,
-  "text" : "His acquaintance with the prosecutor was even more distant, but to the prosecutor’s wife, a nervous and fantastic lady, he sometimes paid visits, most respectful visits, by the way, himself not even quite knowing why he was calling on her, and she always received him kindly, taking an interest in him for some reason, until quite recently.",
-  "explanation" : "The narrator adds that Mitya's relationship with the prosecutor was even less close, though he occasionally made very polite, somewhat unexplained visits to the prosecutor's wife, who was a high-strung, eccentric woman and always treated him well until recently."
+  "paragraphId" : 18,
+  "text" : "“I understand, I understood and appreciated it, and I appreciate still more your present kindness to me, which is unprecedented, worthy of the noblest souls.",
+  "explanation" : "Mitya acknowledges and values their kind treatment, which he describes as unique and reflective of noble character."
 }, {
   "id" : 58,
-  "paragraphId" : 25,
-  "text" : "He had not yet had time to make the acquaintance of the district attorney, though he had met him and even spoken with him once or twice, both times about the female sex.",
-  "explanation" : "The narrator clarifies that Mitya's knowledge of the district attorney was minimal, involving only a couple of brief encounters where the topic of conversation was women."
+  "paragraphId" : 18,
+  "text" : "We are three noble men come together here, and let everything with us be on the footing of mutual trust between educated and worldly men, bound by nobility and honor.",
+  "explanation" : "He proposes that since they are all educated, worldly, and honorable men, their interaction should be based on mutual trust."
 }, {
   "id" : 59,
-  "paragraphId" : 26,
-  "text" : "“You, Nikolai Parfenovich, are, I can see, a most skillful investigator,” Mitya suddenly laughed gaily, “but now I will help you myself.",
-  "explanation" : "Mitya cheerfully complimented Nikolai Parfenovich on his investigative skill and offered his own assistance."
+  "paragraphId" : 18,
+  "text" : "In any case, allow me to look upon you as my best friends in this moment of my life, in this moment when my honor is humiliated!",
+  "explanation" : "He asks permission to view them as his closest friends during this time when his honor is being degraded."
 }, {
   "id" : 60,
-  "paragraphId" : 26,
-  "text" : "Oh, gentlemen, I am resurrected ... and do not take it amiss that I address you so casually and directly.",
-  "explanation" : "He announced his complete relief and recovery, and asked them not to be offended by his informal and candid manner of speaking."
+  "paragraphId" : 18,
+  "text" : "That’s no offense to you, is it, gentlemen?”",
+  "explanation" : "He asks if this designation offends them."
 }, {
   "id" : 61,
-  "paragraphId" : 26,
-  "text" : "Besides, I’m a little drunk, that I will frankly admit.",
-  "explanation" : "He openly confessed that he had consumed alcohol."
+  "paragraphId" : 19,
+  "text" : "“On the contrary, you’ve expressed it all quite beautifully, Dmitri Fyodorovich,” Nikolai Parfenovich gravely and approvingly agreed.",
+  "explanation" : "Nikolai Parfenovich solemnly and approvingly assures Mitya that his sentiments were expressed perfectly."
 }, {
   "id" : 62,
-  "paragraphId" : 26,
-  "text" : "I believe I had the honor ... the honor and the pleasure of meeting you, Nikolai Parfenovich, at the home of my relation, Miusov ...",
-  "explanation" : "He recalled a previous meeting with Nikolai Parfenovich at the residence of his relative, Miusov."
+  "paragraphId" : 20,
+  "text" : "“And away with little details, gentlemen, with all these pettifogging details,” Mitya delightedly exclaimed, “otherwise the devil knows what will come of it, isn’t that so?”",
+  "explanation" : "Mitya joyfully urges them to discard all minor, trivial details, arguing that focusing on them will only lead to confusion."
 }, {
   "id" : 63,
-  "paragraphId" : 26,
-  "text" : "Gentlemen, gentlemen, I do not claim to be equal, I quite understand who I am now, as I sit here before you.",
-  "explanation" : "He immediately followed up his casual tone by clarifying that he understood his current position as an accused man being interrogated."
+  "paragraphId" : 21,
+  "text" : "“I will follow your sensible advice completely,” the prosecutor suddenly mixed in, addressing Mitya.",
+  "explanation" : "The prosecutor interjects to state that he will fully adhere to Mitya's rational suggestion."
 }, {
   "id" : 64,
-  "paragraphId" : 26,
-  "text" : "A horrible suspicion hangs over me ... if Grigory has given evidence regardingme ... then of course, oh, of course it hangs over me!",
-  "explanation" : "He acknowledged that a grave suspicion of murder was focused on him, which was inevitable if the servant Grigory had testified against him."
+  "paragraphId" : 21,
+  "text" : "However, I still do not withdraw my question.",
+  "explanation" : "He immediately qualifies his agreement by insisting that his previous question remains on the table."
 }, {
   "id" : 65,
-  "paragraphId" : 26,
-  "text" : "Horrible, horrible—I quite understand!",
-  "explanation" : "He fully recognized the terrible nature of the situation and the accusation."
+  "paragraphId" : 21,
+  "text" : "It is all too essentially necessary for us to know why precisely you needed such an amount—that is, precisely three thousand.”",
+  "explanation" : "He stresses that it is absolutely vital for the investigation to know the exact reason Mitya needed the precise sum of three thousand roubles."
 }, {
   "id" : 66,
-  "paragraphId" : 26,
-  "text" : "But—to business, gentlemen, I’m ready, and now we’ll make short work of it, because, listen, listen, gentlemen.",
-  "explanation" : "He urged them to move on to the actual investigation, stating he was ready to proceed and believed they could conclude it quickly."
+  "paragraphId" : 21,
+  "text" : "“Why I needed it?",
+  "explanation" : "Mitya repeats the question."
 }, {
   "id" : 67,
-  "paragraphId" : 26,
-  "text" : "You see, if I know I am not guilty, then of course we can make short work of it!",
-  "explanation" : "He reasoned that their work could be expedited because he knew he was innocent."
+  "paragraphId" : 21,
+  "text" : "Well, for this and that ... well, to repay a debt.”",
+  "explanation" : "He replies vaguely, then specifies he needed the money to pay off a debt."
 }, {
   "id" : 68,
-  "paragraphId" : 26,
-  "text" : "Can’t we? Can’t we?”",
-  "explanation" : "He repeated the question, seeking confirmation of his logic."
+  "paragraphId" : 22,
+  "text" : "“To whom, precisely?”",
+  "explanation" : "The prosecutor presses for the specific name of the creditor."
 }, {
   "id" : 69,
-  "paragraphId" : 27,
-  "text" : "Mitya spoke much and quickly, nervously and expansively, and as if he decidedly took his listeners for his best friends.",
-  "explanation" : "Mitya's speech was characterized by volume, speed, nervousness, and an overly familiar, open manner, treating the officials as if they were his close confidantes."
+  "paragraphId" : 23,
+  "text" : "“That I positively refuse to tell you, gentlemen!",
+  "explanation" : "Mitya unequivocally refuses to disclose the identity of the person."
 }, {
   "id" : 70,
-  "paragraphId" : 28,
-  "text" : "“So, for the present we shall write down that you radically deny the accusation brought against you,” Nikolai Parfenovich pronounced imposingly, and, turning to the clerk, he dictated in a low voice what he was to write down.",
-  "explanation" : "Nikolai Parfenovich formally declared that the record would currently state Mitya completely rejects the accusation, and then quietly instructed the clerk on the exact wording for the document."
+  "paragraphId" : 23,
+  "text" : "You see, it’s not that I cannot tell you, or don’t dare, or am afraid, because it’s all a paltry matter and perfectly trifling, no, but I won’t tell you on principle: it’s my private life, and I will not allow you to invade my private life.",
+  "explanation" : "He clarifies that his refusal is not due to inability, fear, or the triviality of the debt, but because of a moral principle: the identity of the creditor is part of his private life, which he refuses to let them investigate."
 }, {
   "id" : 71,
-  "paragraphId" : 29,
-  "text" : "“Write down? You want to write it down? Well, write it down then, I consent, I give my full consent, gentlemen ...",
-  "explanation" : "Mitya agreed to the process of recording his statement."
+  "paragraphId" : 23,
+  "text" : "That is my principle.",
+  "explanation" : "He stresses that this stance is a matter of principle."
 }, {
   "id" : 72,
-  "paragraphId" : 29,
-  "text" : "Only, you see ... Wait, wait, write it down like this: ‘Of violence—guilty; of inflicting a savage beating on a poor old man—guilty.’",
-  "explanation" : "He immediately provided an amendment, dictating that they must specifically record his guilt regarding the physical violence and the severe beating of the old servant."
+  "paragraphId" : 23,
+  "text" : "Your question is irrelevant to the case, and whatever is irrelevant to the case is my private life!",
+  "explanation" : "He asserts a rule: any question not directly relevant to the case falls into his private domain."
 }, {
   "id" : 73,
-  "paragraphId" : 29,
-  "text" : "And then, within himself, too, inside, in the bottom of his heart, he is guilty—but there’s no need to write that down,” he turned suddenly to the clerk, “that is my private life, gentlemen, that doesn’t concern you now, the bottom of my heart, I mean ...",
-  "explanation" : "He added a comment for the clerk, saying he was also guilty internally, in his deepest self, but clarified that this purely personal, inner guilt was outside the scope of the official investigation and should not be documented."
+  "paragraphId" : 23,
+  "text" : "I wanted to repay a debt, a debt of honor, but to whom I won’t say.”",
+  "explanation" : "He confirms the debt was a matter of honor but maintains his refusal to name the recipient."
 }, {
   "id" : 74,
-  "paragraphId" : 29,
-  "text" : "But of the murder of his old father—not guilty! It’s a wild idea! It’s an utterly wild idea...!",
-  "explanation" : "He returned to the main charge, vehemently denying the murder of his father, labeling the accusation as absurd and utterly irrational."
+  "paragraphId" : 24,
+  "text" : "“Allow us to write that down,” said the prosecutor.",
+  "explanation" : "The prosecutor asks for permission to record Mitya's refusal."
 }, {
   "id" : 75,
-  "paragraphId" : 29,
-  "text" : "I’ll prove it to you and you’ll be convinced immediately.",
-  "explanation" : "He confidently promised to provide evidence that would instantly convince them of his innocence."
+  "paragraphId" : 25,
+  "text" : "“As you wish.",
+  "explanation" : "Mitya agrees to the recording."
 }, {
   "id" : 76,
-  "paragraphId" : 29,
-  "text" : "You’ll laugh, gentlemen, you’ll roar with laughter at your own suspicion...!”",
-  "explanation" : "He predicted that once they heard his evidence, they would find their current suspicion of him comical."
+  "paragraphId" : 25,
+  "text" : "Write down this: that I just won’t say.",
+  "explanation" : "He tells them to record his simple refusal to speak."
 }, {
   "id" : 77,
-  "paragraphId" : 30,
-  "text" : "“Calm yourself, Dmitri Fyodorovich,” the district attorney reminded him, apparently as if he wished to subdue the frenzied man with his own calmness.",
-  "explanation" : "The district attorney attempted to soothe Mitya's agitated state, using his own composure as a tool to calm the excited man."
+  "paragraphId" : 25,
+  "text" : "Write, gentlemen, that I would even consider it dishonorable to say.",
+  "explanation" : "He instructs them to also note that revealing the name would be an act of dishonor for him."
 }, {
   "id" : 78,
-  "paragraphId" : 30,
-  "text" : "“Before continuing the interrogation, I should like, if only you will agree to answer, to hear from you a confirmation of the fact that you seem to have disliked the late Fyodor Pavlovich, and were in some sort of permanent dispute with him ...",
-  "explanation" : "He then steered the interrogation back on track, politely asking Mitya to confirm the widely known fact of his animosity and continuous conflict with the deceased Fyodor Pavlovich."
+  "paragraphId" : 25,
+  "text" : "You’ve got lots of time for writing, haven’t you?”",
+  "explanation" : "He asks sarcastically if they have ample time for all this documentation."
 }, {
   "id" : 79,
-  "paragraphId" : 30,
-  "text" : "Here, in any case, a quarter of an hour ago, I believe you were pleased to say that you even wanted to kill him: ‘I did not kill him,’ you exclaimed, ‘but I wanted to kill him! ‘“",
-  "explanation" : "The district attorney then pointed out that Mitya himself had just admitted to the *desire* to kill his father, referencing his earlier exclamation."
+  "paragraphId" : 26,
+  "text" : "“Allow me, dear sir, to caution you and remind you once more, in case you are still unaware of it,” the prosecutor said with particular and rather stern impressiveness, “that you have every right not to answer the questions that are put to you now, and we, on the contrary, have no right to extort answers from you, if you decline to answer for one reason or another.",
+  "explanation" : "The prosecutor solemnly and sternly reminds Mitya that he has the legal right to refuse to answer any questions, and the officials cannot legally force him to reply."
 }, {
   "id" : 80,
-  "paragraphId" : 31,
-  "text" : "“I exclaimed that? Ah, maybe I did, gentlemen!",
-  "explanation" : "Mitya expressed a moment of uncertainty about the exact words he had used but conceded the likelihood of saying it."
+  "paragraphId" : 26,
+  "text" : "That is a matter of your personal consideration.",
+  "explanation" : "He states that the decision to answer is entirely Mitya's to make."
 }, {
   "id" : 81,
-  "paragraphId" : 31,
-  "text" : "Yes, unfortunately I wanted to kill him, wanted to many times ... unfortunately, unfortunately!”",
-  "explanation" : "He readily confirmed that he had indeed frequently desired to kill his father, expressing regret over this fact."
+  "paragraphId" : 26,
+  "text" : "On the other hand, in such a situation, it is our business to point out to you and explain the full extent of the harm you will be doing yourself by refusing to give this or that evidence.",
+  "explanation" : "He then states that their duty is to inform Mitya of the potential damage he is inflicting on his own case by withholding crucial testimony."
 }, {
   "id" : 82,
-  "paragraphId" : 32,
-  "text" : "“You wanted to.",
-  "explanation" : "The district attorney acknowledged Mitya's admission of the desire to commit patricide."
+  "paragraphId" : 26,
+  "text" : "At which point I ask you to continue.”",
+  "explanation" : "Having delivered the warning, the prosecutor asks Mitya to resume his story."
 }, {
   "id" : 83,
-  "paragraphId" : 32,
-  "text" : "Would you be willing to explain what principles in fact guided you in this hatred for the person of your parent?”",
-  "explanation" : "He then asked Mitya to articulate the actual motivations or reasons behind his strong hatred for his father."
+  "paragraphId" : 27,
+  "text" : "“Gentlemen, I’m not angry ... I ... ,” Mitya started mumbling, somewhat taken aback by this reprimand, “you see, gentlemen, this Samsonov to whom I went then ...”",
+  "explanation" : "Mitya, slightly confused and humbled by the prosecutor's formal warning, begins to mumble a defense before resuming his narrative about his visit to Samsonov."
 }, {
   "id" : 84,
-  "paragraphId" : 33,
-  "text" : "“What’s there to explain, gentlemen!” Mitya shrugged gloomily, looking down.",
-  "explanation" : "Mitya shrugged and looked down sadly, implying the reasons for his hatred were obvious."
+  "paragraphId" : 28,
+  "text" : "We shall not, of course, reproduce his detailed account of what is already known to the reader.",
+  "explanation" : "The narrator decides not to repeat the details of Mitya's story which the reader already knows."
 }, {
   "id" : 85,
-  "paragraphId" : 33,
-  "text" : "“I’ve never hidden my feelings, the whole town knows of it—everyone in the tavern knows.",
-  "explanation" : "He stated that his animosity was public knowledge, known throughout the town, even by people in the local tavern."
+  "paragraphId" : 28,
+  "text" : "The narrator was impatient to tell everything in the smallest particulars, and at the same time to get through it quickly.",
+  "explanation" : "Mitya was eager to share all the minute details but also wanted to rush through the account."
 }, {
   "id" : 86,
-  "paragraphId" : 33,
-  "text" : "Recently, in the monastery, I announced it in the elder Zosima’s cell ...",
-  "explanation" : "He pointed out that he had recently declared his intent even in the sacred space of Elder Zosima's cell."
+  "paragraphId" : 28,
+  "text" : "But his evidence was being written down as he gave it, and he therefore had necessarily to be stopped.",
+  "explanation" : "Because his testimony was being simultaneously transcribed, Mitya was frequently interrupted by the officials."
 }, {
   "id" : 87,
-  "paragraphId" : 33,
-  "text" : "That same day, in the evening, I beat my father and nearly killed him, and swore in front of witnesses that I would come back and kill him ...",
-  "explanation" : "He admitted that on the day of the monastery visit, he physically assaulted his father, nearly fatally, and made an oath in front of others that he would return to commit murder."
+  "paragraphId" : 28,
+  "text" : "Dmitri Fyodorovich objected but submitted, was angry, but so far good-naturedly.",
+  "explanation" : "Mitya complained about the interruptions but yielded to the process, expressing his anger in a relatively good-humored way."
 }, {
   "id" : 88,
-  "paragraphId" : 33,
-  "text" : "Oh, there’s a thousand witnesses!",
-  "explanation" : "He claimed there were countless people who could testify to his violent threat."
+  "paragraphId" : 28,
+  "text" : "True, from time to time he cried out, “Gentlemen, this would exasperate the Lord God himself!” or “Gentlemen, do you know you’re irritating me for nothing?” but despite his exclamations, he still preserved his friendly and expansive mood.",
+  "explanation" : "Despite occasional angry outbursts, Mitya generally maintained a friendly and open demeanor."
 }, {
   "id" : 89,
-  "paragraphId" : 33,
-  "text" : "I’ve been shouting for the whole month, everyone is a witness...!",
-  "explanation" : "He asserted that his threats and public anger had been ongoing for an entire month, with everyone as a witness."
+  "paragraphId" : 28,
+  "text" : "Thus he told them how Samsonov had “hoodwinked” him two days before.",
+  "explanation" : "He recounted how Samsonov had deceived him two days earlier."
 }, {
   "id" : 90,
-  "paragraphId" : 33,
-  "text" : "The fact is right there, the fact speaks, it cries out, but—feelings, gentlemen, feelings are something else.",
-  "explanation" : "He distinguished between the self-evident public facts of his actions and threats, and the private, internal realm of his emotions."
+  "paragraphId" : 28,
+  "text" : "He now realized fully that he had been hoodwinked then.",
+  "explanation" : "He acknowledged that he now completely understood the deception."
 }, {
   "id" : 91,
-  "paragraphId" : 33,
-  "text" : "You see, gentlemen,” Mitya frowned, “it seems to me that you have no right to question me about my feelings.",
-  "explanation" : "He expressed discomfort and resistance, arguing that the officials had no legitimate authority to delve into his private feelings."
+  "paragraphId" : 28,
+  "text" : "The sale of the watch for six roubles in order to get money for the road, which was still completely unknown to the district attorney and the prosecutor, at once aroused their greatest interest, and, to Mitya’s boundless indignation, they found it necessary to record this fact in detail, seeing in it a second confirmation of the circumstance that even a day before he had been almost without a kopeck.",
+  "explanation" : "His story about selling his watch for six roubles for travel money—a fact new to the officials—greatly interested them; despite Mitya's extreme annoyance, they recorded it as a second piece of evidence that he had been nearly penniless the day before."
 }, {
   "id" : 92,
-  "paragraphId" : 33,
-  "text" : "You are empowered, I understand that, but this is my business, my inner business, an intimate thing, but ...",
-  "explanation" : "He acknowledged their official power, but insisted that his emotions were a personal, internal, and intimate matter."
+  "paragraphId" : 28,
+  "text" : "Little by little Mitya was becoming gloomy.",
+  "explanation" : "As the process continued, Mitya gradually became dispirited."
 }, {
   "id" : 93,
-  "paragraphId" : 33,
-  "text" : "since I haven’t hidden my feelings before ... in the tavern, for instance, but have talked of it to all and sundry, so I won’t ... I won’t make a secret of it now, either.",
-  "explanation" : "He then retracted his resistance, deciding not to conceal his feelings since he had openly discussed them with everyone previously, even in a public place like a tavern."
+  "paragraphId" : 28,
+  "text" : "Then, having described his trip to Lyagavy, the night spent in the fume-poisoned hut, and so on, he brought his story as far as his return to town, where he began on his own, without being specially asked, to describe in detail his jealous torments over Grushenka.",
+  "explanation" : "After recounting his travels including his time in Lyagavy and the smoky hut, he returned to town in his story and voluntarily started detailing his jealous suffering concerning Grushenka."
 }, {
   "id" : 94,
-  "paragraphId" : 33,
-  "text" : "You see, gentlemen, I quite understand that in that case there is horrible evidence against me: I told everyone I would kill him, and suddenly he is killed: who else but me in that case?",
-  "explanation" : "He displayed complete understanding that the combination of his public threats and the subsequent murder made the circumstantial evidence against him horrifyingly compelling, leading everyone to suspect him."
+  "paragraphId" : 28,
+  "text" : "He was listened to silently and attentively; they particularly went into the circumstance of his having long ago set up his lookout for Grushenka going to Fyodor Pavlovich in Maria Kondratievna’s backyard, and of Smerdyakov’s bringing him information: this was much noticed and written down.",
+  "explanation" : "The officials listened quietly and carefully, paying close attention to and recording the long-standing arrangement Mitya had for watching Grushenka go to Fyodor Pavlovich via a neighbor's yard, as well as Smerdyakov's role in supplying information."
 }, {
   "id" : 95,
-  "paragraphId" : 33,
-  "text" : "Ha, ha! I don’t blame you, gentlemen, I don’t blame you at all.",
-  "explanation" : "He laughed nervously, stating that he entirely understood and did not fault them for their suspicion."
+  "paragraphId" : 28,
+  "text" : "Of his jealousy he spoke ardently and extensively, and though inwardly ashamed at displaying his most intimate feelings, so to speak, “for general disgrace,” he obviously tried to overcome his shame for the sake of being truthful.",
+  "explanation" : "He spoke passionately and at length about his jealousy, making an effort to suppress his embarrassment at revealing such private emotions in public for the sake of complete honesty."
 }, {
   "id" : 96,
-  "paragraphId" : 33,
-  "text" : "I’m struck to the epidermis myself, because who, finally, did kill him in that case, if not me?",
-  "explanation" : "He admitted that even he was deeply shocked by the circumstances, concluding that the evidence made him the only logical suspect."
+  "paragraphId" : 28,
+  "text" : "The indifferent sternness of the district attorney’s and, especially, the prosecutor’s eyes, which they kept fixed on him during his account, disconcerted him in the end rather strongly:",
+  "explanation" : "The cold, severe gaze of the officials, particularly the prosecutor, which was fixed on him throughout his testimony, eventually disturbed him significantly."
 }, {
   "id" : 97,
-  "paragraphId" : 33,
-  "text" : "Isn’t that so? If not me, then who, who?",
-  "explanation" : "He pressed the officials to agree with his reasoning: if he was innocent, then who could the murderer possibly be?"
+  "paragraphId" : 28,
+  "text" : "“This boy, Nikolai Parfenovich, with whom I exchanged some silly remarks about women only a few days ago, and this sickly prosecutor are not worthy of my telling them this,” flashed sadly through his mind.",
+  "explanation" : "A sad thought crossed his mind: that the young Nikolai Parfenovich and the frail prosecutor were not worthy of hearing his intimate confession."
 }, {
   "id" : 98,
-  "paragraphId" : 33,
-  "text" : "Gentlemen,” he suddenly exclaimed, “I want to know, I even demand it of you, gentlemen: where was he killed?",
-  "explanation" : "His tone shifted from self-reflection to a sudden, demanding request for factual information about the crime scene."
+  "paragraphId" : 28,
+  "text" : "“Oh, shame!",
+  "explanation" : "He felt a sense of self-disgrace."
 }, {
   "id" : 99,
-  "paragraphId" : 33,
-  "text" : "How was he killed, with what and how?",
-  "explanation" : "He insisted on knowing the method and means of the murder."
+  "paragraphId" : 28,
+  "text" : "Be patient, humble, hold thy peace,’”273 he concluded his thoughts with this line of verse, but still collected himself again in order to go on.",
+  "explanation" : "He ended his self-reflection with a line of poetry urging patience and silence, but nevertheless regained his composure to continue the narrative."
 }, {
   "id" : 100,
-  "paragraphId" : 33,
-  "text" : "Tell me,” he asked quickly, looking around at the prosecutor and the district attorney.",
-  "explanation" : "He looked at the two main interrogators and demanded an immediate answer."
+  "paragraphId" : 28,
+  "text" : "Having come to the part about Madame Khokhlakov, he even brightened up again, and was even about to tell a certain recent anecdote, unrelated to the case, concerning the good lady, but the district attorney stopped him and politely suggested that they pass on “to more essential things.”",
+  "explanation" : "When he reached the part of the story involving Madame Khokhlakov, his spirits lifted, and he was about to share a irrelevant anecdote about her, but the district attorney courteously intervened, asking him to focus on more important matters."
 }, {
   "id" : 101,
-  "paragraphId" : 34,
-  "text" : "“We found him lying on his back, on the floor of his study, with his head smashed in,” the prosecutor said.",
-  "explanation" : "The prosecutor responded with the graphic detail that the father's body was discovered lying face-up on the study floor with a fatally crushed skull."
+  "paragraphId" : 28,
+  "text" : "Finally, having described his despair and told them of that moment when, as he walked out of Madame Khokhlakov’s, he had even had the thought of “quickly putting a knife into someone, just to get the three thousand,” he was stopped again, and it was recorded that “he wanted to put a knife into someone.”",
+  "explanation" : "When he described his desperation after leaving Madame Khokhlakov's, where he thought of quickly stabbing someone just to get the three thousand roubles, the narration was paused so that the incriminating thought could be officially recorded."
 }, {
   "id" : 102,
-  "paragraphId" : 35,
-  "text" : "“How horrible, gentlemen!” Mitya suddenly shuddered, and leaning his elbow on the table, he covered his face with his right hand.",
-  "explanation" : "Mitya reacted physically to the gruesome description, shaking suddenly, leaning on the table, and hiding his face with his right hand."
+  "paragraphId" : 28,
+  "text" : "Mitya let them write it down without protest.",
+  "explanation" : "Mitya allowed this statement to be written down without any objection."
 }, {
   "id" : 103,
-  "paragraphId" : 36,
-  "text" : "“Let us continue,” Nikolai Parfenovich interrupted.",
-  "explanation" : "Nikolai Parfenovich directed the focus back to the interrogation."
+  "paragraphId" : 28,
+  "text" : "Finally he came to the point in the story when he suddenly found out that Grushenka had deceived him and left Samsonov’s just after he brought her there, though she had told him she would stay until midnight.",
+  "explanation" : "He reached the moment in his story where he discovered that Grushenka had lied to him, having left Samsonov’s house immediately after he dropped her off, despite promising to stay until midnight."
 }, {
   "id" : 104,
-  "paragraphId" : 36,
-  "text" : "“What, then, guided you in your feeling of hatred? I believe you have announced publicly that it was a feeling of jealousy?”",
-  "explanation" : "He pressed Mitya again on the motives for his hatred, specifically asking for confirmation that it was publicly attributed to jealousy."
+  "paragraphId" : 28,
+  "text" : "“If I didn’t kill this Fenya right then, gentlemen, it was only because I had no time,” suddenly escaped him at this place in the story.",
+  "explanation" : "At this point, Mitya impulsively confessed that he had only refrained from killing Fenya a maid because he lacked the time."
 }, {
   "id" : 105,
-  "paragraphId" : 37,
-  "text" : "“Yes, jealousy, and not only jealousy.”",
-  "explanation" : "Mitya confirmed that jealousy was a factor, but indicated there were other reasons as well."
+  "paragraphId" : 28,
+  "text" : "And this, too, was carefully written down.",
+  "explanation" : "This statement was also meticulously recorded by the officials."
 }, {
   "id" : 106,
-  "paragraphId" : 38,
-  "text" : "“Disputes about money?” ‘ “Yes, about money, too.”",
-  "explanation" : "The official asked if disagreements over finances were another motive, and Mitya confirmed that money was also a source of conflict."
+  "paragraphId" : 28,
+  "text" : "Mitya waited gloomily and was beginning to tell how he ran to his; father’s garden, when the district attorney suddenly stopped him, and, opening his large briefcase, which lay beside him on the sofa, took out of it a brass pestle.",
+  "explanation" : "Mitya waited sadly and began to describe running to his father's garden, but the district attorney interrupted him, opened his briefcase, and produced a brass pestle."
 }, {
   "id" : 107,
-  "paragraphId" : 39,
-  "text" : "“The dispute seems to have been over three thousand roubles, allegedly due you as part of your inheritance?”",
-  "explanation" : "The official inquired if the precise amount of the financial conflict was three thousand roubles that Mitya claimed was owed to him from his inheritance."
+  "paragraphId" : 29,
+  "text" : "“Are you familiar with this object?” he showed it to Mitya.",
+  "explanation" : "The district attorney holds up the pestle and asks Mitya if he recognizes it."
 }, {
   "id" : 108,
-  "paragraphId" : 40,
-  "text" : "“Three thousand, hah! It was more, more,” Mitya heaved himself up, “more than six, more than ten, maybe.",
-  "explanation" : "Mitya scornfully dismissed the figure, arguing that the total sum owed to him was much larger, possibly over six or even ten thousand."
+  "paragraphId" : 30,
+  "text" : "“Ah, yes!” Mitya grinned gloomily, “indeed I am!",
+  "explanation" : "Mitya confirms his recognition with a gloomy grin."
 }, {
   "id" : 109,
-  "paragraphId" : 40,
-  "text" : "I told everyone, I shouted it to everyone!",
-  "explanation" : "He declared that this financial grievance was something he had loudly and repeatedly announced to everyone."
+  "paragraphId" : 30,
+  "text" : "Let me see it ... Or don’t, devil take it!”",
+  "explanation" : "He starts to ask to see it but then abruptly changes his mind, dismissing the object."
 }, {
   "id" : 110,
-  "paragraphId" : 40,
-  "text" : "But I decided to let it go, to settle for three thousand.",
-  "explanation" : "He then explained that he had chosen to forego the larger amount and accept only three thousand roubles as a final settlement."
+  "paragraphId" : 30,
+  "text" : "“You forgot to mention it,” the district attorney observed.",
+  "explanation" : "The district attorney points out that Mitya failed to include the pestle in his testimony."
 }, {
   "id" : 111,
-  "paragraphId" : 40,
-  "text" : "I desperately needed that three thousand ...",
-  "explanation" : "He emphasized his urgent need for that specific amount of money."
+  "paragraphId" : 31,
+  "text" : "“Ah, the devil!",
+  "explanation" : "Mitya expresses annoyance."
 }, {
   "id" : 112,
-  "paragraphId" : 40,
-  "text" : "so the envelope with three thousand which I knew was under his pillow, waiting for Grushenka, I considered definitely as stolen from me, that’s what, gentlemen, I considered it mine, just as if it was my own property ...”",
-  "explanation" : "He stated that the three thousand roubles his father kept ready for Grushenka, which he knew was under the pillow, was money he viewed as having been stolen from him, and therefore he treated it as his own rightful property."
+  "paragraphId" : 31,
+  "text" : "I wouldn’t hide it from you, we certainly couldn’t get along without it, don’t you agree?",
+  "explanation" : "He claims he wouldn't have hidden it, suggesting its importance is obvious."
 }, {
   "id" : 113,
-  "paragraphId" : 41,
-  "text" : "The prosecutor exchanged meaningful glances with the district attorney and managed to wink at him unobserved.",
-  "explanation" : "The prosecutor and the district attorney communicated silently with each other, sharing a significant look, and the prosecutor secretly winked at his colleague."
+  "paragraphId" : 31,
+  "text" : "It just escaped my memory.”",
+  "explanation" : "He asserts that he simply forgot to mention the pestle."
 }, {
   "id" : 114,
-  "paragraphId" : 42,
-  "text" : "“We shall come back to that subject later,” the district attorney said at once.",
-  "explanation" : "The district attorney stated they would return to the topic of the money at a subsequent time."
+  "paragraphId" : 32,
+  "text" : "“Be so good, then, as to tell us in detail how you came to arm yourself with it.”",
+  "explanation" : "The official asks him to provide a detailed account of when and why he armed himself with the pestle."
 }, {
   "id" : 115,
-  "paragraphId" : 42,
-  "text" : "“For now, allow me to take note of precisely this little point and write it down: that you considered the money in that envelope as your own property.”",
-  "explanation" : "He requested permission to officially document the single specific point that Mitya regarded the money in the envelope as his rightful possession."
+  "paragraphId" : 33,
+  "text" : "“I’ll be so good, if you wish, gentlemen.”",
+  "explanation" : "Mitya sarcastically agrees to comply with the request."
 }, {
   "id" : 116,
-  "paragraphId" : 43,
-  "text" : "“Write it down, gentlemen, I quite understand that it is one more piece of evidence against me, but I’m not afraid of evidence and even testify against myself.",
-  "explanation" : "Mitya agreed to have the statement recorded, acknowledging that it strengthened the case against him, but asserting he was not intimidated by the evidence and would even incriminate himself."
+  "paragraphId" : 33,
+  "text" : "And Mitya told how he took the pestle and ran.",
+  "explanation" : "Mitya then recounted the physical action of taking the pestle and running."
 }, {
   "id" : 117,
-  "paragraphId" : 43,
-  "text" : "Do you hear, against myself!",
-  "explanation" : "He emphasized the self-incriminating nature of his willingness to cooperate."
+  "paragraphId" : 34,
+  "text" : "“But what purpose did you have in mind in arming yourself with such an implement?”",
+  "explanation" : "The official asks for Mitya's deliberate intention in choosing the pestle as a weapon."
 }, {
   "id" : 118,
-  "paragraphId" : 43,
-  "text" : "You see, gentlemen, you seem to be taking me for quite a different man from what I am,” he suddenly added, glumly and sadly.",
-  "explanation" : "His mood abruptly changed to sadness as he stated his belief that the officials had fundamentally misunderstood his character."
+  "paragraphId" : 35,
+  "text" : "“What purpose?",
+  "explanation" : "Mitya repeats the question."
 }, {
   "id" : 119,
-  "paragraphId" : 43,
-  "text" : "“It is a noble man you are speaking with, a most noble person; above all—do not lose sight of this—a man who has done a world of mean things, but who always was and remained a most noble person, as a person, inside, in his depths, well, in short, I don’t know how to say it ...",
-  "explanation" : "He insisted they were speaking to an inherently noble person, one who has committed many ignoble acts but whose true, inner self has always maintained nobility, though he struggled to articulate this distinction."
+  "paragraphId" : 35,
+  "text" : "No purpose!",
+  "explanation" : "He insists he had no specific goal."
 }, {
   "id" : 120,
-  "paragraphId" : 43,
-  "text" : "This is precisely what has tormented me all my life, that I thirsted for nobility, that I was, so to speak, a sufferer for nobility, seeking it with a lantern, Diogenes’ lantern,272 and meanwhile all my life I’ve been doing only dirty things, as we all do, gentlemen ...",
-  "explanation" : "He confessed that his life's torment lay in his persistent desire for nobility, which he pursued with philosophical dedication like Diogenes searching for an honest man, while constantly engaging in shameful behavior which he initially attributed to humanity in general."
+  "paragraphId" : 35,
+  "text" : "I just grabbed it and ran.”",
+  "explanation" : "He claims it was an impulsive act—he simply seized it and started running."
 }, {
   "id" : 121,
-  "paragraphId" : 43,
-  "text" : "I mean, me alone, gentlemen, not all but me alone, I made a mistake, me alone, alone . . .!",
-  "explanation" : "He quickly corrected himself, withdrawing the generalization and taking sole responsibility for his moral failings."
+  "paragraphId" : 36,
+  "text" : "“But why, if there was no purpose?”",
+  "explanation" : "The official presses him again, asking why he took it if there was no reason."
 }, {
   "id" : 122,
-  "paragraphId" : 43,
-  "text" : "Gentlemen, my head aches,” he winced with pain.",
-  "explanation" : "He physically flinched, complaining that his head was hurting."
+  "paragraphId" : 37,
+  "text" : "Mitya was seething with vexation.",
+  "explanation" : "Mitya became intensely angry and annoyed."
 }, {
   "id" : 123,
-  "paragraphId" : 43,
-  "text" : "“You see, gentlemen, I did not like his appearance, it was somehow dishonorable, boastful, trampling on all that’s holy, mockery and unbelief, loathsome, loathsome!",
-  "explanation" : "He explained that his former hatred for his father stemmed from the older man's repulsive, boastful, irreverent, and sacrilegious nature."
+  "paragraphId" : 37,
+  "text" : "He looked fixedly at the “boy” and grinned gloomily and maliciously.",
+  "explanation" : "He stared at Nikolai Parfenovich the \"boy\" and gave a dark, spiteful smile."
 }, {
   "id" : 124,
-  "paragraphId" : 43,
-  "text" : "But now that he’s dead, I think differently.”",
-  "explanation" : "He concluded that his perspective on his father had changed since the murder."
+  "paragraphId" : 37,
+  "text" : "The thing was that he felt more and more ashamed at having just told “such people” the story of his jealousy, so sincerely and with such effusion.",
+  "explanation" : "His increasing shame was rooted in the fact that he had revealed his deep, sincere feelings about his jealousy to people he considered unworthy."
 }, {
   "id" : 125,
-  "paragraphId" : 44,
-  "text" : "“How differently?”",
-  "explanation" : "The official asked Mitya to elaborate on how his feelings had changed."
+  "paragraphId" : 38,
+  "text" : "“I spit on the pestle,” suddenly escaped him.",
+  "explanation" : "He impulsively uttered a contemptuous phrase about the pestle."
 }, {
   "id" : 126,
-  "paragraphId" : 45,
-  "text" : "“Not differently, but I’m sorry I hated him so much.”",
-  "explanation" : "Mitya clarified that his change of heart was not a shift in judgment about his father's character, but a feeling of regret for the intense hatred he harbored."
+  "paragraphId" : 39,
+  "text" : "“Even so, sir.”",
+  "explanation" : "The official acknowledges his statement without reacting strongly."
 }, {
   "id" : 127,
-  "paragraphId" : 46,
-  "text" : "“You feel repentant?”",
-  "explanation" : "The official pressed for confirmation as to whether his regret constituted religious or moral repentance."
+  "paragraphId" : 40,
+  "text" : "“So I grabbed it to keep off the dogs.",
+  "explanation" : "Mitya suggests he took the pestle to ward off stray dogs."
 }, {
   "id" : 128,
-  "paragraphId" : 47,
-  "text" : "“No, not really repentant, don’t write that down.",
-  "explanation" : "Mitya denied that his feeling was true repentance and instructed the clerk not to record it as such."
+  "paragraphId" : 40,
+  "text" : "Or because it was dark ...",
+  "explanation" : "He suggests it was because of the darkness."
 }, {
   "id" : 129,
-  "paragraphId" : 47,
-  "text" : "I’m not good myself, gentlemen, that’s the thing, I’m not so beautiful myself, and therefore I had no right to consider him repulsive, that’s the thing.",
-  "explanation" : "He explained that his regret stemmed from realizing that his own moral imperfections meant he was in no position to judge his father as repulsive."
+  "paragraphId" : 40,
+  "text" : "Or just in case.”",
+  "explanation" : "He offers a final, vague possibility: as a general precaution."
 }, {
   "id" : 130,
-  "paragraphId" : 47,
-  "text" : "Perhaps you can write that down.”",
-  "explanation" : "He suggested that this realization of his own lack of moral superiority might be worthy of recording."
+  "paragraphId" : 41,
+  "text" : "“And have you always been in the habit of taking some weapon with you when going out at night, since you are so afraid of the dark?”",
+  "explanation" : "The official asks sarcastically if Mitya routinely carries a weapon at night because he fears the dark."
 }, {
   "id" : 131,
-  "paragraphId" : 48,
-  "text" : "Having said this, Mitya suddenly became extremely sad.",
-  "explanation" : "Following his self-reflection, Mitya became very unhappy."
+  "paragraphId" : 42,
+  "text" : "“Agh, the devil, pah!",
+  "explanation" : "Mitya expresses strong frustration."
 }, {
   "id" : 132,
-  "paragraphId" : 48,
-  "text" : "Gradually, for some time now, as he answered the district attorney’s questions, he had been growing more and more gloomy.",
-  "explanation" : "The narrator noted that his mood had been steadily darkening while answering the district attorney."
+  "paragraphId" : 42,
+  "text" : "Gentlemen, it’s literally impossible to talk to you!”",
+  "explanation" : "He bursts out that it is truly impossible to communicate with them."
 }, {
   "id" : 133,
-  "paragraphId" : 48,
-  "text" : "And suddenly, just at that moment, another unexpected scene broke out.",
-  "explanation" : "At this moment, a second dramatic and unforeseen event occurred."
+  "paragraphId" : 42,
+  "text" : "Mitya cried out in the utmost annoyance, and turning to the clerk, all red with anger, with a sort of frenzied note in his voice, quickly said to him:",
+  "explanation" : "In his extreme annoyance, Mitya turns toward the court clerk, his face flushed, and speaks quickly in a frantic tone."
 }, {
   "id" : 134,
-  "paragraphId" : 48,
-  "text" : "It so happened that, though Grushenka had been removed, she had not been taken very far, only to the third room down from the blue room in which the interrogation was now going on.",
-  "explanation" : "The narrator explains that Grushenka, despite being removed earlier, was kept nearby, three rooms away from the blue room where Mitya was being questioned."
+  "paragraphId" : 42,
+  "text" : "“Take this down right now ... right now ... ‘that I grabbed the pestle in order to run and kill my father, Fyodor Pavlovich ... by hitting him on the head’!",
+  "explanation" : "He dictates an explicit, incriminating confession to the clerk: that he took the pestle to run and murder his father, Fyodor Pavlovich, by hitting him on the head."
 }, {
   "id" : 135,
-  "paragraphId" : 48,
-  "text" : "It was a small room with one window, just beyond the big room where they had been dancing and feasting during the night.",
-  "explanation" : "This room was described as small, with a single window, and located past the larger room that had been used for the party."
+  "paragraphId" : 42,
+  "text" : "Well, are you content now, gentlemen?",
+  "explanation" : "He asks the officials if this confession satisfies them."
 }, {
   "id" : 136,
-  "paragraphId" : 48,
-  "text" : "There she sat, and so far the only one with her was Maximov, who was terribly shocked, terribly frightened, and clung to her as if seeking salvation at her side.",
-  "explanation" : "Grushenka was sitting there with only Maximov, who was extremely distressed and fearful, and who remained close to her as if she were his only source of security."
+  "paragraphId" : 42,
+  "text" : "Does that ease your hearts?” he said, staring defiantly at the prosecutor and the district attorney.",
+  "explanation" : "He stares aggressively at the officials and asks if this admission relieves their minds."
 }, {
   "id" : 137,
-  "paragraphId" : 48,
-  "text" : "Some peasant with a badge on his chest stood at their door.",
-  "explanation" : "A guard a peasant wearing an official badge was posted at the entrance to their room."
+  "paragraphId" : 43,
+  "text" : "“We realize only too well that you have given such evidence just now because you are annoyed with us and vexed by the questions we put to you, which you regard as petty, and which in essence are quite essential,” the prosecutor answered him drily.",
+  "explanation" : "The prosecutor responds flatly, stating that they fully understand Mitya's confession was made out of anger and irritation over questions Mitya considers trivial but which they believe are highly important."
 }, {
   "id" : 138,
-  "paragraphId" : 48,
-  "text" : "Grushenka was weeping, and then suddenly, when the grief came too near her soul, she jumped up, clasped her hands, and, crying “Woe, woe is me!” in a loud wail, rushed out of the room to him, to her Mitya, so unexpectedly that no one had time to stop her.",
-  "explanation" : "Grushenka, weeping intensely, was overwhelmed by sorrow, causing her to suddenly jump up, cry out in a loud lament, and rush out towards Mitya with such speed that the guard was unable to prevent her."
+  "paragraphId" : 44,
+  "text" : "“But for pity’s sake, gentlemen!",
+  "explanation" : "Mitya expresses a plea for understanding."
 }, {
   "id" : 139,
-  "paragraphId" : 48,
-  "text" : "Mitya, hearing her wail, shuddered all over, jumped up, gave a shout, and, as if forgetting himself, rushed headlong to meet her.",
-  "explanation" : "Mitya reacted instantly to her cry, shaking, shouting, and rushing impulsively towards her as if losing all self-control."
+  "paragraphId" : 44,
+  "text" : "So I took the pestle ...",
+  "explanation" : "He acknowledges taking the pestle."
 }, {
   "id" : 140,
-  "paragraphId" : 48,
-  "text" : "But again they were not allowed to come together, though they had already caught sight of each other.",
-  "explanation" : "Despite seeing one another, the officials once again physically prevented them from embracing or meeting."
+  "paragraphId" : 44,
+  "text" : "So, what does one pick things up for in such cases?",
+  "explanation" : "He asks what anyone would take in a similar situation."
 }, {
   "id" : 141,
-  "paragraphId" : 48,
-  "text" : "He was seized firmly by the arms: he struggled, tried to break loose, it took three or four men to hold him.",
-  "explanation" : "Mitya was forcefully restrained by several men, struggling futilely to free himself."
+  "paragraphId" : 44,
+  "text" : "I don’t know.",
+  "explanation" : "He says he doesn't know the reason."
 }, {
   "id" : 142,
-  "paragraphId" : 48,
-  "text" : "She, too, was seized, and he saw her shouting and stretching out her arms to him as they drew her away.",
-  "explanation" : "Grushenka was also seized, and Mitya watched her being led away while shouting and desperately reaching out to him."
+  "paragraphId" : 44,
+  "text" : "I snatched it and ran.",
+  "explanation" : "He repeats that it was an impulsive action."
 }, {
   "id" : 143,
-  "paragraphId" : 48,
-  "text" : "When the scene was over, he came to himself again in the same place, across the table from the district attorney, and was shouting at them:",
-  "explanation" : "Once the dramatic disruption ended, Mitya recovered his awareness in his original seat, facing the district attorney, and continued shouting at the officials."
+  "paragraphId" : 44,
+  "text" : "That’s all.",
+  "explanation" : "He insists that is the entire explanation."
 }, {
   "id" : 144,
-  "paragraphId" : 49,
-  "text" : "“What do you want with her? Why do you torment her? She’s innocent, innocent...!”",
-  "explanation" : "Mitya shouted questions demanding to know their purpose in holding Grushenka and accusing them of torturing her, while fiercely asserting her complete innocence."
+  "paragraphId" : 44,
+  "text" : "Shame on you, gentlemen—passons, or I swear I won’t say anything more!”",
+  "explanation" : "He expresses shame on them and demands they move on \"passons,\" French for \"let's pass/proceed\", or he threatens to stop speaking altogether."
 }, {
   "id" : 145,
-  "paragraphId" : 50,
-  "text" : "The prosecutor and the district attorney were trying to talk sense into him.",
-  "explanation" : "Both officials attempted to reason with Mitya."
+  "paragraphId" : 45,
+  "text" : "He leaned his elbow on the table and propped his head in his hand.",
+  "explanation" : "Mitya rests his elbow on the table, supporting his head with his hand."
 }, {
   "id" : 146,
-  "paragraphId" : 50,
-  "text" : "This took some time, about ten minutes; at last Mikhail Makarovich, who had stepped out, came hurriedly into the room, and in a loud, excited voice said to the prosecutor:",
-  "explanation" : "This attempt took approximately ten minutes, after which Mikhail Makarovich the police commissioner, who had left the room, returned quickly and spoke to the prosecutor loudly and with urgency."
+  "paragraphId" : 45,
+  "text" : "He was sitting sideways to them, looking at the wall, and trying to overcome the bad feeling inside him.",
+  "explanation" : "He positioned himself to face the wall, avoiding the officials, in an attempt to conquer his inner frustration."
 }, {
   "id" : 147,
-  "paragraphId" : 51,
-  "text" : "“She has been removed, she is downstairs; but will you permit me, gentlemen, to say just one word to this unfortunate man?",
-  "explanation" : "Mikhail Makarovich informed them that Grushenka had been taken downstairs and then respectfully asked permission from the officials to address Mitya, whom he referred to as an \"unfortunate man.\""
+  "paragraphId" : 45,
+  "text" : "In fact, he really had a terrible urge to stand up and declare that he was not going to say another word, “even if you should take me out and hang me.”",
+  "explanation" : "He felt an intense desire to stop the interrogation entirely, even if the consequence was execution."
 }, {
   "id" : 148,
-  "paragraphId" : 51,
-  "text" : "In your presence, gentlemen, in your presence!”",
-  "explanation" : "He emphasized that he intended to speak to Mitya only with the full knowledge and observation of the interrogating officials."
+  "paragraphId" : 45,
+  "text" : "“You see, gentlemen,” he suddenly spoke, overcoming himself with difficulty, “you see.",
+  "explanation" : "He speaks again, struggling to control himself."
 }, {
   "id" : 149,
-  "paragraphId" : 52,
-  "text" : "“As you wish, Mikhail Makarovich,” the district attorney answered, “in the present case we have nothing to say against it.”",
-  "explanation" : "The district attorney granted permission to Mikhail Makarovich, stating that they saw no objection to his speaking with Mitya under the circumstances."
+  "paragraphId" : 45,
+  "text" : "I’m listening to you and imagining ...",
+  "explanation" : "He tells them that as he listens, he is reminded of something he imagines."
 }, {
   "id" : 150,
-  "paragraphId" : 53,
-  "text" : "“Listen, Dmitri Fyodorovich, my dear fellow,” Mikhail Makarovich began, turning to Mitya, his whole troubled face expressing warm, almost fatherly compassion for the unfortunate man, “I myself took your Agrafena Alexandrovna downstairs and handed her over to the innkeeper’s daughters, and that old man, Maximov, is there and never leaves her now, and I talked with her, do you hear?",
-  "explanation" : "Mikhail Makarovich, speaking with genuine, paternal sympathy, told Mitya that he personally escorted Grushenka Agrafena Alexandrovna downstairs, placed her in the care of the innkeeper's daughters, and noted that Maximov was still with her; he then confirmed that he spoke with her."
+  "paragraphId" : 45,
+  "text" : "You see, sometimes I dream a dream in my sleep ... one particular dream, and I often dream it, it keeps repeating itself, that someone is chasing me, someone I’m terribly afraid of is chasing me in the darkness, at night, looking for me, and I’m hiding from him somewhere behind a door or a wardrobe, hiding in a humiliating way, and moreover he knows perfectly well where I’m hiding, but he seems to pretend not to know where I am on purpose, in order to torment me longer, in order to revel in my fear ...",
+  "explanation" : "He describes a recurring nightmare where a feared pursuer chases him in the dark while he hides shamefully behind furniture, and the pursuer knowingly prolongs the torment by pretending not to find him."
 }, {
   "id" : 151,
-  "paragraphId" : 53,
-  "text" : "I talked with her and calmed her down, I impressed upon her that you need to clear yourself and so she mustn’t interfere, mustn’t drive you to despair, otherwise you may get confused and give wrong evidence against yourself, you see?",
-  "explanation" : "He explained that he reassured Grushenka and convinced her that she must not distract Mitya or cause him distress, as he needed to focus on defending himself to avoid incriminating himself by mistake."
+  "paragraphId" : 45,
+  "text" : "That’s what you are doing now!",
+  "explanation" : "He equates the officials' interrogation method to the psychological torture in his recurring nightmare."
 }, {
   "id" : 152,
-  "paragraphId" : 53,
-  "text" : "Well, in short, I talked with her and she saw.",
-  "explanation" : "He concluded that he successfully reasoned with her, and she understood the situation."
+  "paragraphId" : 45,
+  "text" : "It’s just the same!”",
+  "explanation" : "He insists the feeling is identical."
 }, {
   "id" : 153,
-  "paragraphId" : 53,
-  "text" : "She’s a smart woman, brother, she’s kind, she wanted to kiss these old hands of mine, she asked me to help you.",
-  "explanation" : "He praised Grushenka's intelligence and kindness, mentioning that she showed affection to him and requested his assistance for Mitya."
+  "paragraphId" : 46,
+  "text" : "“Is that the sort of dreams you have?” the prosecutor inquired.",
+  "explanation" : "The prosecutor asks if that is his typical kind of dream."
 }, {
   "id" : 154,
-  "paragraphId" : 53,
-  "text" : "She sent me here herself to tell you that you mustn’t worry about her, and it would be a good thing, my dear, it would be a good thing if I went and told her that you’re not worried and are comforted about her.",
-  "explanation" : "He delivered a message from Grushenka, assuring Mitya not to worry about her, and suggesting it would be helpful if he could return and report that Mitya was calm and reassured about her well-being."
+  "paragraphId" : 47,
+  "text" : "“Yes, I have such dreams ...",
+  "explanation" : "Mitya confirms that he has these dreams."
 }, {
   "id" : 155,
-  "paragraphId" : 53,
-  "text" : "So you see, you mustn’t worry.",
-  "explanation" : "He reiterated the instruction that Mitya should not be anxious."
+  "paragraphId" : 47,
+  "text" : "Why, do you want to write it down?” Mitya grinned crookedly.",
+  "explanation" : "He asks sarcastically, with a distorted grin, if the dream details are relevant enough for the record."
 }, {
   "id" : 156,
-  "paragraphId" : 53,
-  "text" : "I’m guilty before her, she’s a Christian soul, yes, gentlemen, she’s a meek soul and not guilty of anything.",
-  "explanation" : "He then expressed a belief that he had previously wronged Grushenka and praised her as a gentle, virtuous Christian woman who was innocent of any wrongdoing."
+  "paragraphId" : 48,
+  "text" : "“No, sir, I do not want to write it down, but still you do have curious dreams.”",
+  "explanation" : "The prosecutor assures him he will not write it down but notes that Mitya's dreams are unusual."
 }, {
   "id" : 157,
-  "paragraphId" : 53,
-  "text" : "Well, what shall I tell her, Dmitri Fyodorovich, are you going to be quiet or not?”",
-  "explanation" : "He ended by asking Mitya for a definitive answer on whether he would calm down so that he could report back to Grushenka."
+  "paragraphId" : 49,
+  "text" : "“This time it’s not a dream!",
+  "explanation" : "Mitya insists that his current situation is not a hallucination or dream."
 }, {
   "id" : 158,
-  "paragraphId" : 54,
-  "text" : "The kindly man said much more than was necessary, but Grushenka’s grief, such human grief, had penetrated his kind soul, and tears even brimmed in his eyes.",
-  "explanation" : "The narrator notes that the police commissioner Mikhail Makarovich spoke excessively, but his excessive speech was due to his kind heart being genuinely moved by Grushenka's profound sorrow, to the point of nearly weeping."
+  "paragraphId" : 49,
+  "text" : "Realism, gentlemen, the realism of actual life!",
+  "explanation" : "He declares the situation to be the harsh reality of life."
 }, {
   "id" : 159,
-  "paragraphId" : 54,
-  "text" : "Mitya jumped up and rushed to him.",
-  "explanation" : "Mitya abruptly rose from his seat and moved quickly toward the commissioner."
+  "paragraphId" : 49,
+  "text" : "I’m the wolf, you’re the hunters—so hunt the wolf down.”",
+  "explanation" : "He compares himself to a wolf and the officials to hunters, urging them to proceed with their pursuit."
 }, {
   "id" : 160,
-  "paragraphId" : 55,
-  "text" : "“Forgive me, gentlemen, allow me, oh, allow me!” he cried out.",
-  "explanation" : "Mitya passionately apologized to the officials and begged them to permit his emotional response."
+  "paragraphId" : 50,
+  "text" : "“You shouldn’t make such comparisons ... ,” Nikolai Parfenovich began very gently.",
+  "explanation" : "Nikolai Parfenovich mildly suggests that Mitya should not use such dramatic metaphors."
 }, {
   "id" : 161,
-  "paragraphId" : 55,
-  "text" : "“You are an angelic soul, an angelic soul, Mikhail Makarovich, I thank you for her!",
-  "explanation" : "He enthusiastically praised Mikhail Makarovich's exceptional goodness and thanked him for his kindness toward Grushenka."
+  "paragraphId" : 51,
+  "text" : "“Why shouldn’t I, gentlemen, why shouldn’t I!” Mitya boiled up again, though he had apparently unburdened his soul with this outburst of sudden anger and was growing kinder again with every word.",
+  "explanation" : "Mitya bursts out passionately again, defending his right to use the comparison, even though this sudden outburst seemed to have relieved his tension and made him more amiable."
 }, {
   "id" : 162,
-  "paragraphId" : 55,
-  "text" : "I will, I will be quiet, I will be cheerful, tell her in the infinite kindness of your soul that I am cheerful, cheerful, I’ll even start laughing now, knowing that she has such a guardian angel as you.",
-  "explanation" : "He promised to calm down and appear happy, instructing the commissioner to report this cheerfulness to Grushenka, saying the knowledge of the commissioner's care for her made him want to laugh."
+  "paragraphId" : 51,
+  "text" : "You may disbelieve a criminal or a prisoner in the dock whom you’re tormenting with your questions, but to disbelieve the noblest man, gentlemen, the noblest impulses of the soul I cry it boldly!—no! that you cannot do ... you even have no right to ... but—",
+  "explanation" : "He argues that while they can distrust an accused person being cross-examined, they cannot, and have no right to, disbelieve a person's bold expression of the soul's noblest intentions."
 }, {
   "id" : 163,
-  "paragraphId" : 55,
-  "text" : "I’ll finish with all of this now, and the moment I’m free, I’ll go to her at once, she’ll see, she must wait!",
-  "explanation" : "He declared his immediate intent to complete the interrogation and go straight to her the instant he was released, assuring them she needed to be patient."
+  "paragraphId" : 51,
+  "text" : ". . . heart, hold thy peace, Be patient, humble, hold thy peace!",
+  "explanation" : "He quotes the line of verse again, urging his own heart to be quiet and patient."
 }, {
   "id" : 164,
-  "paragraphId" : 55,
-  "text" : "Gentlemen,” he suddenly turned to the prosecutor and the district attorney, “I will now open and pour out my whole soul to you, we will finish with this in a moment, finish it cheerfully—in the end we’ll have a good laugh, won’t we?",
-  "explanation" : "He suddenly addressed the jurists, promising to be completely candid, resolve the interrogation quickly, and end the matter on a happy note with everyone laughing."
+  "paragraphId" : 51,
+  "text" : "Well, shall I go on?” he broke off gloomily.",
+  "explanation" : "He pauses sadly and asks if he should continue his narrative."
 }, {
   "id" : 165,
-  "paragraphId" : 55,
-  "text" : "But, gentlemen, this woman is the queen of my soul!",
-  "explanation" : "He proclaimed that Grushenka was the absolute sovereign of his heart and spirit."
-}, {
-  "id" : 166,
-  "paragraphId" : 55,
-  "text" : "Oh, allow me to say it, this is something I’m going to reveal to you ...",
-  "explanation" : "He asked for permission to share an intimate and profound revelation."
-}, {
-  "id" : 167,
-  "paragraphId" : 55,
-  "text" : "I can see I’m with the noblest men: she is my light, my holy one, and if only you knew!",
-  "explanation" : "He expressed his belief that the officials were noble men and then described Grushenka as his spiritual illumination and saintly figure."
-}, {
-  "id" : 168,
-  "paragraphId" : 55,
-  "text" : "Did you hear her cry: ‘I’ll go with you—even to execution’?",
-  "explanation" : "He reminded them of her public declaration of devotion, offering to follow him to death."
-}, {
-  "id" : 169,
-  "paragraphId" : 55,
-  "text" : "And what have I, a naked beggar, given her, why such love for me, am I—a clumsy and shameful creature with a shameful face—worthy of such love, that she should go to hard labor with me?",
-  "explanation" : "He reflected on his unworthiness, noting his lack of wealth and describing himself as a repulsive and clumsy man, questioning how he could deserve such profound love that she would follow him to penal servitude."
-}, {
-  "id" : 170,
-  "paragraphId" : 55,
-  "text" : "She just laid herself at your feet for me, she, a proud woman and not guilty of anything!",
-  "explanation" : "He highlighted her sacrifice, recalling how the proud, innocent woman had thrown herself at the feet of the commissioner for his sake."
-}, {
-  "id" : 171,
-  "paragraphId" : 55,
-  "text" : "How can I not adore her, not cry out, not long for her, as I do now?",
-  "explanation" : "He asked rhetorically how it was possible for him not to worship, praise, and yearn for her in his current state."
-}, {
-  "id" : 172,
-  "paragraphId" : 55,
-  "text" : "Oh, gentlemen, forgive me! But now, now I’m comforted!”",
-  "explanation" : "He concluded by asking for forgiveness for his emotional outburst, stating that he was now genuinely soothed and at peace."
-}, {
-  "id" : 173,
-  "paragraphId" : 56,
-  "text" : "And he sank down and, covering his face with both hands, burst into sobs.",
-  "explanation" : "Mitya dropped back into his seat, covered his face, and began to cry intensely."
-}, {
-  "id" : 174,
-  "paragraphId" : 56,
-  "text" : "But they were happy tears.",
-  "explanation" : "The narrator clarified that his crying was an expression of relief and joy."
-}, {
-  "id" : 175,
-  "paragraphId" : 56,
-  "text" : "He collected himself at once.",
-  "explanation" : "He quickly regained his composure."
-}, {
-  "id" : 176,
-  "paragraphId" : 56,
-  "text" : "The old commissioner was very pleased, and so the jurists seemed to be, too: they felt that the interrogation was now entering a new phase.",
-  "explanation" : "The commissioner was happy with the outcome of his intervention, and the legal officials also appeared satisfied, perceiving that the interrogation was moving into a more productive stage."
-}, {
-  "id" : 177,
-  "paragraphId" : 56,
-  "text" : "Having sent the commissioner off, Mitya became quite cheerful.",
-  "explanation" : "After the commissioner departed, Mitya’s mood settled into a very positive and lighthearted state."
-}, {
-  "id" : 178,
-  "paragraphId" : 57,
-  "text" : "“Well, gentlemen, now I am yours, yours completely.",
-  "explanation" : "Mitya declared his full and unconditional cooperation with the officials."
-}, {
-  "id" : 179,
-  "paragraphId" : 57,
-  "text" : "And ... if only it weren’t for all these small details, we would come to an understanding at once.",
-  "explanation" : "He lamented that the investigation was being complicated by minor details that were preventing an immediate resolution."
-}, {
-  "id" : 180,
-  "paragraphId" : 57,
-  "text" : "Again I’m talking about small details.",
-  "explanation" : "He acknowledged his repetitive focus on these seemingly insignificant points."
-}, {
-  "id" : 181,
-  "paragraphId" : 57,
-  "text" : "I’m yours, gentlemen, but, I swear, we must have mutual trust—you in me, and I in you—otherwise we’ll never finish.",
-  "explanation" : "He reiterated his commitment but insisted that for the process to conclude, they all needed to establish mutual trust."
-}, {
-  "id" : 182,
-  "paragraphId" : 57,
-  "text" : "I’m saying it for your sake.",
-  "explanation" : "He claimed this insistence on efficiency was for the officials' benefit."
-}, {
-  "id" : 183,
-  "paragraphId" : 57,
-  "text" : "To business, gentlemen, to business, and above all don’t go digging around in my soul so much, don’t torment it with trifles, but keep to the point, to the facts, and I’ll satisfy you at once.",
-  "explanation" : "He urged them to focus on the essential facts and avoid excessively scrutinizing his inner thoughts or wasting time on unimportant matters, promising immediate satisfaction if they stuck to the core issue."
-}, {
-  "id" : 184,
-  "paragraphId" : 57,
-  "text" : "Devil take the small details!”",
-  "explanation" : "He passionately dismissed the importance of minor details."
-}, {
-  "id" : 185,
-  "paragraphId" : 58,
-  "text" : "So Mitya exclaimed.",
-  "explanation" : "This phrase summarizes Mitya's impassioned statement."
-}, {
-  "id" : 186,
-  "paragraphId" : 58,
-  "text" : "The interrogation began again.",
-  "explanation" : "The formal questioning resumed."
+  "paragraphId" : 52,
+  "text" : "“Of course, if you’d be so good,” replied Nikolai Parfenovich.",
+  "explanation" : "Nikolai Parfenovich politely encourages Mitya to resume his story."
 } ]

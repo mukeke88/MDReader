@@ -20,7 +20,8 @@ body {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
@@ -89,6 +90,29 @@ button {
   gap: 8px;
 }
 
+.read-zone-control {
+  display: grid;
+  gap: 4px;
+  justify-items: end;
+}
+
+.read-zone-control__label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+.read-zone-control__select {
+  min-width: 132px;
+  padding: 6px 10px;
+  border: 1px solid rgba(31, 41, 55, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #1f2937;
+}
+
 .eyebrow {
   margin: 0 0 4px;
   text-transform: uppercase;
@@ -146,8 +170,9 @@ h2 {
   gap: 4px;
 }
 
-.score-values__green {
-  color: #047857;
+.score-input-group {
+  display: inline-flex;
+  align-items: center;
 }
 
 .score-values__divider {
@@ -155,7 +180,32 @@ h2 {
   font-weight: 700;
 }
 
-.score-values__red {
+.score-input {
+  width: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-align: center;
+  appearance: textfield;
+}
+
+.score-input::-webkit-outer-spin-button,
+.score-input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.score-input:focus {
+  outline: none;
+}
+
+.score-input--green {
+  color: #047857;
+}
+
+.score-input--red {
   color: #b91c1c;
 }
 
@@ -401,6 +451,18 @@ h2 {
   font-size: 0.92rem;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (max-width: 720px) {
   .page-shell {
     padding-top: 138px;
@@ -414,6 +476,10 @@ h2 {
 
   .header-actions {
     justify-content: flex-start;
+  }
+
+  .read-zone-control {
+    justify-items: start;
   }
 
   .floating-score,

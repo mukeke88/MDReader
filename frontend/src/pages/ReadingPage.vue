@@ -1,14 +1,19 @@
 <template>
   <div class="page-shell">
-    <ScoreIndicator :green-score="progress.greenScore" :red-score="progress.redScore" />
+    <ScoreIndicator
+      :green-score="progress.greenScore"
+      :red-score="progress.redScore"
+      @update:greenScore="setGreenScore"
+      @update:redScore="setRedScore"
+    />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
       @update:modelValue="setGlobalExplanationEnabled"
     />
 
     <div class="read-zone-overlay" aria-hidden="true">
-      <div class="read-zone-overlay__active">
-        <span class="read-zone-overlay__label">Read trigger zone</span>
+      <div class="read-zone-overlay__active" :style="readZoneStyle">
+        <span class="read-zone-overlay__label">Read trigger zone: top {{ progress.readTriggerPercent }}%</span>
       </div>
       <div class="read-zone-overlay__inactive"></div>
     </div>
@@ -18,6 +23,17 @@
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
       </div>
       <div class="header-actions">
+        <label class="read-zone-control">
+          <span class="read-zone-control__label">Read trigger zone</span>
+          <select
+            v-model.number="progress.readTriggerPercent"
+            class="read-zone-control__select"
+          >
+            <option v-for="value in triggerZoneOptions" :key="value" :value="value">
+              Top {{ value }}%
+            </option>
+          </select>
+        </label>
         <button class="ghost-button" @click="openImportModal">Paste Markdown</button>
         <button
           v-if="progress.lastSentenceId"
@@ -92,6 +108,7 @@ import SentenceBlock from '../components/SentenceBlock.vue'
 import { fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
 
 const chapterId = 'chapter-1'
+const triggerZoneOptions = [10, 15, 20, 25, 30, 35, 40]
 
 const chapter = reactive({
   chapterId,
@@ -105,6 +122,7 @@ const progress = reactive({
   totalScore: 0,
   greenScore: 0,
   redScore: 0,
+  readTriggerPercent: 10,
   globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
@@ -127,6 +145,10 @@ const readIdSet = computed(() => new Set(progress.readSentenceIds))
 const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
 const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
+const orderedSentenceIds = computed(() => chapter.sentences.map(sentence => sentence.id))
+const readZoneStyle = computed(() => ({
+  height: `${progress.readTriggerPercent}vh`
+}))
 
 const paragraphGroups = computed(() => {
   const groups = new Map()
@@ -167,6 +189,9 @@ function mergeProgressState(savedProgress) {
   progress.redScore = Number.isFinite(savedProgress.redScore)
     ? savedProgress.redScore
     : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
+  progress.readTriggerPercent = triggerZoneOptions.includes(savedProgress.readTriggerPercent)
+    ? savedProgress.readTriggerPercent
+    : 10
   progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
@@ -181,6 +206,7 @@ function createEmptyProgress() {
     totalScore: 0,
     greenScore: 0,
     redScore: 0,
+    readTriggerPercent: 10,
     globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
@@ -222,6 +248,14 @@ function setGlobalExplanationEnabled(enabled) {
   progress.explanationUsedSentenceIds = dedupe(progress.explanationUsedSentenceIds.concat(unscoredIds))
 }
 
+function setGreenScore(value) {
+  progress.greenScore = Math.max(0, Number.parseInt(value, 10) || 0)
+}
+
+function setRedScore(value) {
+  progress.redScore = Math.max(0, Number.parseInt(value, 10) || 0)
+}
+
 function scoreSentence(sentenceId) {
   if (scoredIdSet.value.has(sentenceId)) {
     return
@@ -244,10 +278,13 @@ function handleSentenceRead(sentenceId) {
   scoreSentence(sentenceId)
 }
 
-function markSentenceAndPreviousAsRead(triggerSentenceId) {
-  const previousSentenceId = triggerSentenceId - 1
-  if (previousSentenceId >= 1) {
-    handleSentenceRead(previousSentenceId)
+function markSentencesUpTo(targetSentenceId) {
+  for (const sentenceId of orderedSentenceIds.value) {
+    if (sentenceId > targetSentenceId) {
+      break
+    }
+
+    handleSentenceRead(sentenceId)
   }
 }
 
@@ -290,6 +327,47 @@ function markBottomVisibleSentencesAsRead() {
   })
 }
 
+function refreshObservedSentences() {
+  if (!sentenceObserver.value) {
+    return
+  }
+
+  sentenceObserver.value.disconnect()
+  document.querySelectorAll('[data-sentence-id]').forEach((element) => {
+    sentenceObserver.value.observe(element)
+  })
+}
+
+function findSentenceElementFromSelection() {
+  const selection = window.getSelection()
+  if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+    return null
+  }
+
+  let node = selection.anchorNode
+  if (!node) {
+    return null
+  }
+
+  if (node.nodeType === Node.TEXT_NODE) {
+    node = node.parentElement
+  }
+
+  return node instanceof Element ? node.closest('[data-sentence-id]') : null
+}
+
+function syncReadProgressFromSelection() {
+  const sentenceElement = findSentenceElementFromSelection()
+  if (!sentenceElement) {
+    return
+  }
+
+  const sentenceId = Number(sentenceElement.dataset.sentenceId)
+  if (!Number.isNaN(sentenceId)) {
+    markSentencesUpTo(sentenceId)
+  }
+}
+
 async function hydrateChapterState(chapterResponse, progressResponse) {
   isHydratingProgress.value = true
   chapter.chapterId = chapterResponse.chapterId
@@ -313,6 +391,7 @@ async function loadPage() {
 }
 
 function buildObserver() {
+  const bottomMargin = -(100 - progress.readTriggerPercent)
   sentenceObserver.value = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
@@ -321,13 +400,13 @@ function buildObserver() {
 
       const sentenceId = Number(entry.target.dataset.sentenceId)
       if (!Number.isNaN(sentenceId)) {
-        markSentenceAndPreviousAsRead(sentenceId)
+        markSentencesUpTo(sentenceId)
       }
     })
   }, {
     root: null,
     threshold: 0,
-    rootMargin: '0px 0px -90% 0px'
+    rootMargin: `0px 0px ${bottomMargin}% 0px`
   })
 }
 
@@ -377,10 +456,27 @@ watch(progress, () => {
   schedulePersist()
 }, { deep: true })
 
+watch(() => progress.readTriggerPercent, () => {
+  if (isHydratingProgress.value) {
+    return
+  }
+
+  buildObserver()
+  nextTick(() => {
+    refreshObservedSentences()
+  })
+})
+
+watch(() => [progress.greenScore, progress.redScore], ([greenScore, redScore]) => {
+  progress.totalScore = greenScore + redScore
+}, { immediate: true })
+
 onMounted(async () => {
   buildObserver()
   window.addEventListener('scroll', markBottomVisibleSentencesAsRead, { passive: true })
+  document.addEventListener('selectionchange', syncReadProgressFromSelection)
   await loadPage()
+  refreshObservedSentences()
   markBottomVisibleSentencesAsRead()
 })
 
@@ -389,6 +485,7 @@ onBeforeUnmount(() => {
     sentenceObserver.value.disconnect()
   }
   window.removeEventListener('scroll', markBottomVisibleSentencesAsRead)
+  document.removeEventListener('selectionchange', syncReadProgressFromSelection)
   window.clearTimeout(persistTimer.value)
 })
 </script>

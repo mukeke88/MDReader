@@ -12,8 +12,12 @@
         {{ sentence.explanation }}
       </div>
     </div>
-    <button class="toggle-button sentence-toggle" @click="toggleExplanation">
-      {{ isExplanationOpen ? 'Hide Explanation' : 'Show Explanation' }}
+    <button
+      class="toggle-button sentence-toggle"
+      :aria-label="isExplanationOpen ? 'Hide Explanation' : 'Show Explanation'"
+      @click="toggleExplanation"
+    >
+      S
     </button>
   </article>
 </template>

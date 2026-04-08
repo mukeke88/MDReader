@@ -1,6 +1,5 @@
 <template>
   <div class="floating-score">
-    <span class="score-label">Score</span>
     <div class="score-values">
       <label class="score-input-group">
         <span class="sr-only">Green score</span>
@@ -38,7 +37,6 @@
         />
       </label>
     </div>
-    <p class="score-caption">Green / Red / Phone Red</p>
   </div>
 </template>
 

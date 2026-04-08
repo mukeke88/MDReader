@@ -114,8 +114,7 @@ h2 {
   font-size: 2rem;
 }
 
-.floating-score,
-.floating-toggle {
+.floating-score {
   position: fixed;
   right: 16px;
   z-index: 20;
@@ -224,10 +223,10 @@ h2 {
 }
 
 .floating-toggle {
-  top: 96px;
   display: grid;
   gap: 6px;
   width: 120px;
+  justify-items: end;
 }
 
 .floating-toggle__label {
@@ -490,15 +489,15 @@ h2 {
     justify-content: flex-start;
   }
 
-  .floating-score,
-  .floating-toggle {
+  .floating-score {
     left: 16px;
     right: 16px;
     width: auto;
   }
 
   .floating-toggle {
-    top: 92px;
+    width: 100%;
+    justify-items: start;
   }
 
   .floating-toggle__label {

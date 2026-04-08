@@ -13,12 +13,6 @@
       @update:modelValue="setGlobalExplanationEnabled"
     />
 
-    <div class="read-zone-overlay" aria-hidden="true">
-      <div class="read-zone-overlay__active" :style="readZoneStyle">
-        <span class="read-zone-overlay__label">Read trigger zone: top {{ READ_TRIGGER_PERCENT }}%</span>
-      </div>
-      <div class="read-zone-overlay__inactive"></div>
-    </div>
     <header class="page-header">
       <div>
         <p class="eyebrow">Local MVP</p>
@@ -137,10 +131,6 @@ const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
 const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
 const orderedSentenceIds = computed(() => chapter.sentences.map(sentence => sentence.id))
-const readZoneStyle = computed(() => ({
-  height: `${READ_TRIGGER_PERCENT}vh`
-}))
-
 const paragraphGroups = computed(() => {
   const groups = new Map()
   chapter.sentences.forEach((sentence) => {

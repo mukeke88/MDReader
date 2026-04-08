@@ -216,8 +216,22 @@ function markExplanationUsed(sentenceId) {
   }
 }
 
+function clearExplanationUsed(sentenceId) {
+  if (!explanationUsedIdSet.value.has(sentenceId)) {
+    return
+  }
+
+  progress.explanationUsedSentenceIds = progress.explanationUsedSentenceIds.filter(id => id !== sentenceId)
+
+  if (scoredIdSet.value.has(sentenceId)) {
+    progress.redScore = Math.max(0, progress.redScore - 1)
+    progress.greenScore += 1
+  }
+}
+
 function toggleSentenceExplanation(sentenceId) {
   if (openedIdSet.value.has(sentenceId)) {
+    clearExplanationUsed(sentenceId)
     progress.openedSentenceIds = progress.openedSentenceIds.filter(id => id !== sentenceId)
     return
   }

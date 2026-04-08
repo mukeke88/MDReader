@@ -16,30 +16,29 @@
       <span class="score-values__divider">/</span>
       <label class="score-input-group">
         <span class="sr-only">Red score</span>
-        <span class="score-input-stack">
-          <input
-            class="score-input score-input--red"
-            :value="redScore"
-            type="number"
-            min="0"
-            step="1"
-            @input="updateScore('red', $event)"
-          />
-          <span class="score-manual-badge">
-            <span class="score-manual-badge__prefix">+</span>
-            <input
-              class="score-input score-input--manual-red"
-              :value="manualRedScore"
-              type="number"
-              min="0"
-              step="1"
-              @input="updateScore('manual-red', $event)"
-            />
-          </span>
-        </span>
+        <input
+          class="score-input score-input--red"
+          :value="redScore"
+          type="number"
+          min="0"
+          step="1"
+          @input="updateScore('red', $event)"
+        />
+      </label>
+      <span class="score-values__divider">+</span>
+      <label class="score-input-group">
+        <span class="sr-only">Phone red score</span>
+        <input
+          class="score-input score-input--manual-red"
+          :value="manualRedScore"
+          type="number"
+          min="0"
+          step="1"
+          @input="updateScore('manual-red', $event)"
+        />
       </label>
     </div>
-    <p class="score-caption">Green / Red (+ phone)</p>
+    <p class="score-caption">Green / Red / Phone Red</p>
   </div>
 </template>
 

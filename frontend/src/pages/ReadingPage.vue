@@ -204,10 +204,16 @@ function isExplanationOpen(sentenceId) {
 }
 
 function markExplanationUsed(sentenceId) {
-  if (scoredIdSet.value.has(sentenceId) || explanationUsedIdSet.value.has(sentenceId)) {
+  if (explanationUsedIdSet.value.has(sentenceId)) {
     return
   }
+
   progress.explanationUsedSentenceIds = dedupe(progress.explanationUsedSentenceIds.concat(sentenceId))
+
+  if (scoredIdSet.value.has(sentenceId)) {
+    progress.greenScore = Math.max(0, progress.greenScore - 1)
+    progress.redScore += 1
+  }
 }
 
 function toggleSentenceExplanation(sentenceId) {
@@ -216,8 +222,8 @@ function toggleSentenceExplanation(sentenceId) {
     return
   }
 
-  handleSentenceRead(sentenceId)
   markExplanationUsed(sentenceId)
+  handleSentenceRead(sentenceId)
   progress.openedSentenceIds = dedupe(progress.openedSentenceIds.concat(sentenceId))
 }
 

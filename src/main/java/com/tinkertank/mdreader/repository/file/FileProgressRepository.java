@@ -11,10 +11,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@ConditionalOnProperty(name = "mdreader.progress.storage", havingValue = "file", matchIfMissing = true)
 public class FileProgressRepository implements ProgressRepository {
 
     private final ObjectMapper objectMapper;

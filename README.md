@@ -1,6 +1,6 @@
 # MDReader MVP
 
-Small local-first reading prototype with a Vue 3 frontend, a Spring Boot backend on Java 8, and local JSON file storage.
+Small local-first reading prototype with a Vue 3 frontend, a Spring Boot backend on Java 8, and configurable progress storage.
 
 ## Structure
 
@@ -17,6 +17,7 @@ Small local-first reading prototype with a Vue 3 frontend, a Spring Boot backend
 - Read detection with `IntersectionObserver`
 - One-time scoring per sentence
 - Local file persistence through backend JSON files
+- Optional MySQL persistence for reading progress and score
 - Restore score, explanation state, read state, and last sentence on reload
 
 ## Run locally
@@ -28,6 +29,18 @@ mvn spring-boot:run
 ```
 
 Runs on `http://localhost:8080`.
+
+### Backend with MySQL
+
+1. Create the database once with [`src/main/resources/db/mysql/setup-mysql.sql`](/d:/Code/TinkerTank/MDReader/src/main/resources/db/mysql/setup-mysql.sql).
+2. Edit [`src/main/resources/application-mysql.properties`](/d:/Code/TinkerTank/MDReader/src/main/resources/application-mysql.properties) and set your MySQL username and password.
+3. Start the backend with the MySQL profile:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=mysql
+```
+
+In MySQL mode the app stores progress, including score fields, in the `reading_progress` table and exports that table every day at `17:20` to `D:\Dropbox\SQL` as a timestamped `.sql` file.
 
 ### Frontend
 

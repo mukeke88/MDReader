@@ -152,6 +152,12 @@ h2 {
   align-items: center;
 }
 
+.score-input-stack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
 .score-values__divider {
   color: #9ca3af;
   font-weight: 700;
@@ -184,6 +190,29 @@ h2 {
 
 .score-input--red {
   color: #b91c1c;
+}
+
+.score-manual-badge {
+  position: absolute;
+  right: -18px;
+  top: -10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.score-manual-badge__prefix {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #dc2626;
+}
+
+.score-input--manual-red {
+  width: 22px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #dc2626;
+  text-align: left;
 }
 
 .score-caption {

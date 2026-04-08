@@ -34,7 +34,7 @@ public class ProgressExportService {
     @Scheduled(cron = "${mdreader.export.cron:0 20 17 * * *}", zone = "${mdreader.export.zone-id:Asia/Shanghai}")
     public void exportReadingProgressTable() {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
-                "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, global_expanded, "
+                "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
                         + "opened_sentence_ids, read_sentence_ids, scored_sentence_ids, explanation_used_sentence_ids, "
                         + "created_at, updated_at FROM reading_progress ORDER BY chapter_id");
 
@@ -45,6 +45,7 @@ public class ProgressExportService {
                 .append("    total_score INT NOT NULL DEFAULT 0,\n")
                 .append("    green_score INT NOT NULL DEFAULT 0,\n")
                 .append("    red_score INT NOT NULL DEFAULT 0,\n")
+                .append("    manual_red_score INT NOT NULL DEFAULT 0,\n")
                 .append("    global_expanded BOOLEAN NOT NULL DEFAULT FALSE,\n")
                 .append("    opened_sentence_ids JSON NOT NULL,\n")
                 .append("    read_sentence_ids JSON NOT NULL,\n")
@@ -57,13 +58,14 @@ public class ProgressExportService {
 
         for (Map<String, Object> row : rows) {
             sql.append("INSERT INTO reading_progress (chapter_id, last_sentence_id, total_score, green_score, red_score, ")
-                    .append("global_expanded, opened_sentence_ids, read_sentence_ids, scored_sentence_ids, ")
+                    .append("manual_red_score, global_expanded, opened_sentence_ids, read_sentence_ids, scored_sentence_ids, ")
                     .append("explanation_used_sentence_ids, created_at, updated_at) VALUES (")
                     .append(toSqlString(row.get("chapter_id"))).append(", ")
                     .append(toSqlNumber(row.get("last_sentence_id"))).append(", ")
                     .append(toSqlNumber(row.get("total_score"))).append(", ")
                     .append(toSqlNumber(row.get("green_score"))).append(", ")
                     .append(toSqlNumber(row.get("red_score"))).append(", ")
+                    .append(toSqlNumber(row.get("manual_red_score"))).append(", ")
                     .append(toSqlBoolean(row.get("global_expanded"))).append(", ")
                     .append(toSqlString(row.get("opened_sentence_ids"))).append(", ")
                     .append(toSqlString(row.get("read_sentence_ids"))).append(", ")
@@ -76,6 +78,7 @@ public class ProgressExportService {
                     .append("total_score = VALUES(total_score), ")
                     .append("green_score = VALUES(green_score), ")
                     .append("red_score = VALUES(red_score), ")
+                    .append("manual_red_score = VALUES(manual_red_score), ")
                     .append("global_expanded = VALUES(global_expanded), ")
                     .append("opened_sentence_ids = VALUES(opened_sentence_ids), ")
                     .append("read_sentence_ids = VALUES(read_sentence_ids), ")

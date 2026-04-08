@@ -36,6 +36,7 @@ public class MysqlProgressRepository implements ProgressRepository {
             progress.setTotalScore(rs.getInt("total_score"));
             progress.setGreenScore(rs.getInt("green_score"));
             progress.setRedScore(rs.getInt("red_score"));
+            progress.setManualRedScore(rs.getInt("manual_red_score"));
             progress.setGlobalExpanded(rs.getBoolean("global_expanded"));
             return progress;
         }
@@ -53,7 +54,7 @@ public class MysqlProgressRepository implements ProgressRepository {
     public ReadingProgress findByChapterId(String chapterId) {
         try {
             ReadingProgress progress = jdbcTemplate.queryForObject(
-                    "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, global_expanded, "
+                    "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
                             + "opened_sentence_ids, read_sentence_ids, scored_sentence_ids, explanation_used_sentence_ids "
                             + "FROM reading_progress WHERE chapter_id = ?",
                     new Object[]{chapterId},
@@ -80,10 +81,11 @@ public class MysqlProgressRepository implements ProgressRepository {
     public ReadingProgress save(String chapterId, ReadingProgress progress) {
         progress.setChapterId(chapterId);
         String sql = "INSERT INTO reading_progress (chapter_id, last_sentence_id, total_score, green_score, red_score, "
-                + "global_expanded, opened_sentence_ids, read_sentence_ids, scored_sentence_ids, "
-                + "explanation_used_sentence_ids) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                + "manual_red_score, global_expanded, opened_sentence_ids, read_sentence_ids, scored_sentence_ids, "
+                + "explanation_used_sentence_ids) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
                 + "ON DUPLICATE KEY UPDATE last_sentence_id = VALUES(last_sentence_id), "
                 + "total_score = VALUES(total_score), green_score = VALUES(green_score), red_score = VALUES(red_score), "
+                + "manual_red_score = VALUES(manual_red_score), "
                 + "global_expanded = VALUES(global_expanded), opened_sentence_ids = VALUES(opened_sentence_ids), "
                 + "read_sentence_ids = VALUES(read_sentence_ids), scored_sentence_ids = VALUES(scored_sentence_ids), "
                 + "explanation_used_sentence_ids = VALUES(explanation_used_sentence_ids)";
@@ -99,11 +101,12 @@ public class MysqlProgressRepository implements ProgressRepository {
             statement.setInt(3, progress.getTotalScore());
             statement.setInt(4, progress.getGreenScore());
             statement.setInt(5, progress.getRedScore());
-            statement.setBoolean(6, progress.isGlobalExpanded());
-            statement.setString(7, writeIntList(progress.getOpenedSentenceIds()));
-            statement.setString(8, writeIntList(progress.getReadSentenceIds()));
-            statement.setString(9, writeIntList(progress.getScoredSentenceIds()));
-            statement.setString(10, writeIntList(progress.getExplanationUsedSentenceIds()));
+            statement.setInt(6, progress.getManualRedScore());
+            statement.setBoolean(7, progress.isGlobalExpanded());
+            statement.setString(8, writeIntList(progress.getOpenedSentenceIds()));
+            statement.setString(9, writeIntList(progress.getReadSentenceIds()));
+            statement.setString(10, writeIntList(progress.getScoredSentenceIds()));
+            statement.setString(11, writeIntList(progress.getExplanationUsedSentenceIds()));
             return statement;
         });
         return progress;

@@ -16,17 +16,30 @@
       <span class="score-values__divider">/</span>
       <label class="score-input-group">
         <span class="sr-only">Red score</span>
-        <input
-          class="score-input score-input--red"
-          :value="redScore"
-          type="number"
-          min="0"
-          step="1"
-          @input="updateScore('red', $event)"
-        />
+        <span class="score-input-stack">
+          <input
+            class="score-input score-input--red"
+            :value="redScore"
+            type="number"
+            min="0"
+            step="1"
+            @input="updateScore('red', $event)"
+          />
+          <span class="score-manual-badge">
+            <span class="score-manual-badge__prefix">+</span>
+            <input
+              class="score-input score-input--manual-red"
+              :value="manualRedScore"
+              type="number"
+              min="0"
+              step="1"
+              @input="updateScore('manual-red', $event)"
+            />
+          </span>
+        </span>
       </label>
     </div>
-    <p class="score-caption">Green / Red</p>
+    <p class="score-caption">Green / Red (+ phone)</p>
   </div>
 </template>
 
@@ -39,10 +52,14 @@ const props = defineProps({
   redScore: {
     type: Number,
     required: true
+  },
+  manualRedScore: {
+    type: Number,
+    required: true
   }
 })
 
-const emit = defineEmits(['update:greenScore', 'update:redScore'])
+const emit = defineEmits(['update:greenScore', 'update:redScore', 'update:manualRedScore'])
 
 function normalizeScore(value) {
   const parsed = Number.parseInt(value, 10)
@@ -63,6 +80,10 @@ function updateScore(type, event) {
 
   if (type === 'red' && normalizedValue !== props.redScore) {
     emit('update:redScore', normalizedValue)
+  }
+
+  if (type === 'manual-red' && normalizedValue !== props.manualRedScore) {
+    emit('update:manualRedScore', normalizedValue)
   }
 }
 </script>

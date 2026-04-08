@@ -10,6 +10,7 @@ public class ReadingProgress {
     private int totalScore;
     private int greenScore;
     private int redScore;
+    private int manualRedScore;
     private boolean globalExpanded;
     private List<Integer> openedSentenceIds = new ArrayList<Integer>();
     private List<Integer> readSentenceIds = new ArrayList<Integer>();
@@ -54,6 +55,14 @@ public class ReadingProgress {
 
     public void setRedScore(int redScore) {
         this.redScore = redScore;
+    }
+
+    public int getManualRedScore() {
+        return manualRedScore;
+    }
+
+    public void setManualRedScore(int manualRedScore) {
+        this.manualRedScore = manualRedScore;
     }
 
     public boolean isGlobalExpanded() {

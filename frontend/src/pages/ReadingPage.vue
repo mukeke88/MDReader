@@ -3,8 +3,10 @@
     <ScoreIndicator
       :green-score="progress.greenScore"
       :red-score="progress.redScore"
+      :manual-red-score="progress.manualRedScore"
       @update:greenScore="setGreenScore"
       @update:redScore="setRedScore"
+      @update:manualRedScore="setManualRedScore"
     />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
@@ -111,6 +113,7 @@ const progress = reactive({
   totalScore: 0,
   greenScore: 0,
   redScore: 0,
+  manualRedScore: 0,
   globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
@@ -177,6 +180,9 @@ function mergeProgressState(savedProgress) {
   progress.redScore = Number.isFinite(savedProgress.redScore)
     ? savedProgress.redScore
     : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
+  progress.manualRedScore = Number.isFinite(savedProgress.manualRedScore)
+    ? savedProgress.manualRedScore
+    : 0
   progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
@@ -191,6 +197,7 @@ function createEmptyProgress() {
     totalScore: 0,
     greenScore: 0,
     redScore: 0,
+    manualRedScore: 0,
     globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
@@ -259,6 +266,10 @@ function setGreenScore(value) {
 
 function setRedScore(value) {
   progress.redScore = Math.max(0, Number.parseInt(value, 10) || 0)
+}
+
+function setManualRedScore(value) {
+  progress.manualRedScore = Math.max(0, Number.parseInt(value, 10) || 0)
 }
 
 function scoreSentence(sentenceId) {
@@ -431,8 +442,8 @@ watch(progress, () => {
   schedulePersist()
 }, { deep: true })
 
-watch(() => [progress.greenScore, progress.redScore], ([greenScore, redScore]) => {
-  progress.totalScore = greenScore + redScore
+watch(() => [progress.greenScore, progress.redScore, progress.manualRedScore], ([greenScore, redScore, manualRedScore]) => {
+  progress.totalScore = greenScore + redScore + manualRedScore
 }, { immediate: true })
 
 onMounted(async () => {

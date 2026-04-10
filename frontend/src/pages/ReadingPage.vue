@@ -179,6 +179,11 @@ function getCurrentProgressKey() {
   return buildProgressKey(chapter.title)
 }
 
+function updateDocumentTitle() {
+  const chapterName = normalizeChapterName(chapter.title)
+  document.title = chapterName || 'MDReader'
+}
+
 function deriveGreenScore(scoredIds, explanationUsedIds) {
   return scoredIds.filter(id => !explanationUsedIds.includes(id)).length
 }
@@ -384,6 +389,7 @@ async function hydrateChapterState(chapterResponse, progressResponse) {
   chapter.chapterId = chapterResponse.chapterId
   chapter.title = chapterResponse.title
   chapter.sentences = chapterResponse.sentences
+  updateDocumentTitle()
   mergeProgressState(progressResponse)
   progress.chapterId = getCurrentProgressKey() || chapter.chapterId
   await nextTick()
@@ -502,6 +508,7 @@ watch(() => [progress.greenScore, progress.redScore, progress.manualRedScore], (
 }, { immediate: true })
 
 onMounted(async () => {
+  updateDocumentTitle()
   buildObserver()
   window.addEventListener('scroll', markBottomVisibleSentencesAsRead, { passive: true })
   await loadPage()

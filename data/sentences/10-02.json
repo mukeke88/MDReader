@@ -1,0 +1,616 @@
+[ {
+  "id" : 1,
+  "paragraphId" : 1,
+  "text" : "And so on that cold and wintry November morning, the boy Kolya Krasotkin was sitting at home.",
+  "explanation" : "The passage begins by setting the scene: it is a cold, wintry November morning, and the main character, a boy named Kolya Krasotkin, is at his residence."
+}, {
+  "id" : 2,
+  "paragraphId" : 1,
+  "text" : "It was Sunday, and there was no school.",
+  "explanation" : "The specific day is noted as Sunday, meaning Kolya had the day off from school."
+}, {
+  "id" : 3,
+  "paragraphId" : 1,
+  "text" : "But the clock had just struck eleven and he absolutely had to go out “on very important business,” and yet there he was, left alone in the whole house and decidedly in harge of it, because it so happened that all of its elder inhabitants were away, owing to some urgent and singular circumstance.",
+  "explanation" : "Although it was 11:00 AM and he needed to depart for a crucial, secret engagement, Kolya remained at home because he was the sole person left in charge of the entire house, as the adults had all gone out due to an unexpected and strange situation."
+}, {
+  "id" : 4,
+  "paragraphId" : 2,
+  "text" : "There was only one other apartment in the widow Krasotkin’s house, two little rooms across the hall from the widow’s apartment, which she rented out, and which were occupied by a doctor’s wife with two small children.",
+  "explanation" : "The house, owned by Kolya’s mother, the widow Krasotkin, contained a single rental unit of two small rooms across the hall, which were currently occupied by a doctor's wife and her two young children."
+}, {
+  "id" : 5,
+  "paragraphId" : 2,
+  "text" : "This doctor’s wife was the same age as Anna Fyodorovna, and a great friend of hers, while the doctor himself had gone off somewhere about a year before, first to Orenburg, then to Tashkent, and nothing had been heard of him for the past six months, so that had it not been for the friendship of Mrs. Krasotkin, which somewhat softened the grief of the doctor’s abandoned wife, she would decidedly have drowned herself in the tears of that grief.",
+  "explanation" : "The doctor's wife was a close friend and peer of Mrs. Krasotkin Anna Fyodorovna; her husband had vanished a year ago and been unheard from for six months, meaning that Mrs. Krasotkin's comforting friendship was the only thing preventing the abandoned wife from utter despair."
+}, {
+  "id" : 6,
+  "paragraphId" : 3,
+  "text" : "And now it so happened, as if to crown all the adversities of fate, that Katerina, the doctor’s wife’s only maid, suddenly, and quite unexpectedly for her mistress, announced to her that very night, on Saturday, that she intended to give birth to a baby the next morning.",
+  "explanation" : "Adding to the woman’s misfortunes, her only maid, Katerina, abruptly and without warning informed her on Saturday night that she was going into labor and would give birth the next day."
+}, {
+  "id" : 7,
+  "paragraphId" : 3,
+  "text" : "How it happened that no one had noticed it before struck everyone as almost miraculous.",
+  "explanation" : "The fact that Katerina’s pregnancy had gone completely unnoticed until the last moment seemed almost supernatural to all involved."
+}, {
+  "id" : 8,
+  "paragraphId" : 3,
+  "text" : "The amazed doctor’s wife judged it best, while there was still time, to take Katerina to an establishment kept by a midwife in our town, suitable for such occasions.",
+  "explanation" : "The shocked doctor's wife immediately decided it was wisest to transport Katerina to a local midwife’s birthing establishment while there was still an opportunity."
+}, {
+  "id" : 9,
+  "paragraphId" : 3,
+  "text" : "Since she highly valued her maid, she put her plan into action at once, took her there, and moreover stayed there with her.",
+  "explanation" : "Because she greatly cared for Katerina, the mistress executed the plan immediately, taking the maid and staying by her side."
+}, {
+  "id" : 10,
+  "paragraphId" : 3,
+  "text" : "Later, in the morning, for some reason there was need for all the friendly participation and help of Mrs. Krasotkin herself, who on such an occasion could ask someone for something and wield a certain influence.",
+  "explanation" : "Later that morning, Mrs. Krasotkin’s friendly assistance and influence were required, likely because she was capable of making requests or exerting authority in that type of situation."
+}, {
+  "id" : 11,
+  "paragraphId" : 3,
+  "text" : "Thus both ladies were absent, and as for Mrs. Krasotkin’s own maid, Agafya, she had gone to the market, and thus Kolya found himself for a time the keeper and guardian of the “squirts”—that is, the doctor’s wife’s little boy and girl, who were left all alone.",
+  "explanation" : "As a result of these events, both Mrs. Krasotkin and the doctor's wife were gone, and because Mrs. Krasotkin’s maid, Agafya, was at the market, Kolya was left temporarily in charge of the doctor's wife's children, whom he nicknamed the \"squirts.\""
+}, {
+  "id" : 12,
+  "paragraphId" : 4,
+  "text" : "Kolya was not afraid of guarding the house; besides he had Perezvon, who was ordered to lie down and “stay” under the bench in the front hall, and, precisely for that reason, every time Kolya, who kept pacing the rooms, came out to the hall, he shook his head and gave two firm and ingratiating thumps on the floor with his tail, but, alas, the summoning whistle did not come.",
+  "explanation" : "Kolya felt secure in his role guarding the house, especially since his dog, Perezvon, was on a strict \"stay\" command under the hall bench, and though the dog would shake his head and thump his tail eagerly whenever Kolya passed by while pacing, Kolya refused to give the whistle that would release him."
+}, {
+  "id" : 13,
+  "paragraphId" : 4,
+  "text" : "Kolya would give the miserable dog a severe look, and again the dog would obediently freeze.",
+  "explanation" : "If the dog showed too much enthusiasm, Kolya would give him a stern glance, causing the dog to immediately stop and remain still again."
+}, {
+  "id" : 14,
+  "paragraphId" : 4,
+  "text" : "But if anything troubled Kolya, it was the “squirts.”",
+  "explanation" : "Kolya’s primary source of worry was not the house, but the children he was responsible for."
+}, {
+  "id" : 15,
+  "paragraphId" : 4,
+  "text" : "He naturally looked with the deepest contempt upon the unexpected adventure with Katerina, but the orphaned squirts he loved very much, and he had already brought them some children’s book.",
+  "explanation" : "He completely dismissed the odd circumstances surrounding Katerina’s labor, but he genuinely cared for the children and had already given them a book to keep them occupied."
+}, {
+  "id" : 16,
+  "paragraphId" : 5,
+  "text" : "The older of the two, the girl Nastya, was eight and knew how to read, and the younger squirt, the seven-year-old boy, Kostya, liked it very much when Nastya read to him.",
+  "explanation" : "The eight-year-old girl, Nastya, was the elder child and was able to read, and the seven-year-old boy, Kostya, thoroughly enjoyed listening to his sister read aloud."
+}, {
+  "id" : 17,
+  "paragraphId" : 5,
+  "text" : "Naturally, Krasotkin knew more interesting ways of entertaining them—for instance, by standing them side by side and playing soldiers, or hiding all over the house.",
+  "explanation" : "Kolya usually had more exciting methods of amusement, such as having them play soldiers or hide-and-seek throughout the residence."
+}, {
+  "id" : 18,
+  "paragraphId" : 5,
+  "text" : "He had done it more than once before and did not consider it beneath him, so that the rumor had even spread in his class that Krasotkin played “horses” at home with his little tenants, prancing and tossing his head like an outrunner, but Krasotkin proudly parried the accusation, putting forward the argument that “in our day” it would indeed be disgraceful to play “horses” with one’s peers, with thirteen-year-olds, but that he did so with the “squirts” because he loved them, and no one should dare call him to account for his feelings.",
+  "explanation" : "Kolya had engaged in such games often and was not embarrassed by them; even when rumors reached his classmates that he played \"horses\" with the younger tenants, he countered by proudly asserting that while it would be shameful to play with thirteen-year-old friends, he did it for the younger children out of love, and no one had the right to judge his emotional motives."
+}, {
+  "id" : 19,
+  "paragraphId" : 5,
+  "text" : "And how the two “squirts” adored him!",
+  "explanation" : "The two children clearly reciprocated his affection and idolized him."
+}, {
+  "id" : 20,
+  "paragraphId" : 5,
+  "text" : "But this was no time for games.",
+  "explanation" : "However, at this moment, engaging in games was impossible."
+}, {
+  "id" : 21,
+  "paragraphId" : 5,
+  "text" : "He was faced with some very important business of his own, which somehow even appeared almost mysterious, and meanwhile time was passing, and Agafya, with whom he could have left the children, still refused to come back from the market.",
+  "explanation" : "Kolya had his own urgent and seemingly secret task to attend to, and as time was running out, Agafya, the maid he needed to relieve him, had not yet returned from the market."
+}, {
+  "id" : 22,
+  "paragraphId" : 5,
+  "text" : "He had already gone across the hall several times, opened the door to the other apartment, and looked in anxiously at the “squirts,” who, on his orders, were sitting there with a book, and, each time he opened the door, gave him big, silent smiles, expecting him to come in and do something wonderful and amusing.",
+  "explanation" : "He had repeatedly crossed the hall to check on the children in their apartment, where they were sitting with a book as instructed, and each time they would look up with quiet, wide smiles, hoping he would enter to entertain them."
+}, {
+  "id" : 23,
+  "paragraphId" : 5,
+  "text" : "But Kolya was troubled in his soul and would not go in.",
+  "explanation" : "Kolya was internally distressed by his situation and refrained from entering their room."
+}, {
+  "id" : 24,
+  "paragraphId" : 5,
+  "text" : "Finally it struck eleven and he decided firmly and ultimately that if in ten minutes that “cursed” Agafya had not come back, he would leave without waiting for her, of course making the “squirts” give their word that they would not be scared without him, would not get into mischief, and would not cry from fear.",
+  "explanation" : "Once the clock struck eleven, he made a definitive decision: if the \"cursed\" Agafya was not back in ten minutes, he would depart without her, but first, he would extract a promise from the children not to be afraid, get into trouble, or cry while he was gone."
+}, {
+  "id" : 25,
+  "paragraphId" : 6,
+  "text" : "With that thought in mind, he put on his padded winter coat with some kind of sealskin collar, slung his bag over his shoulder, and, despite his mother’s oft-repeated pleadings that he not go out “in such cold” without his galoshes, merely glanced at them in disdain, passing through the hall, and went out in just his boots.",
+  "explanation" : "Preparing to act on his decision, he donned his warm coat and bag, deliberately ignoring his mother’s frequent warnings about the cold and his need for galoshes, looking at them with contempt as he walked through the hall, wearing only his boots."
+}, {
+  "id" : 26,
+  "paragraphId" : 6,
+  "text" : "Perezvon, as soon as he saw him with his coat on, began thumping the floor still harder with his tail, nervously twitching all over, and even uttered a pitiful howl, but Kolya, seeing such passionate yearning in his dog, decided it was bad discipline, and kept him longer, though just a moment longer, under the bench, and only as he was opening the door to the hall did he suddenly whistle for him.",
+  "explanation" : "Upon seeing Kolya dressed for going out, Perezvon's excitement intensified, causing him to thump his tail harder, twitch nervously, and let out a sad whimper; Kolya viewed this eagerness as poor discipline, kept him under the bench for one last moment, and only released him with a sudden whistle as he opened the door to the hall."
+}, {
+  "id" : 27,
+  "paragraphId" : 6,
+  "text" : "The dog jumped up madly and began leaping ecstatically in front of him.",
+  "explanation" : "The moment he was released, the dog jumped up with wild joy and began jumping excitedly around Kolya."
+}, {
+  "id" : 28,
+  "paragraphId" : 6,
+  "text" : "Kolya crossed the hall and opened the “squirts’ “ door.",
+  "explanation" : "Kolya walked across the hall and opened the door to the children’s apartment."
+}, {
+  "id" : 29,
+  "paragraphId" : 6,
+  "text" : "They were both still sitting at the table, not reading now, but arguing heatedly about something.",
+  "explanation" : "He saw that both children were still seated at the table, but instead of reading, they were engaged in an intense argument."
+}, {
+  "id" : 30,
+  "paragraphId" : 6,
+  "text" : "The children often argued with each other about various provocative matters of life, and Nastya, being older, always had the upper hand; and Kostya, if he did not agree with her, almost always went to appeal to Kolya Krasotkin, and whatever he decided remained the ultimate verdict for all sides.",
+  "explanation" : "The two children frequently debated controversial subjects, with the older Nastya usually dominating the discussion; if Kostya disagreed, he would usually seek Kolya Krasotkin's judgment, which was considered final by everyone."
+}, {
+  "id" : 31,
+  "paragraphId" : 6,
+  "text" : "This time the argument between the “squirts” somewhat interested Krasotkin, and he stopped in the doorway to listen.",
+  "explanation" : "Kolya found the children's current argument intriguing, prompting him to stop in the doorway and eavesdrop."
+}, {
+  "id" : 32,
+  "paragraphId" : 6,
+  "text" : "The children saw he was listening and carried on their dispute with even greater enthusiasm.",
+  "explanation" : "Noticing Kolya's attention, the children became even more eager in their debate."
+}, {
+  "id" : 33,
+  "paragraphId" : 7,
+  "text" : "“I’ll never, ever believe,” Nastya ardently prattled, “that midwives find little babies in the vegetable garden, between the cabbage rows.",
+  "explanation" : "Nastya passionately declared that she could not believe the common story that babies are found by midwives in the vegetable garden, specifically between cabbage rows."
+}, {
+  "id" : 34,
+  "paragraphId" : 7,
+  "text" : "It’s winter now and there aren’t any cabbage rows, and the midwife couldn’t have brought Katerina a baby girl.”",
+  "explanation" : "She logically pointed out that since it was winter and there were no cabbage rows, the midwife could not have used that method to bring Katerina a baby girl."
+}, {
+  "id" : 35,
+  "paragraphId" : 8,
+  "text" : "“Whe-ew!” Kolya whistled to himself.",
+  "explanation" : "Kolya reacted silently with a sound of surprise or disbelief at the topic of their discussion."
+}, {
+  "id" : 36,
+  "paragraphId" : 9,
+  "text" : "“Or maybe it’s like this: they do bring them from somewhere, but only when people get married.”",
+  "explanation" : "Kostya proposed a different idea: that babies are brought from an unknown source, but only in the case of married people."
+}, {
+  "id" : 37,
+  "paragraphId" : 9,
+  "text" : "Kostya stared at Nastya, listened gravely, and pondered.",
+  "explanation" : "He looked seriously at Nastya, absorbed what was said, and contemplated the situation."
+}, {
+  "id" : 38,
+  "paragraphId" : 10,
+  "text" : "“Nastya, what a fool you are,” he said at last, firmly and without excitement.",
+  "explanation" : "Kostya eventually called Nastya a fool, stating it calmly and decisively."
+}, {
+  "id" : 39,
+  "paragraphId" : 10,
+  "text" : "“Where could Katerina get a baby if she’s not married?”",
+  "explanation" : "He rationally challenged her, asking how Katerina, who was unmarried, could possibly obtain a baby."
+}, {
+  "id" : 40,
+  "paragraphId" : 11,
+  "text" : "Nastya grew terribly excited.",
+  "explanation" : "Nastya became extremely agitated by his question."
+}, {
+  "id" : 41,
+  "paragraphId" : 11,
+  "text" : "“You don’t understand anything,” she cut him short irritably.",
+  "explanation" : "She quickly and impatiently interrupted him, saying he lacked understanding."
+}, {
+  "id" : 42,
+  "paragraphId" : 11,
+  "text" : "“Maybe she had a husband, but he’s in prison now, so she went and had a baby.”",
+  "explanation" : "She offered an alternative explanation: Katerina might have a husband who is currently imprisoned, which is why she is having a baby."
+}, {
+  "id" : 43,
+  "paragraphId" : 12,
+  "text" : "“But is her husband in prison?” the staid Kostya inquired gravely.",
+  "explanation" : "The composed Kostya seriously and formally asked for confirmation about the husband’s imprisonment."
+}, {
+  "id" : 44,
+  "paragraphId" : 13,
+  "text" : "“Or else,” Nastya swiftly interrupted, completely abandoning and forgetting her first hypothesis, “she hasn’t got a husband, you’re right about that, but she wants to get married, so she started thinking how to get married, and she kept thinking and thinking, and she thought so much that now she got a baby instead.”",
+  "explanation" : "Nastya quickly introduced a new, completely different theory, agreeing that Katerina had no husband, but suggesting that her intense and continuous thoughts about getting married somehow resulted in her having a baby."
+}, {
+  "id" : 45,
+  "paragraphId" : 14,
+  "text" : "“Well, maybe,” agreed the utterly defeated Kostya, “but you didn’t say that before, so how could I know?”",
+  "explanation" : "Kostya, completely overwhelmed by her argument, conceded the point but defended himself by saying he couldn't have known her new theory since she hadn't mentioned it earlier."
+}, {
+  "id" : 46,
+  "paragraphId" : 15,
+  "text" : "“Well, kids,” said Kolya, taking a step into the room, “you’re dangerous people, I see!”",
+  "explanation" : "Taking a step into the room, Kolya spoke to the children, jokingly calling them \"dangerous people\" due to their bold conversation topic."
+}, {
+  "id" : 47,
+  "paragraphId" : 16,
+  "text" : "“And Perezvon, too?” Kostya grinned, and began snapping his fingers and calling Perezvon.",
+  "explanation" : "Kostya smiled and asked if the dog Perezvon was also dangerous, attempting to summon the dog by snapping his fingers."
+}, {
+  "id" : 48,
+  "paragraphId" : 17,
+  "text" : "“I’m in trouble, squirts,” Krasotkin began importantly, “and you’ve got to help me: of course Agafya must have broken her leg, since she’s not back yet, that’s signed and sealed, but I have to leave.",
+  "explanation" : "Kolya started speaking with a serious tone, informing the children he was in a difficult position and needed their help, declaring that Agafya's lateness definitely meant she had broken her leg, but he still had to depart."
+}, {
+  "id" : 49,
+  "paragraphId" : 17,
+  "text" : "Will you let me go or not?”",
+  "explanation" : "He asked them for their consent to his leaving."
+}, {
+  "id" : 50,
+  "paragraphId" : 18,
+  "text" : "The children worriedly exchanged looks, their grinning faces showed signs of anxiety.",
+  "explanation" : "The children looked at each other with concern, their smiles replaced by signs of worry."
+}, {
+  "id" : 51,
+  "paragraphId" : 18,
+  "text" : "However, they still did not quite understand what was wanted of them.",
+  "explanation" : "Despite their concern, they did not fully grasp the precise nature of the commitment Kolya was requesting."
+}, {
+  "id" : 52,
+  "paragraphId" : 19,
+  "text" : "“You won’t get into mischief while I’m gone?",
+  "explanation" : "Kolya asked them to promise not to misbehave in his absence."
+}, {
+  "id" : 53,
+  "paragraphId" : 19,
+  "text" : "You won’t climb on the cupboard and break your leg?",
+  "explanation" : "He asked them not to endanger themselves by doing things like climbing the furniture."
+}, {
+  "id" : 54,
+  "paragraphId" : 19,
+  "text" : "You won’t cry from fear if you’re left alone?”",
+  "explanation" : "He asked for their assurance that they would not cry out of fear from being left without him."
+}, {
+  "id" : 55,
+  "paragraphId" : 20,
+  "text" : "Terrible grief showed on the children’s faces.",
+  "explanation" : "The possibility of being left alone and making these promises caused the children’s faces to show great sadness."
+}, {
+  "id" : 56,
+  "paragraphId" : 21,
+  "text" : "“And to make up for it I’ll show you a little something—it’s a little brass cannon that shoots with real powder.”",
+  "explanation" : "To console them for his departure, Kolya offered to show them a small brass cannon that actually fires with gunpowder."
+}, {
+  "id" : 57,
+  "paragraphId" : 22,
+  "text" : "The children’s faces brightened at once.",
+  "explanation" : "The mention of the cannon instantly cheered up the children."
+}, {
+  "id" : 58,
+  "paragraphId" : 22,
+  "text" : "“Show us the little cannon,” Kostya said, beaming all over.",
+  "explanation" : "Kostya, now radiant with happiness, eagerly requested to see the small cannon."
+}, {
+  "id" : 59,
+  "paragraphId" : 23,
+  "text" : "Krasotkin thrust his hand into his bag, pulled out a little bronze cannon, and placed it on the table.",
+  "explanation" : "Kolya reached into his bag, produced the small bronze cannon, and set it down on the table."
+}, {
+  "id" : 60,
+  "paragraphId" : 23,
+  "text" : "“‘Show us, show us! ‘ Look, it has little wheels,” he drove the toy along the table, “and it can shoot.",
+  "explanation" : "Mimicking their excitement, he pointed out the small wheels on the cannon, rolled it along the table, and confirmed its firing capability."
+}, {
+  "id" : 61,
+  "paragraphId" : 23,
+  "text" : "Load it with small shot and it shoots.”",
+  "explanation" : "He explained that the cannon would fire when loaded with small metal pellets."
+}, {
+  "id" : 62,
+  "paragraphId" : 24,
+  "text" : "“And can it kill somebody?”",
+  "explanation" : "One of the children inquired if the cannon was powerful enough to kill a person."
+}, {
+  "id" : 63,
+  "paragraphId" : 25,
+  "text" : "“It can kill everybody, you just have to aim it,” and Krasotkin explained how to put in the powder and roll in the shot, showed the little hole for the primer, and explained to them that there was such a thing as recoil.",
+  "explanation" : "Kolya dramatically claimed it could kill anyone if aimed properly, and proceeded to demonstrate how to load the gunpowder and shot, pointed out the hole for the primer, and explained the concept of a backward jolt called recoil."
+}, {
+  "id" : 64,
+  "paragraphId" : 25,
+  "text" : "The children listened with terrible curiosity.",
+  "explanation" : "The children listened to his explanation with intense fascination."
+}, {
+  "id" : 65,
+  "paragraphId" : 25,
+  "text" : "What particularly struck their imagination was that there was such a thing as recoil.",
+  "explanation" : "The idea of the cannon recoiling after a shot was the detail that most impressed the children."
+}, {
+  "id" : 66,
+  "paragraphId" : 26,
+  "text" : "“And have you got some powder?” Nastya inquired.",
+  "explanation" : "Nastya asked if Kolya actually possessed the gunpowder needed for the cannon."
+}, {
+  "id" : 67,
+  "paragraphId" : 27,
+  "text" : "“I have.”",
+  "explanation" : "Kolya confirmed that he had the powder."
+}, {
+  "id" : 68,
+  "paragraphId" : 28,
+  "text" : "“Show us the powder, too,” she whined with an imploring smile.",
+  "explanation" : "Nastya, with a pleading smile, begged him to let them see the gunpowder as well."
+}, {
+  "id" : 69,
+  "paragraphId" : 29,
+  "text" : "Krasotkin again went into his bag, and took out of it a small bottle, which indeed contained some real powder, and a folded paper, which turned out to have a few pellets of shot in it.",
+  "explanation" : "Kolya reached into his bag a second time and pulled out a small bottle containing real powder and a folded piece of paper containing several pellets of shot."
+}, {
+  "id" : 70,
+  "paragraphId" : 29,
+  "text" : "He even opened the bottle and poured a little powder out in his palm.",
+  "explanation" : "He proceeded to open the bottle and pour a small quantity of the powder into his hand."
+}, {
+  "id" : 71,
+  "paragraphId" : 29,
+  "text" : "“So long as there’s no fire around, or it would explode and kill us all,” Krasotkin warned, for the sake of effect.",
+  "explanation" : "For dramatic impact, Kolya issued a caution that the powder could explode and kill everyone if there was any fire nearby."
+}, {
+  "id" : 72,
+  "paragraphId" : 29,
+  "text" : "The children gazed at the powder with an awestruck fear, which only increased their pleasure.",
+  "explanation" : "The children looked at the powder with a mix of reverence and terror, which surprisingly intensified their enjoyment of the moment."
+}, {
+  "id" : 73,
+  "paragraphId" : 29,
+  "text" : "But Kostya liked the shot better.",
+  "explanation" : "Kostya, however, was more drawn to the metal pellets than the powder."
+}, {
+  "id" : 74,
+  "paragraphId" : 30,
+  "text" : "“Does shot burn?” he inquired.",
+  "explanation" : "Kostya asked if the metal shot was flammable."
+}, {
+  "id" : 75,
+  "paragraphId" : 31,
+  "text" : "“Shot does not burn.”",
+  "explanation" : "Kolya replied that the shot would not burn."
+}, {
+  "id" : 76,
+  "paragraphId" : 32,
+  "text" : "“Give me some shot,” he said in a pleading voice.",
+  "explanation" : "Kostya used a begging tone to ask for some of the shot."
+}, {
+  "id" : 77,
+  "paragraphId" : 33,
+  "text" : "“I’ll give you a little, here, take it, only don’t show it to your mother before I come back, or she may think it’s powder, and she’ll die of fear and give you a whipping.”",
+  "explanation" : "Kolya gave him a small amount but warned him to hide it from his mother until Kolya returned, implying she might mistake it for powder, panic, and punish him."
+}, {
+  "id" : 78,
+  "paragraphId" : 33,
+  "text" : "“Mama never beats us,” Nastya observed at once.",
+  "explanation" : "Nastya immediately corrected him by stating that their mother never hit them."
+}, {
+  "id" : 79,
+  "paragraphId" : 33,
+  "text" : "“I know, I just said it for the beauty of the style.”",
+  "explanation" : "Kolya conceded that he knew this, claiming he had said it merely for the rhetorical effect."
+}, {
+  "id" : 80,
+  "paragraphId" : 33,
+  "text" : "“And you should never deceive your mama, except this once—till I come back.”",
+  "explanation" : "He instructed them never to lie to their mother, with the single exception of hiding the shot until he returned."
+}, {
+  "id" : 81,
+  "paragraphId" : 33,
+  "text" : "“Well, squirts, can I go or not?",
+  "explanation" : "He repeated his question, asking for their permission to leave."
+}, {
+  "id" : 82,
+  "paragraphId" : 33,
+  "text" : "Are you going to cry from fear without me?”",
+  "explanation" : "He asked again if they would become frightened and cry if he left."
+}, {
+  "id" : 83,
+  "paragraphId" : 34,
+  "text" : "“We w-will c-cry,” Kostya whined, already preparing to cry.",
+  "explanation" : "Kostya, on the verge of tears, admitted they would cry."
+}, {
+  "id" : 84,
+  "paragraphId" : 34,
+  "text" : "“We will, we really will cry!” Nastya added in a frightened patter.",
+  "explanation" : "Nastya also quickly and anxiously confirmed that they definitely would cry."
+}, {
+  "id" : 85,
+  "paragraphId" : 35,
+  "text" : "“Oh, children, children, how perilous are your years.278",
+  "explanation" : "Kolya sighed, commenting on the dangerous vulnerability of their young age."
+}, {
+  "id" : 86,
+  "paragraphId" : 35,
+  "text" : "So, there’s nothing to be done, chicks, I’ll have to stay with you I don’t know how long.",
+  "explanation" : "He concluded that he was left with no choice but to remain with them for an indeterminate period."
+}, {
+  "id" : 87,
+  "paragraphId" : 35,
+  "text" : "And the time, the time, oof!”",
+  "explanation" : "He expressed his frustration and regret over the valuable time he was losing."
+}, {
+  "id" : 88,
+  "paragraphId" : 36,
+  "text" : "“Tell Perezvon to play dead,” Kostya asked.",
+  "explanation" : "Kostya asked Kolya to command Perezvon to perform his trick of playing dead."
+}, {
+  "id" : 89,
+  "paragraphId" : 37,
+  "text" : "“Well, nothing to be done, I’ll have to resort to Perezvon.",
+  "explanation" : "Kolya reluctantly agreed that using the dog's tricks was his only recourse."
+}, {
+  "id" : 90,
+  "paragraphId" : 37,
+  "text" : "Ici, Perezvon!”",
+  "explanation" : "He called the dog using the French command, \"Here, Perezvon!\""
+}, {
+  "id" : 91,
+  "paragraphId" : 37,
+  "text" : "And Kolya began giving orders to the dog, and he began doing all his tricks.",
+  "explanation" : "Kolya started issuing commands, and the dog began performing its various tricks."
+}, {
+  "id" : 92,
+  "paragraphId" : 37,
+  "text" : "He was a shaggy dog, the size of any ordinary mongrel, with a sort of blue gray coat.",
+  "explanation" : "The dog is described as a shaggy, medium-sized mixed-breed with a blue-gray coat."
+}, {
+  "id" : 93,
+  "paragraphId" : 37,
+  "text" : "He was blind in his right eye, and his left ear for some reason had a nick in it.",
+  "explanation" : "Further details are given: he was blind in his right eye and had a notch in his left ear."
+}, {
+  "id" : 94,
+  "paragraphId" : 37,
+  "text" : "He squealed and jumped, stood and walked on his hind legs, threw himself on his back with all four legs in the air and lay motionless as if dead.",
+  "explanation" : "The dog performed its repertoire, which included whimpering, leaping, walking bipedally, and finally lying perfectly still on his back with all four legs raised, pretending to be deceased."
+}, {
+  "id" : 95,
+  "paragraphId" : 37,
+  "text" : "During this last trick the door opened and Agafya, Mrs. Krasotkin’s fat maid, a pockmarked woman of about forty, appeared on the threshold, returning from the market with a paper bag full of groceries in her hand.",
+  "explanation" : "While the dog was playing dead, Mrs. Krasotkin’s maid, Agafya, a plump, pockmarked woman of about forty, appeared in the doorway, having returned from the market with a bag of groceries."
+}, {
+  "id" : 96,
+  "paragraphId" : 37,
+  "text" : "She stood with the bag perched on her left hand and began watching the dog.",
+  "explanation" : "Agafya paused in the doorway, balancing the grocery bag on her hand, and watched the dog perform."
+}, {
+  "id" : 97,
+  "paragraphId" : 37,
+  "text" : "Kolya, however eagerly he had been waiting for Agafya, did not interrupt the performance, and having kept Perezvon dead for a certain length of time, finally whistled: the dog jumped up and began leaping for joy at having fulfilled his duty.",
+  "explanation" : "Despite how desperately Kolya had been waiting for her, he let the dog finish the \"dead\" trick for the required time before whistling, whereupon Perezvon immediately jumped up and bounded happily, having completed his command."
+}, {
+  "id" : 98,
+  "paragraphId" : 38,
+  "text" : "“Some dog that is!” Agafya said didactically.",
+  "explanation" : "Agafya commented on the dog’s skill with a tone of instruction or judgment."
+}, {
+  "id" : 99,
+  "paragraphId" : 39,
+  "text" : "“Why are you late, female sex?” Krasotkin asked sternly.",
+  "explanation" : "Kolya sternly asked the maid why she, whom he referred to as \"female sex,\" was late."
+}, {
+  "id" : 100,
+  "paragraphId" : 39,
+  "text" : "“Female sex yourself, pipsqueak.”",
+  "explanation" : "Agafya responded by using Kolya’s term against him and insulting him by calling him a \"pipsqueak.\""
+}, {
+  "id" : 101,
+  "paragraphId" : 40,
+  "text" : "“Pipsqueak?”",
+  "explanation" : "Kolya questioned her use of the word \"pipsqueak.\""
+}, {
+  "id" : 102,
+  "paragraphId" : 41,
+  "text" : "“Yes, pipsqueak.",
+  "explanation" : "Agafya affirmed that she had called him a pipsqueak."
+}, {
+  "id" : 103,
+  "paragraphId" : 41,
+  "text" : "What’s it to you if I’m late?",
+  "explanation" : "She defensively asked why his business was affected by her tardiness."
+}, {
+  "id" : 104,
+  "paragraphId" : 41,
+  "text" : "If I’m late I must have had good reason,” Agafya muttered, as she started bustling about the stove, not at all in a displeased or angry voice, but, on the contrary, sounding very pleased, as if she were glad of the chance to exchange quips with her cheerful young master.",
+  "explanation" : "Agafya muttered that her lateness was surely justified as she began moving around the stove, speaking not with irritation but with apparent enjoyment, suggesting she welcomed the opportunity for a playful exchange with the young master."
+}, {
+  "id" : 105,
+  "paragraphId" : 42,
+  "text" : "“Listen, you frivolous old woman,” Krasotkin began, rising from the sofa, “will you swear to me by all that’s holy in this world, and something else besides, that you will keep a constant eye on the squirts in my absence?",
+  "explanation" : "Kolya stood up and addressed her with an air of authority, demanding that the \"frivolous old woman\" swear by everything sacred, and more, that she would continuously supervise the children while he was away."
+}, {
+  "id" : 106,
+  "paragraphId" : 42,
+  "text" : "I’m going out.”",
+  "explanation" : "He confirmed his intention to leave the house."
+}, {
+  "id" : 107,
+  "paragraphId" : 43,
+  "text" : "“Why should I go swearing to you?” Agafya laughed.",
+  "explanation" : "Agafya laughed at his demand, questioning why she needed to take an oath for him."
+}, {
+  "id" : 108,
+  "paragraphId" : 43,
+  "text" : "“I’ll look after them anyway.”",
+  "explanation" : "She reassured him that she would take care of the children regardless of an oath."
+}, {
+  "id" : 109,
+  "paragraphId" : 44,
+  "text" : "“No, not unless you swear by the eternal salvation of your soul.",
+  "explanation" : "Kolya insisted on a specific, serious oath: one concerning the eternal salvation of her soul."
+}, {
+  "id" : 110,
+  "paragraphId" : 44,
+  "text" : "Otherwise I won’t go.”",
+  "explanation" : "He stated that he would not leave unless she made that sworn promise."
+}, {
+  "id" : 111,
+  "paragraphId" : 45,
+  "text" : "“Don’t go, then.",
+  "explanation" : "Agafya responded with a simple dismissal, telling him to stay home."
+}, {
+  "id" : 112,
+  "paragraphId" : 45,
+  "text" : "I don’t care.",
+  "explanation" : "She indicated that his decision was indifferent to her."
+}, {
+  "id" : 113,
+  "paragraphId" : 45,
+  "text" : "It’s freezing out; stay home.”",
+  "explanation" : "She advised him to remain in the house because of the cold weather."
+}, {
+  "id" : 114,
+  "paragraphId" : 46,
+  "text" : "“Squirts,” Kolya turned to the children, “this woman will stay with you till I come back, or till your mama comes, because she, too, should have been back long ago.",
+  "explanation" : "Kolya turned to the children and informed them that Agafya would look after them until either he or their mother returned, noting that their mother was already overdue."
+}, {
+  "id" : 115,
+  "paragraphId" : 46,
+  "text" : "And furthermore she will give you lunch.",
+  "explanation" : "He also told them that Agafya would be responsible for providing them with lunch."
+}, {
+  "id" : 116,
+  "paragraphId" : 46,
+  "text" : "Will you fix them something, Agafya?”",
+  "explanation" : "He directly asked Agafya if she would prepare their meal."
+}, {
+  "id" : 117,
+  "paragraphId" : 47,
+  "text" : "“Could be.”",
+  "explanation" : "Agafya gave a brief, lukewarm confirmation that she might do so."
+}, {
+  "id" : 118,
+  "paragraphId" : 48,
+  "text" : "“Good-bye, chicks, I’m going with an easy heart.",
+  "explanation" : "Kolya said farewell to the children, expressing that he was now leaving without worry."
+}, {
+  "id" : 119,
+  "paragraphId" : 48,
+  "text" : "And you, granny,” he said, imposingly and in a low voice, as he passed by Agafya, “spare their young years, don’t go telling them all your old wives’ nonsense about Katerina.",
+  "explanation" : "As he walked past Agafya, he spoke quietly but with authority, commanding her to protect the children's innocence by not sharing her foolish, fictional stories about Katerina's pregnancy."
+}, {
+  "id" : 120,
+  "paragraphId" : 48,
+  "text" : "Ici, Perezvon!”",
+  "explanation" : "He called the dog to follow him using the French command."
+}, {
+  "id" : 121,
+  "paragraphId" : 49,
+  "text" : "“And you know where you can go!” Agafya snarled, this time in earnest.",
+  "explanation" : "Agafya responded with genuine anger, telling Kolya to leave abruptly."
+}, {
+  "id" : 122,
+  "paragraphId" : 49,
+  "text" : "“Funny boy!",
+  "explanation" : "She called him a \"funny boy.\""
+}, {
+  "id" : 123,
+  "paragraphId" : 49,
+  "text" : "Ought to be whipped yourself for such talk, that’s what.”",
+  "explanation" : "She concluded that he was the one who deserved a whipping for the way he had spoken to her."
+} ]

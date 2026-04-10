@@ -1,6 +1,16 @@
 [ {
   "id" : "chapter-1",
   "bookId" : "book-1",
-  "title" : "9.7",
+  "title" : "temp",
   "sourceFile" : "chapter-1.json"
+}, {
+  "id" : "10-03",
+  "bookId" : "book-1",
+  "title" : "10.03",
+  "sourceFile" : "10-03.json"
+}, {
+  "id" : "10-02",
+  "bookId" : "book-1",
+  "title" : "10.02",
+  "sourceFile" : "10-02.json"
 } ]

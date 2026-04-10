@@ -27,6 +27,11 @@ public class FileChapterRepository implements ChapterRepository {
     }
 
     @Override
+    public List<ChapterMeta> findAllChapters() {
+        return readAllChapters();
+    }
+
+    @Override
     public Optional<ChapterMeta> findChapter(String chapterId) {
         return readAllChapters().stream()
                 .filter(chapter -> chapterId.equals(chapter.getId()))
@@ -47,6 +52,23 @@ public class FileChapterRepository implements ChapterRepository {
         } catch (IOException e) {
             throw new IllegalStateException("Unable to read sentence data", e);
         }
+    }
+
+    @Override
+    public void saveChapter(ChapterMeta chapter) {
+        List<ChapterMeta> chapters = readAllChapters();
+        boolean updated = false;
+        for (int i = 0; i < chapters.size(); i++) {
+            if (chapter.getId().equals(chapters.get(i).getId())) {
+                chapters.set(i, chapter);
+                updated = true;
+                break;
+            }
+        }
+        if (!updated) {
+            chapters.add(chapter);
+        }
+        writeAllChapters(chapters);
     }
 
     @Override

@@ -1,0 +1,1411 @@
+[ {
+  "id" : 1,
+  "paragraphId" : 1,
+  "text" : "But Kolya was no longer listening.",
+  "explanation" : "Kolya had stopped paying attention to whatever was being said."
+}, {
+  "id" : 2,
+  "paragraphId" : 1,
+  "text" : "At last he was able to leave.",
+  "explanation" : "He was finally in a position to depart from the place he was in."
+}, {
+  "id" : 3,
+  "paragraphId" : 1,
+  "text" : "He walked out the gate, looked around, hunched his shoulders, and having said “Freezing!” set off straight down the street and then turned right down a lane to the mar- , ket square.",
+  "explanation" : "He exited the yard, observed his surroundings, reacted to the cold weather by saying \"Freezing!\", and began walking directly down the street before turning into a lane leading toward the market square."
+}, {
+  "id" : 4,
+  "paragraphId" : 1,
+  "text" : "When he reached the next to the last house before the square, he stopped at the gate, pulled a whistle out of his pocket, and whistled with all his might, as if giving a prearranged signal.",
+  "explanation" : "Near the market square, he paused at a specific gate, retrieved a whistle, and blew it very loudly, suggesting he was communicating a signal."
+}, {
+  "id" : 5,
+  "paragraphId" : 1,
+  "text" : "He did not have to wait more than a minute—a ruddy-cheeked boy of about eleven years old suddenly ran out to him through the gate, also wearing a warm, clean, and even stylish coat.",
+  "explanation" : "He waited only briefly before an eleven-year-old boy with a healthy, flushed face, wearing nice clothes, quickly emerged from the gate to meet him."
+}, {
+  "id" : 6,
+  "paragraphId" : 1,
+  "text" : "This was the Smurov boy, who was in the preparatory class whereas Kolya Krasotkin was two years ahead, the son of a well-to-do official, whose parents evidently would not allow him to go around with Krasotkin, a notoriously desperate prankster, so that this time Smurov obviously had escaped on the sly.",
+  "explanation" : "The boy was identified as Smurov, who was in a lower school grade than Kolya, and was the son of a wealthy official; Smurov's parents, disliking Kolya's mischievous reputation, must have forbidden their son from seeing him, which means Smurov had sneaked out."
+}, {
+  "id" : 7,
+  "paragraphId" : 1,
+  "text" : "This Smurov, if the reader has not forgotten, was one of the group of boys who were throwing stones at Ilyusha across the ditch two months before, and had told Alyosha Karamazov then about Ilyusha.",
+  "explanation" : "The text reminds the reader that Smurov was one of the children involved in the previous incident of pelting Ilyusha with stones and was the one who later informed Alyosha Karamazov about Ilyusha."
+}, {
+  "id" : 8,
+  "paragraphId" : 2,
+  "text" : "“I’ve been waiting a whole hour for you, Krasotkin,” Smurov said with a determined look, and the boys strode off towards the square.",
+  "explanation" : "Smurov stated seriously that he had been waiting a long time for Kolya, and they immediately began walking purposefully toward the market square."
+}, {
+  "id" : 9,
+  "paragraphId" : 3,
+  "text" : "“I’m late,” Krasotkin replied.",
+  "explanation" : "Krasotkin acknowledged that he was behind schedule."
+}, {
+  "id" : 10,
+  "paragraphId" : 3,
+  "text" : "“Circumstances arose.”",
+  "explanation" : "He gave a vague explanation that unforeseen events had caused his delay."
+}, {
+  "id" : 11,
+  "paragraphId" : 3,
+  "text" : "“They won’t whip you for being with me?”",
+  "explanation" : "Krasotkin asked if Smurov would be punished physically for associating with him."
+}, {
+  "id" : 12,
+  "paragraphId" : 4,
+  "text" : "“Lord, no, they never whip me!",
+  "explanation" : "Smurov strongly denied that his parents ever use physical punishment on him."
+}, {
+  "id" : 13,
+  "paragraphId" : 4,
+  "text" : "So you’ve brought Perezvon?”",
+  "explanation" : "Smurov then changed the topic to ask if Kolya had brought the dog, Perezvon."
+}, {
+  "id" : 14,
+  "paragraphId" : 5,
+  "text" : "“Perezvon, too!”",
+  "explanation" : "Kolya confirmed that the dog Perezvon was also accompanying them."
+}, {
+  "id" : 15,
+  "paragraphId" : 6,
+  "text" : "“He’s going there, too?”",
+  "explanation" : "Smurov inquired whether the dog was also intended to go to their destination."
+}, {
+  "id" : 16,
+  "paragraphId" : 7,
+  "text" : "“He’s going, too.”",
+  "explanation" : "Kolya confirmed that Perezvon was going along with them."
+}, {
+  "id" : 17,
+  "paragraphId" : 8,
+  "text" : "“Ah, if only it was Zhuchka!”",
+  "explanation" : "Smurov expressed a longing or wish that the dog they had was Zhuchka."
+}, {
+  "id" : 18,
+  "paragraphId" : 9,
+  "text" : "“Impossible.",
+  "explanation" : "Kolya stated that the idea was not feasible."
+}, {
+  "id" : 19,
+  "paragraphId" : 9,
+  "text" : "Zhuchka does not exist.",
+  "explanation" : "Kolya declared that the dog Zhuchka no longer exists."
+}, {
+  "id" : 20,
+  "paragraphId" : 9,
+  "text" : "Zhuchka has vanished in the darkness of the unknown.”",
+  "explanation" : "He dramatically claimed that Zhuchka has completely disappeared or ceased to be."
+}, {
+  "id" : 21,
+  "paragraphId" : 10,
+  "text" : "“Ah, couldn’t we do it?”",
+  "explanation" : "Smurov, suddenly stopping, proposed an alternative action."
+}, {
+  "id" : 22,
+  "paragraphId" : 10,
+  "text" : "Smurov suddenly stopped for a moment.",
+  "explanation" : "Smurov halted their progress momentarily."
+}, {
+  "id" : 23,
+  "paragraphId" : 10,
+  "text" : "“Ilyusha did say that Zhuchka was shaggy, and gray and smoky, just like Perezvon— couldn’t we tell him it’s really Zhuchka?",
+  "explanation" : "He reasoned that since Ilyusha had described Zhuchka as shaggy, gray, and smoky—a description similar to Perezvon—they could try to convince Ilyusha that Perezvon is actually Zhuchka."
+}, {
+  "id" : 24,
+  "paragraphId" : 10,
+  "text" : "Maybe he’ll even believe it?”",
+  "explanation" : "He wondered if Ilyusha might accept the deception."
+}, {
+  "id" : 25,
+  "paragraphId" : 11,
+  "text" : "“Schoolboy, do not stoop to lying, first; and second, not even for a good cause.",
+  "explanation" : "Kolya lectured Smurov, telling him he should never lie, even if the intention is good."
+}, {
+  "id" : 26,
+  "paragraphId" : 11,
+  "text" : "And above all, I hope you didn’t tell them anything about my coming.”",
+  "explanation" : "Kolya emphasized that he hoped Smurov had not disclosed his plan to visit."
+}, {
+  "id" : 27,
+  "paragraphId" : 12,
+  "text" : "“God forbid, I know what I’m doing.",
+  "explanation" : "Smurov strongly assured Kolya that he knew better and had kept Kolya's visit a secret."
+}, {
+  "id" : 28,
+  "paragraphId" : 12,
+  "text" : "But you won’t comfort him with Perezvon,” sighed Smurov.",
+  "explanation" : "Smurov expressed his doubt that Perezvon would successfully cheer up Ilyusha."
+}, {
+  "id" : 29,
+  "paragraphId" : 12,
+  "text" : "“You know, his father, the captain, I mean, the whiskbroom, told us he was going to bring him a puppy today, a real mastiff, with a black nose; he thinks he can comfort Ilyusha with it, only it’s not likely.”",
+  "explanation" : "Smurov shared that Ilyusha's father whom he mockingly calls \"the whiskbroom\" planned to bring Ilyusha a new, specific puppy, believing it would help, but Smurov doubted its effectiveness."
+}, {
+  "id" : 30,
+  "paragraphId" : 13,
+  "text" : "“And Ilyusha himself—how is he?”",
+  "explanation" : "Kolya shifted the topic to ask about Ilyusha's current health condition."
+}, {
+  "id" : 31,
+  "paragraphId" : 14,
+  "text" : "“Ah, he’s bad, bad!",
+  "explanation" : "Smurov replied with strong confirmation that Ilyusha is in very poor health."
+}, {
+  "id" : 32,
+  "paragraphId" : 14,
+  "text" : "I think he has consumption.",
+  "explanation" : "Smurov stated his belief that Ilyusha is suffering from tuberculosis."
+}, {
+  "id" : 33,
+  "paragraphId" : 14,
+  "text" : "He’s quite conscious, only he keeps breathing, breathing, it’s not healthy the way he breathes.",
+  "explanation" : "He noted that Ilyusha is mentally aware but his persistent, unhealthy breathing indicates illness."
+}, {
+  "id" : 34,
+  "paragraphId" : 14,
+  "text" : "The other day he asked to be walked around the room, they put his boots on, he tried to walk but kept falling down.",
+  "explanation" : "He recalled a recent incident where Ilyusha requested a walk, but was too weak to stand and kept falling when attempting to walk."
+}, {
+  "id" : 35,
+  "paragraphId" : 14,
+  "text" : "Ah,’ he said, ‘I told you my old boots were no good, papa, even before I had trouble walking in them.’",
+  "explanation" : "Ilyusha had blamed his difficulty walking on his old boots, reminding his father that he had complained about them previously."
+}, {
+  "id" : 36,
+  "paragraphId" : 14,
+  "text" : "He thought he was stumbling because of his boots, but it was simply weakness.",
+  "explanation" : "Smurov clarifies that Ilyusha misinterpreted his stumbling, attributing it to his footwear when it was actually due to physical weakness."
+}, {
+  "id" : 37,
+  "paragraphId" : 14,
+  "text" : "He won’t live another week.",
+  "explanation" : "Smurov gave a grim prognosis, predicting Ilyusha would die within a week."
+}, {
+  "id" : 38,
+  "paragraphId" : 14,
+  "text" : "Herzenstube keeps coming.",
+  "explanation" : "He mentioned that the doctor, Herzenstube, continues to visit Ilyusha."
+}, {
+  "id" : 39,
+  "paragraphId" : 14,
+  "text" : "They’re rich again now, they’ve got a lot of money.”",
+  "explanation" : "Smurov added that Ilyusha's family is currently financially well-off."
+}, {
+  "id" : 40,
+  "paragraphId" : 15,
+  "text" : "“Swindlers.”",
+  "explanation" : "Kolya's one-word reply to the mention of Herzenstube and wealth was an accusation of deceit."
+}, {
+  "id" : 41,
+  "paragraphId" : 16,
+  "text" : "“Who are swindlers?”",
+  "explanation" : "Smurov asked for clarification on whom Kolya was referring to as swindlers."
+}, {
+  "id" : 42,
+  "paragraphId" : 17,
+  "text" : "“Doctors, and all medical scum, generally speaking, and, naturally, in particular as well.",
+  "explanation" : "Kolya identified doctors and all medical professionals as swindlers, both as a group and individually."
+}, {
+  "id" : 43,
+  "paragraphId" : 17,
+  "text" : "I reject medicine.",
+  "explanation" : "He stated his outright dismissal of the value of medical science."
+}, {
+  "id" : 44,
+  "paragraphId" : 17,
+  "text" : "A useless institution.",
+  "explanation" : "He declared medicine to be an ineffective system."
+}, {
+  "id" : 45,
+  "paragraphId" : 17,
+  "text" : "But I’m still looking into all that.",
+  "explanation" : "He added that despite his rejection, he is still investigating these matters."
+}, {
+  "id" : 46,
+  "paragraphId" : 17,
+  "text" : "Anyway, what are these sentimentalities you’ve got going?",
+  "explanation" : "He abruptly changed the subject to question Smurov's apparent sentimentality."
+}, {
+  "id" : 47,
+  "paragraphId" : 17,
+  "text" : "Seems like your whole class is sitting there.”",
+  "explanation" : "He then observed that it seems Smurov's entire class is spending time at Ilyusha's house."
+}, {
+  "id" : 48,
+  "paragraphId" : 18,
+  "text" : "“Not the whole class, but about ten of us always go there, every day.",
+  "explanation" : "Smurov corrected Kolya, stating that only about ten boys, not the entire class, visit daily."
+}, {
+  "id" : 49,
+  "paragraphId" : 18,
+  "text" : "It’s all right.”",
+  "explanation" : "He casually dismissed Kolya's judgment, implying the visits are fine."
+}, {
+  "id" : 50,
+  "paragraphId" : 19,
+  "text" : "“What surprises me in all this is the role of Alexei Karamazov: his brother is going on trial tomorrow or the day after for such a crime, and he still finds so much time for sentimentalizing with boys!”",
+  "explanation" : "Kolya expressed surprise that Alexei Karamazov is spending so much time being sentimental with boys, especially since his brother is about to be tried for a major crime."
+}, {
+  "id" : 51,
+  "paragraphId" : 20,
+  "text" : "“There isn’t any sentimentalizing in it.",
+  "explanation" : "Smurov denied that the activity involves any sentimentality."
+}, {
+  "id" : 52,
+  "paragraphId" : 20,
+  "text" : "You yourself are going now to make peace with Ilyusha.”",
+  "explanation" : "He pointed out Kolya's hypocrisy, stating that Kolya himself is on his way to reconcile with Ilyusha."
+}, {
+  "id" : 53,
+  "paragraphId" : 21,
+  "text" : "“To make peace?",
+  "explanation" : "Kolya questioned Smurov's choice of words with surprise."
+}, {
+  "id" : 54,
+  "paragraphId" : 21,
+  "text" : "A funny expression.",
+  "explanation" : "He called the phrase \"to make peace\" ridiculous."
+}, {
+  "id" : 55,
+  "paragraphId" : 21,
+  "text" : "Incidentally, I allow no one to analyze my actions.”",
+  "explanation" : "He firmly stated that he does not permit anyone to interpret or judge his motives."
+}, {
+  "id" : 56,
+  "paragraphId" : 22,
+  "text" : "“And Ilyusha will be so glad to see you!",
+  "explanation" : "Smurov expressed his belief that Ilyusha will be extremely happy about Kolya's arrival."
+}, {
+  "id" : 57,
+  "paragraphId" : 22,
+  "text" : "He doesn’t even dream that you’re coming.",
+  "explanation" : "He added that Ilyusha has no expectation of Kolya visiting."
+}, {
+  "id" : 58,
+  "paragraphId" : 22,
+  "text" : "Why, why wouldn’t you come for such a long time?”",
+  "explanation" : "Smurov then eagerly asked Kolya why he had delayed his visit for so long."
+}, {
+  "id" : 59,
+  "paragraphId" : 22,
+  "text" : "Smurov exclaimed with sudden ardor.",
+  "explanation" : "Smurov's question was delivered with a burst of passion."
+}, {
+  "id" : 60,
+  "paragraphId" : 23,
+  "text" : "“That’s my business, my dear boy, not yours.",
+  "explanation" : "Kolya put Smurov in his place, saying his reasons for the delay were private."
+}, {
+  "id" : 61,
+  "paragraphId" : 23,
+  "text" : "I am going on my own, because such is my will, while you were all dragged there by Alexei Karamazov, so there’s a difference.",
+  "explanation" : "He distinguished his own visit as a voluntary act of will, contrasting it with Smurov's group, whom he claimed were merely led there by Alexei Karamazov, thus highlighting a difference between their motives."
+}, {
+  "id" : 62,
+  "paragraphId" : 23,
+  "text" : "And how do you know, maybe I’m not going to make peace at all?",
+  "explanation" : "He challenged Smurov's assumption about his purpose, suggesting his visit might not be for reconciliation."
+}, {
+  "id" : 63,
+  "paragraphId" : 23,
+  "text" : "Silly expression!”",
+  "explanation" : "He reiterated his disdain for the phrase \"make peace.\""
+}, {
+  "id" : 64,
+  "paragraphId" : 24,
+  "text" : "“It wasn’t Karamazov at all, not him at all.",
+  "explanation" : "Smurov emphatically denied that Alexei Karamazov was the main reason for their visits."
+}, {
+  "id" : 65,
+  "paragraphId" : 24,
+  "text" : "Some of us just started going there by ourselves, of course with Karamazov at first.",
+  "explanation" : "He clarified that while Karamazov had initiated the visits, the boys were now continuing to go on their own."
+}, {
+  "id" : 66,
+  "paragraphId" : 24,
+  "text" : "And there was never anything like that, nothing silly.",
+  "explanation" : "Smurov defended their visits, stating they were not sentimental or foolish."
+}, {
+  "id" : 67,
+  "paragraphId" : 24,
+  "text" : "First one of us went, then another.",
+  "explanation" : "He described the visits as a gradual process where the boys started coming one by one."
+}, {
+  "id" : 68,
+  "paragraphId" : 24,
+  "text" : "His father was terribly glad to see us.",
+  "explanation" : "He noted that Ilyusha's father was extremely pleased to see the boys."
+}, {
+  "id" : 69,
+  "paragraphId" : 24,
+  "text" : "You know, he’ll just go out of his mind if Ilyusha dies.",
+  "explanation" : "Smurov expressed concern that Ilyusha's father would lose his sanity if his son passed away."
+}, {
+  "id" : 70,
+  "paragraphId" : 24,
+  "text" : "He can see Ilyusha’s going to die.",
+  "explanation" : "He mentioned that the father realizes Ilyusha's death is imminent."
+}, {
+  "id" : 71,
+  "paragraphId" : 24,
+  "text" : "But he’s so glad about us, that we made peace with Ilyusha.",
+  "explanation" : "The father's gladness stems from the reconciliation between the boys and Ilyusha."
+}, {
+  "id" : 72,
+  "paragraphId" : 24,
+  "text" : "Ilyusha asked about you, but he didn’t add anything more.",
+  "explanation" : "Smurov revealed that Ilyusha had inquired about Kolya, but said nothing further."
+}, {
+  "id" : 73,
+  "paragraphId" : 24,
+  "text" : "He just asks, and that’s all.",
+  "explanation" : "He emphasized that Ilyusha merely asked the question without elaborating."
+}, {
+  "id" : 74,
+  "paragraphId" : 24,
+  "text" : "His father will go out of his mind, or hang himself.",
+  "explanation" : "Smurov repeated his fear that Ilyusha's father would either go insane or commit suicide."
+}, {
+  "id" : 75,
+  "paragraphId" : 24,
+  "text" : "He’s acted crazy before.",
+  "explanation" : "He stated that the father has exhibited erratic behavior previously."
+}, {
+  "id" : 76,
+  "paragraphId" : 24,
+  "text" : "You know, he’s a noble man, and that was all a mistake.",
+  "explanation" : "Smurov defended Ilyusha's father, calling him honorable and suggesting the past incidents were misunderstandings."
+}, {
+  "id" : 77,
+  "paragraphId" : 24,
+  "text" : "It was the fault of that murderer, the one who gave him the beating.”",
+  "explanation" : "He attributed the past troubles to the individual who assaulted the father, calling the assailant a murderer."
+}, {
+  "id" : 78,
+  "paragraphId" : 25,
+  "text" : "“Still, Karamazov is a riddle to me.",
+  "explanation" : "Kolya admitted that Alexei Karamazov's character remains a mystery to him."
+}, {
+  "id" : 79,
+  "paragraphId" : 25,
+  "text" : "I could have made his acquaintance long ago, but I like to be proud in certain cases.",
+  "explanation" : "He explained that he deliberately avoided meeting Karamazov out of a desire to maintain his pride in some situations."
+}, {
+  "id" : 80,
+  "paragraphId" : 25,
+  "text" : "Besides, I’ve formed an opinion of him that still has to be verified and explained.”",
+  "explanation" : "Kolya concluded that he has a preliminary judgment of Karamazov that he still needs to confirm and fully understand."
+}, {
+  "id" : 81,
+  "paragraphId" : 26,
+  "text" : "Kolya fell imposingly silent; so did Smurov.",
+  "explanation" : "Kolya became quiet in a way that commanded attention, and Smurov followed suit."
+}, {
+  "id" : 82,
+  "paragraphId" : 26,
+  "text" : "Smurov, of course, stood in awe of Kolya Krasotkin and did not dare even think of rivaling him.",
+  "explanation" : "Smurov greatly admired Kolya and would never consider himself Kolya's equal."
+}, {
+  "id" : 83,
+  "paragraphId" : 26,
+  "text" : "And now he was terribly curious, because Kolya had explained that he was going “on his own,” and so there must be some riddle in the fact that Kolya had suddenly decided to go, and precisely on that day.",
+  "explanation" : "Smurov was intensely curious because Kolya's insistence on going \"on his own\" suggested a mysterious reason for his sudden decision to visit on that specific day."
+}, {
+  "id" : 84,
+  "paragraphId" : 26,
+  "text" : "They were crossing the market square, which at that hour was filled with farm wagons and lots of live fowl.",
+  "explanation" : "The boys were walking through the market area, which was currently bustling with wagons from farms and many live birds."
+}, {
+  "id" : 85,
+  "paragraphId" : 26,
+  "text" : "Town women were selling rolls, thread, and so forth, under their shed roofs.",
+  "explanation" : "Local women were selling small items like baked goods and thread from stalls sheltered by roofs."
+}, {
+  "id" : 86,
+  "paragraphId" : 26,
+  "text" : "In our town, such Sunday markets are naively called fairs, and there are many such fairs during the year.",
+  "explanation" : "The narrator notes that in this town, these regular Sunday markets are innocently referred to as fairs, which happen often throughout the year."
+}, {
+  "id" : 87,
+  "paragraphId" : 26,
+  "text" : "Perezvon ran along in the merriest spirits, constantly straying to right and left to smell something here and there.",
+  "explanation" : "Perezvon, the dog, was running happily, frequently moving side-to-side to sniff various objects."
+}, {
+  "id" : 88,
+  "paragraphId" : 26,
+  "text" : "When he met other dogs, he sniffed them with remarkable zeal, according to all canine rules.",
+  "explanation" : "Whenever Perezvon encountered other dogs, he followed typical dog behavior by sniffing them with great enthusiasm."
+}, {
+  "id" : 89,
+  "paragraphId" : 27,
+  "text" : "“I like observing realism, Smurov,” Kolya suddenly spoke.",
+  "explanation" : "Kolya broke the silence to tell Smurov that he enjoys studying things as they are in reality."
+}, {
+  "id" : 90,
+  "paragraphId" : 27,
+  "text" : "“Have you noticed how dogs sniff each other when they meet?",
+  "explanation" : "He drew Smurov's attention to the specific behavior of dogs sniffing upon meeting."
+}, {
+  "id" : 91,
+  "paragraphId" : 27,
+  "text" : "It must be some general law of their nature.”",
+  "explanation" : "Kolya theorized that this behavior must be a fundamental, universal rule of canine nature."
+}, {
+  "id" : 92,
+  "paragraphId" : 28,
+  "text" : "“Yes, and a funny one, too.”",
+  "explanation" : "Smurov agreed with the observation and added that he finds the behavior amusing."
+}, {
+  "id" : 93,
+  "paragraphId" : 29,
+  "text" : "“In fact, it is not a funny one, you’re wrong there.",
+  "explanation" : "Kolya contradicted Smurov, telling him he was mistaken that it was funny."
+}, {
+  "id" : 94,
+  "paragraphId" : 29,
+  "text" : "Nothing is funny in nature, however it may seem to man with his prejudices.",
+  "explanation" : "Kolya asserted that nothing in nature is truly funny, despite how human biases might perceive it."
+}, {
+  "id" : 95,
+  "paragraphId" : 29,
+  "text" : "If dogs could reason and criticize, they would undoubtedly find as much that is funny to them in the social relations of humans, their masters—if not far more; I repeat, because I am convinced of it, that there is far more foolishness in us.",
+  "explanation" : "Kolya argued that if dogs were rational and critical, they would find human social behavior just as or more ridiculous than humans find canine behavior, as he is convinced that humans possess far more foolishness."
+}, {
+  "id" : 96,
+  "paragraphId" : 29,
+  "text" : "That is Rakitin’s thought, a remarkable thought.",
+  "explanation" : "He credited this profound observation to Rakitin."
+}, {
+  "id" : 97,
+  "paragraphId" : 29,
+  "text" : "I am a socialist, Smurov.”",
+  "explanation" : "Kolya then declared his political ideology, stating he is a socialist."
+}, {
+  "id" : 98,
+  "paragraphId" : 30,
+  "text" : "“And what is a socialist?” asked Smurov.",
+  "explanation" : "Smurov, unfamiliar with the term, asked Kolya for a definition of a socialist."
+}, {
+  "id" : 99,
+  "paragraphId" : 31,
+  "text" : "“It’s when everyone is equal, everyone has property in common, there are no marriages, and each one has whatever religion and laws he likes, and all the rest.",
+  "explanation" : "Kolya explained socialism as a system where all people are equal, property is shared communally, marriage does not exist, and individuals are free to choose their own religion and laws."
+}, {
+  "id" : 100,
+  "paragraphId" : 31,
+  "text" : "You’re not grown up enough for that yet, you’re too young.",
+  "explanation" : "He then told Smurov that he was too immature to fully grasp the concept."
+}, {
+  "id" : 101,
+  "paragraphId" : 31,
+  "text" : "It is cold, by the way.”",
+  "explanation" : "Kolya abruptly commented that the weather was cold."
+}, {
+  "id" : 102,
+  "paragraphId" : 32,
+  "text" : "“Yes.",
+  "explanation" : "Smurov agreed that it was cold."
+}, {
+  "id" : 103,
+  "paragraphId" : 32,
+  "text" : "Twelve degrees of frost.",
+  "explanation" : "He specified the temperature, noting it was twelve degrees below freezing."
+}, {
+  "id" : 104,
+  "paragraphId" : 32,
+  "text" : "My father just looked at the thermometer.”",
+  "explanation" : "He provided the source of his information, saying his father had checked the thermometer."
+}, {
+  "id" : 105,
+  "paragraphId" : 33,
+  "text" : "“And have you noticed, Smurov, that in the middle of winter, when there are fifteen or even eighteen degrees of frost, it doesn’t seem as cold as it does now, for example, in the beginning of winter, if there’s suddenly an unexpected cold snap, like now, of twelve degrees, especially when there isn’t much snow.",
+  "explanation" : "Kolya pointed out that a moderate cold snap early in winter like the current twelve degrees, especially without much snow, feels colder than more severe temperatures later in the season."
+}, {
+  "id" : 106,
+  "paragraphId" : 33,
+  "text" : "It means people aren’t used to it yet.",
+  "explanation" : "He suggested that the reason for this difference in perceived coldness is a lack of acclimatization."
+}, {
+  "id" : 107,
+  "paragraphId" : 33,
+  "text" : "Everything is habit with people, everything, even state and political relations.",
+  "explanation" : "Kolya generalized that human actions and systems, including governance and politics, are driven entirely by habit."
+}, {
+  "id" : 108,
+  "paragraphId" : 33,
+  "text" : "Habit is the chief motive force.",
+  "explanation" : "He asserted that habit is the most important driving power in human life."
+}, {
+  "id" : 109,
+  "paragraphId" : 33,
+  "text" : "What a funny peasant, by the way.”",
+  "explanation" : "Kolya then abruptly drew attention to a peasant nearby, finding him amusing."
+}, {
+  "id" : 110,
+  "paragraphId" : 34,
+  "text" : "Kolya pointed to a stalwart peasant in a sheepskin coat, with a good-natured face, who was standing beside his wagon clapping his hands in their mittens to keep them warm.",
+  "explanation" : "Kolya indicated a physically strong, kind-faced peasant standing by his cart, trying to warm his hands by clapping them while wearing mittens."
+}, {
+  "id" : 111,
+  "paragraphId" : 34,
+  "text" : "His long, light brown beard was all hoary with frost.",
+  "explanation" : "The peasant's beard was covered with a white layer of frost."
+}, {
+  "id" : 112,
+  "paragraphId" : 35,
+  "text" : "“The peasant’s got his beard frozen!” Kolya cried loudly and pertly as he passed by him.",
+  "explanation" : "As he walked past the man, Kolya loudly and cheekily called out a comment about the peasant's frozen beard."
+}, {
+  "id" : 113,
+  "paragraphId" : 36,
+  "text" : "“Many have got their beards frozen,” the peasant uttered calmly and sententiously in reply.",
+  "explanation" : "The peasant responded with a calm, moralizing statement that many people share the condition of having a frozen beard."
+}, {
+  "id" : 114,
+  "paragraphId" : 37,
+  "text" : "“Don’t pick on him,” Smurov remarked.",
+  "explanation" : "Smurov advised Kolya to leave the peasant alone."
+}, {
+  "id" : 115,
+  "paragraphId" : 38,
+  "text" : "“It’s all right, he won’t be angry, he’s a nice fellow.",
+  "explanation" : "Kolya dismissed Smurov's concern, saying the peasant would not be offended and was a pleasant man."
+}, {
+  "id" : 116,
+  "paragraphId" : 38,
+  "text" : "Good-bye, Matvey.”",
+  "explanation" : "Kolya then addressed the peasant directly, using the name Matvey to say goodbye."
+}, {
+  "id" : 117,
+  "paragraphId" : 39,
+  "text" : "“Good-bye.”",
+  "explanation" : "The peasant returned the farewell."
+}, {
+  "id" : 118,
+  "paragraphId" : 40,
+  "text" : "“Are you really Matvey?”",
+  "explanation" : "Kolya, perhaps having guessed the name, asked if the peasant's name was actually Matvey."
+}, {
+  "id" : 119,
+  "paragraphId" : 41,
+  "text" : "“I am.",
+  "explanation" : "The peasant confirmed that his name was Matvey."
+}, {
+  "id" : 120,
+  "paragraphId" : 41,
+  "text" : "Didn’t you know?”",
+  "explanation" : "He asked Kolya if he hadn't known this already."
+}, {
+  "id" : 121,
+  "paragraphId" : 42,
+  "text" : "“No, I just said it.”",
+  "explanation" : "Kolya admitted that he had simply spoken the name without knowing if it was correct."
+}, {
+  "id" : 122,
+  "paragraphId" : 43,
+  "text" : "“Well, I declare.",
+  "explanation" : "The peasant expressed surprise."
+}, {
+  "id" : 123,
+  "paragraphId" : 43,
+  "text" : "You must be one of them schoolboys.”",
+  "explanation" : "He correctly identified Kolya as a schoolboy."
+}, {
+  "id" : 124,
+  "paragraphId" : 44,
+  "text" : "“One of them schoolboys.”",
+  "explanation" : "Kolya confirmed his identity."
+}, {
+  "id" : 125,
+  "paragraphId" : 45,
+  "text" : "“And what, do they whip you?”",
+  "explanation" : "The peasant then asked if schoolboys like Kolya were subjected to physical punishment."
+}, {
+  "id" : 126,
+  "paragraphId" : 46,
+  "text" : "“Not really, so-so.”",
+  "explanation" : "Kolya gave a non-committal answer, implying it sometimes happens."
+}, {
+  "id" : 127,
+  "paragraphId" : 47,
+  "text" : "“Does it hurt?”",
+  "explanation" : "The peasant asked if being whipped was painful."
+}, {
+  "id" : 128,
+  "paragraphId" : 48,
+  "text" : "“It can.”",
+  "explanation" : "Kolya replied that it is possible for it to hurt."
+}, {
+  "id" : 129,
+  "paragraphId" : 49,
+  "text" : "“E-eh, that’s life!” the peasant sighed from the bottom of his heart.",
+  "explanation" : "The peasant responded with a deep, heartfelt sigh, accepting the possibility of pain as a part of life."
+}, {
+  "id" : 130,
+  "paragraphId" : 50,
+  "text" : "“Good-bye, Matvey.”",
+  "explanation" : "Kolya repeated his farewell to the peasant."
+}, {
+  "id" : 131,
+  "paragraphId" : 51,
+  "text" : "“Good-bye.",
+  "explanation" : "The peasant said goodbye again."
+}, {
+  "id" : 132,
+  "paragraphId" : 51,
+  "text" : "You’re a nice lad, that’s what.”",
+  "explanation" : "He added that he thought Kolya was a pleasant boy."
+}, {
+  "id" : 133,
+  "paragraphId" : 52,
+  "text" : "The boys walked on.",
+  "explanation" : "Kolya and Smurov continued their journey."
+}, {
+  "id" : 134,
+  "paragraphId" : 53,
+  "text" : "“A good peasant,” Kolya began saying to Smurov.",
+  "explanation" : "Kolya commented to Smurov that the peasant was a fine man."
+}, {
+  "id" : 135,
+  "paragraphId" : 53,
+  "text" : "“I like talking with the people, and am always glad to do them justice.”",
+  "explanation" : "Kolya expressed his enjoyment in conversing with common folk and his readiness to acknowledge their merits."
+}, {
+  "id" : 136,
+  "paragraphId" : 54,
+  "text" : "“Why did you lie about them whipping us at school?” asked Smurov.",
+  "explanation" : "Smurov questioned why Kolya had falsely told the peasant that schoolboys are whipped."
+}, {
+  "id" : 137,
+  "paragraphId" : 55,
+  "text" : "“But I had to comfort him.”",
+  "explanation" : "Kolya's explanation was that the lie was necessary to soothe the peasant."
+}, {
+  "id" : 138,
+  "paragraphId" : 56,
+  "text" : "“How so?”",
+  "explanation" : "Smurov asked for clarification on how the lie would be comforting."
+}, {
+  "id" : 139,
+  "paragraphId" : 57,
+  "text" : "“You know, Smurov, I don’t like it when people keep asking questions, when they don’t understand the first time.",
+  "explanation" : "Kolya expressed irritation at Smurov's lack of immediate understanding."
+}, {
+  "id" : 140,
+  "paragraphId" : 57,
+  "text" : "Some things can’t even be explained.",
+  "explanation" : "He implied that his reasons were too subtle or complex to be put into words."
+}, {
+  "id" : 141,
+  "paragraphId" : 57,
+  "text" : "A peasant’s notion is that schoolboys are whipped and ought to be whipped: what kind of schoolboy is he, if he isn’t whipped?",
+  "explanation" : "Kolya explained that peasants hold a belief that whipping is an expected and necessary part of a schoolboy's life."
+}, {
+  "id" : 142,
+  "paragraphId" : 57,
+  "text" : "And if I were suddenly to tell him that they don’t whip us in our school, it would upset him.",
+  "explanation" : "He reasoned that contradicting this belief would have disturbed the peasant."
+}, {
+  "id" : 143,
+  "paragraphId" : 57,
+  "text" : "Anyway, you don’t understand these things.",
+  "explanation" : "Kolya concluded that Smurov lacked the sophistication to grasp these subtleties."
+}, {
+  "id" : 144,
+  "paragraphId" : 57,
+  "text" : "One has to know how to talk with the people.”",
+  "explanation" : "He stated that engaging with the common folk requires a specific, skilled approach."
+}, {
+  "id" : 145,
+  "paragraphId" : 58,
+  "text" : "“Only please don’t pick on them, or there’ll be another incident like that time with the goose.”",
+  "explanation" : "Smurov pleaded with Kolya to stop provoking people, warning that it might lead to a problematic event similar to one involving a goose."
+}, {
+  "id" : 146,
+  "paragraphId" : 59,
+  "text" : "“Are you afraid?”",
+  "explanation" : "Kolya asked Smurov if he was scared."
+}, {
+  "id" : 147,
+  "paragraphId" : 59,
+  "text" : "“Don’t laugh, Kolya.",
+  "explanation" : "Smurov requested Kolya not to mock him."
+}, {
+  "id" : 148,
+  "paragraphId" : 59,
+  "text" : "I am afraid, by God.",
+  "explanation" : "He swore that he was indeed frightened."
+}, {
+  "id" : 149,
+  "paragraphId" : 59,
+  "text" : "My father will be terribly angry.",
+  "explanation" : "He expressed concern that his father would be extremely upset."
+}, {
+  "id" : 150,
+  "paragraphId" : 59,
+  "text" : "I’m strictly forbidden to go around with you.”",
+  "explanation" : "Smurov confessed that he was under strict parental orders not to associate with Kolya."
+}, {
+  "id" : 151,
+  "paragraphId" : 60,
+  "text" : "“Don’t worry, nothing will happen this time.",
+  "explanation" : "Kolya reassured Smurov that there would be no trouble on this occasion."
+}, {
+  "id" : 152,
+  "paragraphId" : 60,
+  "text" : "Hello, Natasha,” he shouted to one of the market women under the shed.",
+  "explanation" : "Kolya then called out a greeting using the name Natasha to a woman selling goods under a shelter."
+}, {
+  "id" : 153,
+  "paragraphId" : 61,
+  "text" : "“Natasha, is it?",
+  "explanation" : "The woman questioned Kolya's use of the name Natasha."
+}, {
+  "id" : 154,
+  "paragraphId" : 61,
+  "text" : "My name’s Maria,” the woman, who was still far from old, replied in a shrill voice.",
+  "explanation" : "The woman, who was still young, replied in a high-pitched voice, stating her name was Maria."
+}, {
+  "id" : 155,
+  "paragraphId" : 62,
+  "text" : "“Maria!",
+  "explanation" : "Kolya repeated her name."
+}, {
+  "id" : 156,
+  "paragraphId" : 62,
+  "text" : "How nice!",
+  "explanation" : "He commented on how pleasant her name was."
+}, {
+  "id" : 157,
+  "paragraphId" : 62,
+  "text" : "Good-bye.”",
+  "explanation" : "He then immediately said goodbye."
+}, {
+  "id" : 158,
+  "paragraphId" : 63,
+  "text" : "“Ah, the scamp!",
+  "explanation" : "The woman exclaimed, calling Kolya a rogue."
+}, {
+  "id" : 159,
+  "paragraphId" : 63,
+  "text" : "Knee-high to a mushroom and he’s at it already!”",
+  "explanation" : "She commented that Kolya was still a small child but was already getting into mischief."
+}, {
+  "id" : 160,
+  "paragraphId" : 64,
+  "text" : "“No time, I have no time for you now, tell me next Sunday,” Kolya waved his hand at her, as if he was not bothering her but she him.",
+  "explanation" : "Kolya dismissed her, claiming he was busy and asking her to talk next week, behaving as if she was the one pestering him."
+}, {
+  "id" : 161,
+  "paragraphId" : 65,
+  "text" : "“What am I going to tell you next Sunday?",
+  "explanation" : "Maria questioned why she would have anything to tell him the following week."
+}, {
+  "id" : 162,
+  "paragraphId" : 65,
+  "text" : "I’m not pestering you, you’re pestering me, you rascal,” Maria went on shouting, “you ought to be whipped, that’s what, you’re a famous offender, that’s what!”",
+  "explanation" : "She continued shouting, correcting him that he was the one harassing her, calling him a rascal and a notorious troublemaker who deserved a beating."
+}, {
+  "id" : 163,
+  "paragraphId" : 66,
+  "text" : "There was laughter among the other market women, who were selling things from their stands next to Maria, when suddenly, from under the arcade of shops nearby, for no reason at all an irritated man jumped out, who looked like a shop clerk, but a stranger, not one of our tradesmen, in a long blue caftan and a visored cap, a young man, with dark brown, curly hair and a long, pale, slightly pockmarked face.",
+  "explanation" : "The other women sellers nearby laughed at the exchange, which was interrupted by a seemingly random, annoyed man who suddenly emerged from a nearby covered area, appearing to be a shop clerk but not a local one, wearing a long blue coat and a cap, and having dark, curly hair and a long, pale, slightly scarred face."
+}, {
+  "id" : 164,
+  "paragraphId" : 66,
+  "text" : "He was somehow absurdly agitated, and at once began threatening Kolya with his fist.",
+  "explanation" : "The man was inexplicably and foolishly excited and immediately started shaking his fist aggressively at Kolya."
+}, {
+  "id" : 165,
+  "paragraphId" : 67,
+  "text" : "“I know you,” he kept exclaiming irritably, “I know you!”",
+  "explanation" : "The man repeatedly and angrily shouted that he recognized Kolya."
+}, {
+  "id" : 166,
+  "paragraphId" : 68,
+  "text" : "Kolya stared fixedly at him.",
+  "explanation" : "Kolya focused his gaze intently on the man."
+}, {
+  "id" : 167,
+  "paragraphId" : 68,
+  "text" : "He was unable to recall when he could have had any quarrel with this man.",
+  "explanation" : "Kolya could not remember ever having an argument with this specific person."
+}, {
+  "id" : 168,
+  "paragraphId" : 68,
+  "text" : "But he had had so many quarrels in the streets that he could not remember them all.",
+  "explanation" : "He conceded that he had been in too many street altercations to recall every single one."
+}, {
+  "id" : 169,
+  "paragraphId" : 69,
+  "text" : "“So you know me?” he asked ironically.",
+  "explanation" : "Kolya responded with a mocking question, confirming the man's claim of recognition."
+}, {
+  "id" : 170,
+  "paragraphId" : 70,
+  "text" : "“I know you!",
+  "explanation" : "The tradesman affirmed his recognition."
+}, {
+  "id" : 171,
+  "paragraphId" : 70,
+  "text" : "I know you!” the tradesman kept repeating like a fool.",
+  "explanation" : "The man continued to state this fact repeatedly and senselessly."
+}, {
+  "id" : 172,
+  "paragraphId" : 71,
+  "text" : "“So much the better for you.",
+  "explanation" : "Kolya sarcastically suggested that knowing him was an advantage for the man."
+}, {
+  "id" : 173,
+  "paragraphId" : 71,
+  "text" : "But I am in a hurry.",
+  "explanation" : "He stated that he was pressed for time."
+}, {
+  "id" : 174,
+  "paragraphId" : 71,
+  "text" : "Good-bye.”",
+  "explanation" : "Kolya then bid him farewell."
+}, {
+  "id" : 175,
+  "paragraphId" : 72,
+  "text" : "“You’re still up to your tricks?” the tradesman shouted.",
+  "explanation" : "The tradesman yelled a question asking if Kolya was still behaving mischievously."
+}, {
+  "id" : 176,
+  "paragraphId" : 72,
+  "text" : "“Up to your tricks again?",
+  "explanation" : "He repeated the question of whether Kolya was repeating his past pranks."
+}, {
+  "id" : 177,
+  "paragraphId" : 72,
+  "text" : "I know you!",
+  "explanation" : "He reiterated that he knew Kolya."
+}, {
+  "id" : 178,
+  "paragraphId" : 72,
+  "text" : "So you’re up to your tricks again?”",
+  "explanation" : "He questioned again if Kolya was back to his old ways."
+}, {
+  "id" : 179,
+  "paragraphId" : 73,
+  "text" : "“It’s none of your business, brother, what tricks I’m up to,” Kolya said, stopping and continuing to examine him.",
+  "explanation" : "Kolya stopped walking and, while observing the man, told him that his mischievous activities were not the man's concern."
+}, {
+  "id" : 180,
+  "paragraphId" : 74,
+  "text" : "“None of my business, is it?”",
+  "explanation" : "The man questioned Kolya's assertion."
+}, {
+  "id" : 181,
+  "paragraphId" : 75,
+  "text" : "“That’s right, it’s none of your business.”",
+  "explanation" : "Kolya confirmed that the matter was not the man's affair."
+}, {
+  "id" : 182,
+  "paragraphId" : 76,
+  "text" : "“And whose is it?",
+  "explanation" : "The man demanded to know whose business it was, if not his own."
+}, {
+  "id" : 183,
+  "paragraphId" : 76,
+  "text" : "Whose?",
+  "explanation" : "He repeated the question."
+}, {
+  "id" : 184,
+  "paragraphId" : 76,
+  "text" : "Well, whose?”",
+  "explanation" : "He insisted on an answer."
+}, {
+  "id" : 185,
+  "paragraphId" : 77,
+  "text" : "“It’s Trifon Nikitich’s business now, brother, not yours.”",
+  "explanation" : "Kolya gave a specific name, Trifon Nikitich, claiming the matter was his concern now, not the man's."
+}, {
+  "id" : 186,
+  "paragraphId" : 78,
+  "text" : "“What Trifon Nikitich?” the fellow stared at Kolya in foolish surprise, though still with the same excitement.",
+  "explanation" : "The man reacted with a bewildered stare, asking who this Trifon Nikitich was, while still being absurdly agitated."
+}, {
+  "id" : 187,
+  "paragraphId" : 78,
+  "text" : "Kolya solemnly looked him up and down.",
+  "explanation" : "Kolya gave the man a serious, scrutinizing look."
+}, {
+  "id" : 188,
+  "paragraphId" : 79,
+  "text" : "“Have you been to the Church of the Ascension?” he suddenly asked him sternly and insistently.",
+  "explanation" : "Kolya abruptly and seriously asked the man if he had visited the Church of the Ascension."
+}, {
+  "id" : 189,
+  "paragraphId" : 80,
+  "text" : "“What Ascension?",
+  "explanation" : "The man seemed confused by the question."
+}, {
+  "id" : 190,
+  "paragraphId" : 80,
+  "text" : "Why?",
+  "explanation" : "He asked for the reason behind the question."
+}, {
+  "id" : 191,
+  "paragraphId" : 80,
+  "text" : "No, I haven’t,” the fellow was a bit taken aback.",
+  "explanation" : "The man replied that he had not been, clearly startled by the line of questioning."
+}, {
+  "id" : 192,
+  "paragraphId" : 80,
+  "text" : "“Do you know Sabaneyev?” Kolya went on, still more insistently and sternly.",
+  "explanation" : "Kolya continued his severe questioning, now asking if the man knew a person named Sabaneyev."
+}, {
+  "id" : 193,
+  "paragraphId" : 81,
+  "text" : "“What Sabaneyev?",
+  "explanation" : "The man questioned which Sabaneyev Kolya was referring to."
+}, {
+  "id" : 194,
+  "paragraphId" : 81,
+  "text" : "No, I don’t know him.”",
+  "explanation" : "He stated that he did not know anyone by that name."
+}, {
+  "id" : 195,
+  "paragraphId" : 82,
+  "text" : "“Devil take you, then!” Kolya suddenly snapped, and turning sharply to the right, quickly went his way as if scorning even to speak with such a dolt who does not even know Sabaneyev.",
+  "explanation" : "Kolya angrily cursed the man, then sharply turned and walked away quickly, acting as if the man were a fool not worth talking to because he was unfamiliar with 'Sabaneyev.'"
+}, {
+  "id" : 196,
+  "paragraphId" : 83,
+  "text" : "“Hey, wait!",
+  "explanation" : "The man called out, trying to stop Kolya."
+}, {
+  "id" : 197,
+  "paragraphId" : 83,
+  "text" : "What Sabaneyev?” the fellow came to his senses and again got all excited.",
+  "explanation" : "The man recovered his awareness and became agitated again, asking for the identity of Sabaneyev."
+}, {
+  "id" : 198,
+  "paragraphId" : 83,
+  "text" : "“What’s he talking about?” he suddenly turned to the market women, staring foolishly at them.",
+  "explanation" : "He then turned to the women sellers, asking them what Kolya had been referring to, looking bewildered."
+}, {
+  "id" : 199,
+  "paragraphId" : 84,
+  "text" : "The women burst out laughing.",
+  "explanation" : "The women reacted to the man's confusion by laughing loudly."
+}, {
+  "id" : 200,
+  "paragraphId" : 84,
+  "text" : "“A clever boy,” one of them said.",
+  "explanation" : "One of the women commented that Kolya was a smart boy."
+}, {
+  "id" : 201,
+  "paragraphId" : 85,
+  "text" : "“What, what Sabaneyev did he mean?” the fellow kept repeating frenziedly, waving his right hand.",
+  "explanation" : "The man continued to ask frantically about the identity of Sabaneyev, gesticulating with his hand."
+}, {
+  "id" : 202,
+  "paragraphId" : 86,
+  "text" : "“Ah, it must be the Sabaneyev that worked for the Kuzmichevs, must be that one,” one woman suddenly understood.",
+  "explanation" : "One of the women suddenly realized who Kolya must have been referring to, suggesting it was a Sabaneyev who had been employed by the Kuzmichev family."
+}, {
+  "id" : 203,
+  "paragraphId" : 87,
+  "text" : "The fellow stared wildly at her.",
+  "explanation" : "The man looked at the woman with an intense, confused gaze."
+}, {
+  "id" : 204,
+  "paragraphId" : 88,
+  "text" : "“For the Kuz-mi-chevs?” another woman repeated.",
+  "explanation" : "A second woman questioned the employer's name, repeating it slowly."
+}, {
+  "id" : 205,
+  "paragraphId" : 88,
+  "text" : "“He’s no Trifon.",
+  "explanation" : "She then argued that this person was not named Trifon."
+}, {
+  "id" : 206,
+  "paragraphId" : 88,
+  "text" : "That one’s Kuzma, not Trifon, and the boy said Trifon Nikitich, so it’s somebody else.”",
+  "explanation" : "She reasoned that the person working for the Kuzmichevs was named Kuzma, not Trifon, and since Kolya had specified Trifon Nikitich, it must be a different person."
+}, {
+  "id" : 207,
+  "paragraphId" : 89,
+  "text" : "“No, he’s no Trifon, and he’s no Sabaneyev either, he’s Chizhov,” a third woman suddenly joined in, who up to then had been silent and listening seriously.",
+  "explanation" : "A third woman, who had been listening intently without speaking, interjected to say that the person was neither Trifon nor Sabaneyev, but Chizhov."
+}, {
+  "id" : 208,
+  "paragraphId" : 89,
+  "text" : "“His name’s Alexei Ivanich.",
+  "explanation" : "She provided his full name, Alexei Ivanich."
+}, {
+  "id" : 209,
+  "paragraphId" : 89,
+  "text" : "Alexei Ivanich Chizhov.”",
+  "explanation" : "She repeated the full name."
+}, {
+  "id" : 210,
+  "paragraphId" : 90,
+  "text" : "“That’s right, he is Chizhov,” a fourth woman confirmed emphatically.",
+  "explanation" : "A fourth woman strongly agreed that the man's name was indeed Chizhov."
+}, {
+  "id" : 211,
+  "paragraphId" : 91,
+  "text" : "The stunned fellow kept looking from one woman to another.",
+  "explanation" : "The bewildered man repeatedly turned his gaze from one woman to the next."
+}, {
+  "id" : 212,
+  "paragraphId" : 91,
+  "text" : "“But why did he ask me, why did he ask me, good people?” he kept exclaiming, now almost in despair.",
+  "explanation" : "The man, now close to panic, desperately asked the women why Kolya had questioned him."
+}, {
+  "id" : 213,
+  "paragraphId" : 91,
+  "text" : "‘“Do you know Sabaneyev?’",
+  "explanation" : "He quoted Kolya's question about Sabaneyev."
+}, {
+  "id" : 214,
+  "paragraphId" : 91,
+  "text" : "Devil knows who Sabaneyev is!”",
+  "explanation" : "He exclaimed that he had no idea who Sabaneyev was."
+}, {
+  "id" : 215,
+  "paragraphId" : 92,
+  "text" : "“What a muddlehead!",
+  "explanation" : "One woman called the man a confused idiot."
+}, {
+  "id" : 216,
+  "paragraphId" : 92,
+  "text" : "Didn’t you hear, it’s not Sabaneyev, it’s Chizhov, Alexei Ivanich Chizhov, that’s who!” one of the market women shouted at him imposingly.",
+  "explanation" : "She shouted sternly that the person Kolya meant was Chizhov, not Sabaneyev, giving the full name."
+}, {
+  "id" : 217,
+  "paragraphId" : 93,
+  "text" : "“What Chizhov?",
+  "explanation" : "The man asked for clarification on which Chizhov was being discussed."
+}, {
+  "id" : 218,
+  "paragraphId" : 93,
+  "text" : "Who is he?",
+  "explanation" : "He asked for the person's identity."
+}, {
+  "id" : 219,
+  "paragraphId" : 93,
+  "text" : "Tell me, if you know.”",
+  "explanation" : "He requested the woman to identify Chizhov if she knew him."
+}, {
+  "id" : 220,
+  "paragraphId" : 94,
+  "text" : "“A tall, snot-nosed fellow, he used to sit in the marketplace last summer.”",
+  "explanation" : "She described Chizhov as a tall, runny-nosed man who had been a regular presence in the marketplace the previous summer."
+}, {
+  "id" : 221,
+  "paragraphId" : 95,
+  "text" : "“What the hell do I need your Chizhov for, eh, good people?”",
+  "explanation" : "The man, frustrated, demanded to know why he should care about this Chizhov."
+}, {
+  "id" : 222,
+  "paragraphId" : 96,
+  "text" : "“How do I know what the hell you need Chizhov for?”",
+  "explanation" : "The woman replied that she could not possibly know what the man's interest in Chizhov was."
+}, {
+  "id" : 223,
+  "paragraphId" : 97,
+  "text" : "“Who knows what you need him for?” another woman joined in.",
+  "explanation" : "A second woman echoed the first, asking rhetorically why they would know the man's needs."
+}, {
+  "id" : 224,
+  "paragraphId" : 97,
+  "text" : "“You should know what you need him for, it’s you doing all the squawking.",
+  "explanation" : "She asserted that since the man was the one complaining, he should know his own motives."
+}, {
+  "id" : 225,
+  "paragraphId" : 97,
+  "text" : "He was speaking to you, not to us, fool that you are.",
+  "explanation" : "She reminded the man that Kolya's questions were directed at him, not them, calling him a fool."
+}, {
+  "id" : 226,
+  "paragraphId" : 97,
+  "text" : "So you really don’t know him?”",
+  "explanation" : "She then asked if he truly did not know Chizhov."
+}, {
+  "id" : 227,
+  "paragraphId" : 98,
+  "text" : "“Who?”",
+  "explanation" : "The man asked for the name again."
+}, {
+  "id" : 228,
+  "paragraphId" : 99,
+  "text" : "“Chizhov.”",
+  "explanation" : "The woman repeated the name Chizhov."
+}, {
+  "id" : 229,
+  "paragraphId" : 100,
+  "text" : "“Ah, devil take Chizhov, and you along with him!",
+  "explanation" : "The man cursed both Chizhov and the woman."
+}, {
+  "id" : 230,
+  "paragraphId" : 100,
+  "text" : "I’ll give him a thrashing, that’s what!",
+  "explanation" : "He threatened that he would beat Chizhov."
+}, {
+  "id" : 231,
+  "paragraphId" : 100,
+  "text" : "He was laughing at me!”",
+  "explanation" : "He claimed that Kolya was mocking him."
+}, {
+  "id" : 232,
+  "paragraphId" : 101,
+  "text" : "“You’ll give Chizhov a thrashing?",
+  "explanation" : "The woman questioned the man's ability to beat Chizhov."
+}, {
+  "id" : 233,
+  "paragraphId" : 101,
+  "text" : "More likely he’ll give you one!",
+  "explanation" : "She suggested that Chizhov was more likely to beat the man."
+}, {
+  "id" : 234,
+  "paragraphId" : 101,
+  "text" : "You’re a fool, that’s what!”",
+  "explanation" : "She emphatically called the man a fool."
+}, {
+  "id" : 235,
+  "paragraphId" : 102,
+  "text" : "“Not Chizhov, not Chizhov, you wicked, nasty woman, I’ll thrash the boy, that’s what!",
+  "explanation" : "The man denied he meant Chizhov, insulted the woman, and then stated he would beat Kolya."
+}, {
+  "id" : 236,
+  "paragraphId" : 102,
+  "text" : "Let me have him, let me have him—he was laughing at me!”",
+  "explanation" : "He shouted that he wanted to catch Kolya because the boy had made fun of him."
+}, {
+  "id" : 237,
+  "paragraphId" : 103,
+  "text" : "The women all roared with laughter.",
+  "explanation" : "All the market women found the man's outburst extremely funny and laughed loudly."
+}, {
+  "id" : 238,
+  "paragraphId" : 103,
+  "text" : "And Kolya was already far off, strutting along with a triumphant expression on his face.",
+  "explanation" : "Kolya was now a long distance away, walking with a proud and victorious look."
+}, {
+  "id" : 239,
+  "paragraphId" : 103,
+  "text" : "Smurov walked beside him, looking back at the group shouting far behind them.",
+  "explanation" : "Smurov was walking next to Kolya, watching the shouting group in the distance."
+}, {
+  "id" : 240,
+  "paragraphId" : 103,
+  "text" : "He, too, was having a good time, though he still feared getting into some scandal with Kolya.",
+  "explanation" : "Smurov was enjoying the incident, but he remained worried about getting into trouble because of Kolya."
+}, {
+  "id" : 241,
+  "paragraphId" : 104,
+  "text" : "“What Sabaneyev were you asking him about?” he asked Kolya, guessing what the answer would be.",
+  "explanation" : "Smurov asked Kolya the identity of the Sabaneyev he had mentioned, already suspecting the answer."
+}, {
+  "id" : 242,
+  "paragraphId" : 105,
+  "text" : "“How do I know?",
+  "explanation" : "Kolya replied that he did not know who Sabaneyev was."
+}, {
+  "id" : 243,
+  "paragraphId" : 105,
+  "text" : "They’ll go on shouting till nighttime now.",
+  "explanation" : "He predicted that the people would continue arguing about the matter until the evening."
+}, {
+  "id" : 244,
+  "paragraphId" : 105,
+  "text" : "I like stirring up fools in all strata of society.",
+  "explanation" : "Kolya stated his enjoyment in provoking foolish people across different social classes."
+}, {
+  "id" : 245,
+  "paragraphId" : 105,
+  "text" : "There stands another dolt, that peasant there.",
+  "explanation" : "He pointed out another peasant, whom he also considered a fool."
+}, {
+  "id" : 246,
+  "paragraphId" : 105,
+  "text" : "People say, ‘There’s no one stupider than a stupid Frenchman,’ but note how the Russian physiognomy betrays itself.",
+  "explanation" : "Kolya referred to a common saying about French stupidity but suggested that the Russian face reveals similar foolishness."
+}, {
+  "id" : 247,
+  "paragraphId" : 105,
+  "text" : "Isn’t it written all over that peasant’s face that he’s a fool, eh?”",
+  "explanation" : "He asked Smurov for confirmation that the peasant's face clearly showed his lack of intelligence."
+}, {
+  "id" : 248,
+  "paragraphId" : 106,
+  "text" : "“Leave him alone, Kolya.",
+  "explanation" : "Smurov advised Kolya to stop bothering the peasant."
+}, {
+  "id" : 249,
+  "paragraphId" : 106,
+  "text" : "Let’s keep going.”",
+  "explanation" : "He urged Kolya to continue their walk."
+}, {
+  "id" : 250,
+  "paragraphId" : 107,
+  "text" : "“No, now that I’ve gotten started, I wouldn’t stop for the world.",
+  "explanation" : "Kolya refused, saying he was committed to his course of action and would not stop now."
+}, {
+  "id" : 251,
+  "paragraphId" : 107,
+  "text" : "Hey!",
+  "explanation" : "He called out to the peasant."
+}, {
+  "id" : 252,
+  "paragraphId" : 107,
+  "text" : "Good morning, peasant!”",
+  "explanation" : "He wished the peasant a good morning."
+}, {
+  "id" : 253,
+  "paragraphId" : 108,
+  "text" : "A burly peasant, who was slowly passing by and seemed to have had a drop to drink already, with a round, simple face and a beard streaked with gray, raised his head and looked at the lad.",
+  "explanation" : "A large, somewhat inebriated peasant with a simple, round face and a gray-flecked beard, who was walking slowly past, looked up at Kolya."
+}, {
+  "id" : 254,
+  "paragraphId" : 109,
+  "text" : "“Well, good morning, if you’re not joking,” he answered unhurriedly.",
+  "explanation" : "The peasant replied calmly, returning the greeting on the condition that Kolya was serious."
+}, {
+  "id" : 255,
+  "paragraphId" : 110,
+  "text" : "“And if I am joking?” laughed Kolya.",
+  "explanation" : "Kolya laughed and questioned what would happen if he were making a joke."
+}, {
+  "id" : 256,
+  "paragraphId" : 111,
+  "text" : "“Joke then, if you’re joking, and God be with you.",
+  "explanation" : "The peasant permitted him to joke and wished him well."
+}, {
+  "id" : 257,
+  "paragraphId" : 111,
+  "text" : "Never mind, it’s allowed.",
+  "explanation" : "He said not to worry, as joking is acceptable."
+}, {
+  "id" : 258,
+  "paragraphId" : 111,
+  "text" : "A man can always have his joke.”",
+  "explanation" : "He stated that a person is always entitled to make a joke."
+}, {
+  "id" : 259,
+  "paragraphId" : 112,
+  "text" : "“Sorry, brother, I was joking.”",
+  "explanation" : "Kolya apologized for joking and confirmed he had not been serious."
+}, {
+  "id" : 260,
+  "paragraphId" : 113,
+  "text" : "“So, God will forgive you.”",
+  "explanation" : "The peasant replied that God would pardon him."
+}, {
+  "id" : 261,
+  "paragraphId" : 114,
+  "text" : "“But you, do you forgive me?”",
+  "explanation" : "Kolya then asked if the peasant himself forgave him."
+}, {
+  "id" : 262,
+  "paragraphId" : 115,
+  "text" : "“That I do.",
+  "explanation" : "The peasant confirmed that he forgave Kolya."
+}, {
+  "id" : 263,
+  "paragraphId" : 115,
+  "text" : "Run along now.”",
+  "explanation" : "He then told Kolya to be on his way."
+}, {
+  "id" : 264,
+  "paragraphId" : 116,
+  "text" : "“Look here, you seem to be a smart peasant.”",
+  "explanation" : "Kolya commented that the peasant seemed intelligent."
+}, {
+  "id" : 265,
+  "paragraphId" : 117,
+  "text" : "“Smarter than you,” the peasant replied unexpectedly, and with the same air of importance.",
+  "explanation" : "The peasant unexpectedly claimed to be more intelligent than Kolya, maintaining his serious demeanor."
+}, {
+  "id" : 266,
+  "paragraphId" : 118,
+  "text" : "“That’s unlikely,” Kolya was somewhat taken aback.",
+  "explanation" : "Kolya, surprised by the claim, stated that he doubted it was true."
+}, {
+  "id" : 267,
+  "paragraphId" : 119,
+  "text" : "“It’s the truth I’m telling you.”",
+  "explanation" : "The peasant insisted that he was speaking the truth."
+}, {
+  "id" : 268,
+  "paragraphId" : 120,
+  "text" : "“Well, maybe it is.”",
+  "explanation" : "Kolya conceded that the peasant might be telling the truth."
+}, {
+  "id" : 269,
+  "paragraphId" : 121,
+  "text" : "“So there, brother.”",
+  "explanation" : "The peasant made a final statement, accepting Kolya's concession."
+}, {
+  "id" : 270,
+  "paragraphId" : 122,
+  "text" : "“Good-bye, peasant.”",
+  "explanation" : "Kolya said goodbye to the peasant."
+}, {
+  "id" : 271,
+  "paragraphId" : 123,
+  "text" : "“Good-bye.”",
+  "explanation" : "The peasant returned the farewell."
+}, {
+  "id" : 272,
+  "paragraphId" : 124,
+  "text" : "“Peasants differ,” Kolya observed to Smurov after some silence.",
+  "explanation" : "Kolya broke the silence to comment to Smurov that peasants are not all the same."
+}, {
+  "id" : 273,
+  "paragraphId" : 124,
+  "text" : "“How was I to know I’d run into a smart one?",
+  "explanation" : "He questioned how he could have foreseen encountering an intelligent peasant."
+}, {
+  "id" : 274,
+  "paragraphId" : 124,
+  "text" : "I’m always prepared to recognize intelligence in the people.”",
+  "explanation" : "He claimed that he is always ready to acknowledge the intelligence of common folk."
+}, {
+  "id" : 275,
+  "paragraphId" : 125,
+  "text" : "Far away the cathedral clock struck half past eleven.",
+  "explanation" : "A clock in the distance, presumably from the cathedral, chimed to indicate it was 11:30 AM."
+}, {
+  "id" : 276,
+  "paragraphId" : 125,
+  "text" : "The boys began to hurry, and covered the rest of the still quite long way to Captain Snegiryov’s house quickly and now almost without speaking.",
+  "explanation" : "Realizing the time, the boys increased their pace, covering the remaining long distance to Captain Snegiryov's house rapidly and mostly in silence."
+}, {
+  "id" : 277,
+  "paragraphId" : 125,
+  "text" : "Twenty paces from the house, Kolya stopped and told Smurov to go on ahead and call Karamazov out to meet him there.",
+  "explanation" : "About twenty steps away from the house, Kolya halted and instructed Smurov to go inside and ask Karamazov to come out to meet him at that spot."
+}, {
+  "id" : 278,
+  "paragraphId" : 125,
+  "text" : "“For some preliminary sniffing,” he observed to Smurov.",
+  "explanation" : "Kolya told Smurov that he wanted Karamazov to come out for an initial assessment or sizing-up."
+}, {
+  "id" : 279,
+  "paragraphId" : 125,
+  "text" : "“But why call him out?” Smurov tried to object.",
+  "explanation" : "Smurov attempted to argue against Kolya's demand, asking why Karamazov needed to be called outside."
+}, {
+  "id" : 280,
+  "paragraphId" : 125,
+  "text" : "“Just go in, they’ll be terribly glad to see you.",
+  "explanation" : "He suggested that Kolya should simply enter, as his arrival would be greatly welcomed."
+}, {
+  "id" : 281,
+  "paragraphId" : 125,
+  "text" : "Why do you want to get acquainted in the freezing cold?”",
+  "explanation" : "Smurov questioned the necessity of making their acquaintance outside in the cold weather."
+}, {
+  "id" : 282,
+  "paragraphId" : 125,
+  "text" : "“It’s for me to know why I need him here, in the freezing cold,” Kolya snapped despotically as he was terribly fond of doing with these “little boys”, and Smurov ran to carry out the order.",
+  "explanation" : "Kolya replied with a dominating, sharp tone characteristic of how he liked to treat younger boys, stating that his reasons for needing Karamazov there were his own, and Smurov immediately ran off to obey the command."
+} ]

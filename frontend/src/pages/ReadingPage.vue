@@ -92,17 +92,25 @@ import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
 import { fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
 
-const chapterId = 'chapter-1'
+const DEFAULT_CHAPTER_ID = 'chapter-1'
 const READ_TRIGGER_PERCENT = 15
+const TEMP_CHAPTER_NAME = 'temp'
+
+function getChapterIdFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  return params.get('chapter') || DEFAULT_CHAPTER_ID
+}
+
+const activeChapterId = ref(getChapterIdFromUrl())
 
 const chapter = reactive({
-  chapterId,
+  chapterId: activeChapterId.value,
   title: '',
   sentences: []
 })
 
 const progress = reactive({
-  chapterId,
+  chapterId: activeChapterId.value,
   lastSentenceId: null,
   totalScore: 0,
   greenScore: 0,
@@ -150,6 +158,27 @@ function dedupe(ids) {
   return Array.from(new Set(ids)).sort((a, b) => a - b)
 }
 
+function normalizeChapterName(value) {
+  return (value || '').trim()
+}
+
+function buildProgressKey(title) {
+  const chapterName = normalizeChapterName(title)
+  if (!chapterName) {
+    return activeChapterId.value
+  }
+
+  if (chapterName.toLowerCase() === TEMP_CHAPTER_NAME) {
+    return null
+  }
+
+  return chapterName.replace(/[\\/#?%]/g, '_')
+}
+
+function getCurrentProgressKey() {
+  return buildProgressKey(chapter.title)
+}
+
 function deriveGreenScore(scoredIds, explanationUsedIds) {
   return scoredIds.filter(id => !explanationUsedIds.includes(id)).length
 }
@@ -182,7 +211,7 @@ function mergeProgressState(savedProgress) {
 
 function createEmptyProgress() {
   return {
-    chapterId,
+    chapterId: getCurrentProgressKey() || activeChapterId.value,
     lastSentenceId: null,
     totalScore: 0,
     greenScore: 0,
@@ -308,9 +337,14 @@ function schedulePersist() {
     return
   }
 
+  const progressKey = getCurrentProgressKey()
+  if (!progressKey) {
+    return
+  }
+
   window.clearTimeout(persistTimer.value)
   persistTimer.value = window.setTimeout(() => {
-    saveProgress(chapterId, { ...progress }).catch((error) => {
+    saveProgress(progressKey, { ...progress, chapterId: progressKey }).catch((error) => {
       console.error('Failed to save progress', error)
     })
   }, 250)
@@ -346,24 +380,49 @@ function refreshObservedSentences() {
 
 async function hydrateChapterState(chapterResponse, progressResponse) {
   isHydratingProgress.value = true
+  activeChapterId.value = chapterResponse.chapterId
   chapter.chapterId = chapterResponse.chapterId
   chapter.title = chapterResponse.title
   chapter.sentences = chapterResponse.sentences
   mergeProgressState(progressResponse)
+  progress.chapterId = getCurrentProgressKey() || chapter.chapterId
   await nextTick()
   isHydratingProgress.value = false
 }
 
 async function loadPage() {
-  const [chapterResponse, progressResponse] = await Promise.all([
-    fetchChapter(chapterId),
-    fetchProgress(chapterId)
-  ])
+  try {
+    const chapterResponse = await fetchChapter(activeChapterId.value)
+    const progressKey = buildProgressKey(chapterResponse.title)
+    const progressResponse = progressKey
+      ? await fetchProgress(progressKey)
+      : createEmptyProgress()
 
-  await hydrateChapterState(chapterResponse, progressResponse)
-  if (progress.lastSentenceId) {
-    scrollToSentence(progress.lastSentenceId)
+    await hydrateChapterState(chapterResponse, progressResponse)
+    updateUrlChapter(chapterResponse.chapterId)
+    if (progress.lastSentenceId) {
+      scrollToSentence(progress.lastSentenceId)
+    }
+  } catch (error) {
+    if (activeChapterId.value !== DEFAULT_CHAPTER_ID) {
+      activeChapterId.value = DEFAULT_CHAPTER_ID
+      updateUrlChapter(DEFAULT_CHAPTER_ID)
+      await loadPage()
+      return
+    }
+
+    console.error('Failed to load chapter', error)
   }
+}
+
+function updateUrlChapter(chapterId) {
+  const url = new URL(window.location.href)
+  if (chapterId === DEFAULT_CHAPTER_ID) {
+    url.searchParams.delete('chapter')
+  } else {
+    url.searchParams.set('chapter', chapterId)
+  }
+  window.history.replaceState({}, '', url)
 }
 
 function buildObserver() {
@@ -409,12 +468,18 @@ async function submitImport() {
   importError.value = ''
 
   try {
-    const chapterResponse = await importChapter(chapterId, {
+    const chapterResponse = await importChapter(activeChapterId.value, {
       title: importForm.title.trim(),
       markdown: importForm.markdown
     })
 
-    await hydrateChapterState(chapterResponse, createEmptyProgress())
+    updateUrlChapter(chapterResponse.chapterId)
+    const progressKey = buildProgressKey(chapterResponse.title)
+    const progressResponse = progressKey
+      ? await fetchProgress(progressKey)
+      : createEmptyProgress()
+
+    await hydrateChapterState(chapterResponse, progressResponse)
     importForm.title = ''
     importForm.markdown = ''
     closeImportModal()

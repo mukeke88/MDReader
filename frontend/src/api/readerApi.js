@@ -1,5 +1,9 @@
 const API_BASE = 'http://localhost:18080/api'
 
+function encodePathSegment(value) {
+  return encodeURIComponent(value)
+}
+
 async function handleResponse(response) {
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`)
@@ -8,11 +12,11 @@ async function handleResponse(response) {
 }
 
 export function fetchChapter(chapterId) {
-  return fetch(`${API_BASE}/chapter/${chapterId}`).then(handleResponse)
+  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
 
 export function importChapter(chapterId, payload) {
-  return fetch(`${API_BASE}/chapter/${chapterId}/import`, {
+  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -22,11 +26,11 @@ export function importChapter(chapterId, payload) {
 }
 
 export function fetchProgress(chapterId) {
-  return fetch(`${API_BASE}/progress/${chapterId}`).then(handleResponse)
+  return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
 
 export function saveProgress(chapterId, payload) {
-  return fetch(`${API_BASE}/progress/${chapterId}`, {
+  return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

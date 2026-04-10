@@ -7,9 +7,13 @@ import java.util.Optional;
 
 public interface ChapterRepository {
 
+    List<ChapterMeta> findAllChapters();
+
     Optional<ChapterMeta> findChapter(String chapterId);
 
     List<Sentence> findSentences(String chapterId);
+
+    void saveChapter(ChapterMeta chapter);
 
     void saveSentences(String chapterId, List<Sentence> sentences);
 

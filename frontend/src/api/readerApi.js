@@ -38,3 +38,9 @@ export function saveProgress(chapterId, payload) {
     body: JSON.stringify(payload)
   }).then(handleResponse)
 }
+
+export function exportProgressTable() {
+  return fetch(`${API_BASE}/progress/export`, {
+    method: 'POST'
+  }).then(handleResponse)
+}

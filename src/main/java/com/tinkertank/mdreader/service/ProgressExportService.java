@@ -13,7 +13,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,8 +30,7 @@ public class ProgressExportService {
         this.exportDir = Paths.get(exportDir);
     }
 
-    @Scheduled(cron = "${mdreader.export.cron:0 20 17 * * *}", zone = "${mdreader.export.zone-id:Asia/Shanghai}")
-    public void exportReadingProgressTable() {
+    public Path exportReadingProgressTable() {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
                 "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
                         + "opened_sentence_ids, read_sentence_ids, scored_sentence_ids, explanation_used_sentence_ids, "
@@ -88,14 +86,16 @@ public class ProgressExportService {
                     .append("updated_at = VALUES(updated_at);\n");
         }
 
-        writeExport(sql.toString());
+        return writeExport(sql.toString());
     }
 
-    private void writeExport(String sql) {
+    private Path writeExport(String sql) {
         try {
             Files.createDirectories(exportDir);
             String fileName = "reading_progress_" + FILE_NAME_FORMAT.format(LocalDateTime.now()) + ".sql";
-            Files.write(exportDir.resolve(fileName), sql.getBytes(StandardCharsets.UTF_8));
+            Path exportPath = exportDir.resolve(fileName);
+            Files.write(exportPath, sql.getBytes(StandardCharsets.UTF_8));
+            return exportPath;
         } catch (IOException ex) {
             throw new IllegalStateException("Unable to export reading_progress SQL", ex);
         }

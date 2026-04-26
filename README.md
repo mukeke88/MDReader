@@ -40,7 +40,7 @@ Runs on `http://localhost:8080`.
 mvn spring-boot:run -Dspring-boot.run.profiles=mysql
 ```
 
-In MySQL mode the app stores progress, including score fields, in the `reading_progress` table and exports that table every day at `17:20` to `D:\Dropbox\SQL` as a timestamped `.sql` file.
+In MySQL mode the app stores progress, including score fields, in the `reading_progress` table. Use the floating `Export Table` button to write a timestamped `.sql` file to `D:\Dropbox\SQL`.
 
 ### Frontend
 
@@ -57,6 +57,7 @@ Runs on `http://localhost:5173`.
 - `GET /api/chapter/chapter-1`
 - `GET /api/progress/chapter-1`
 - `POST /api/progress/chapter-1`
+- `POST /api/progress/export` (MySQL profile only)
 
 ## Step-by-step implementation plan
 

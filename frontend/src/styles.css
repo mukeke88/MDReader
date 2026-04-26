@@ -96,6 +96,33 @@ h2 {
   backdrop-filter: blur(8px);
 }
 
+.floating-export-button {
+  position: fixed;
+  top: 72px;
+  right: 16px;
+  z-index: 20;
+  min-width: 128px;
+  padding: 8px 14px;
+  border: 1px solid rgba(154, 52, 18, 0.14);
+  border-radius: 999px;
+  background: #1f2937;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.floating-export-button:hover {
+  transform: translateY(-1px);
+}
+
+.floating-export-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
+}
+
 .score-values {
   display: flex;
   align-items: baseline;
@@ -423,6 +450,13 @@ h2 {
   .floating-score {
     left: 16px;
     right: 16px;
+    width: auto;
+  }
+
+  .floating-export-button {
+    left: 16px;
+    right: 16px;
+    top: 78px;
     width: auto;
   }
 

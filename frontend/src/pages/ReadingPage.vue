@@ -4,9 +4,12 @@
       :green-score="progress.greenScore"
       :red-score="progress.redScore"
       :manual-red-score="progress.manualRedScore"
+      :is-exporting="isExporting"
+      :export-label="exportLabel"
       @update:greenScore="setGreenScore"
       @update:redScore="setRedScore"
       @update:manualRedScore="setManualRedScore"
+      @export="exportReadingProgress"
     />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
@@ -90,7 +93,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 import GlobalExplanationToggle from '../components/GlobalExplanationToggle.vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
+import { exportProgressTable, fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
 
 const DEFAULT_CHAPTER_ID = 'chapter-1'
 const READ_TRIGGER_PERCENT = 15
@@ -128,6 +131,8 @@ const persistTimer = ref(null)
 const isHydratingProgress = ref(true)
 const isImportModalOpen = ref(false)
 const isImporting = ref(false)
+const isExporting = ref(false)
+const exportStatus = ref('idle')
 const importError = ref('')
 const importForm = reactive({
   title: '',
@@ -139,6 +144,21 @@ const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
 const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
 const orderedSentenceIds = computed(() => chapter.sentences.map(sentence => sentence.id))
+const exportLabel = computed(() => {
+  if (isExporting.value) {
+    return 'Exporting...'
+  }
+
+  if (exportStatus.value === 'exported') {
+    return 'Exported'
+  }
+
+  if (exportStatus.value === 'failed') {
+    return 'Export failed'
+  }
+
+  return 'Export Table'
+})
 const paragraphGroups = computed(() => {
   const groups = new Map()
   chapter.sentences.forEach((sentence) => {
@@ -353,6 +373,43 @@ function schedulePersist() {
       console.error('Failed to save progress', error)
     })
   }, 250)
+}
+
+async function persistNow() {
+  if (isHydratingProgress.value) {
+    return
+  }
+
+  const progressKey = getCurrentProgressKey()
+  if (!progressKey) {
+    return
+  }
+
+  window.clearTimeout(persistTimer.value)
+  await saveProgress(progressKey, { ...progress, chapterId: progressKey })
+}
+
+async function exportReadingProgress() {
+  if (isExporting.value) {
+    return
+  }
+
+  isExporting.value = true
+  exportStatus.value = 'idle'
+
+  try {
+    await persistNow()
+    await exportProgressTable()
+    exportStatus.value = 'exported'
+  } catch (error) {
+    exportStatus.value = 'failed'
+    console.error('Failed to export reading progress table', error)
+  } finally {
+    isExporting.value = false
+    window.setTimeout(() => {
+      exportStatus.value = 'idle'
+    }, 1800)
+  }
 }
 
 function markBottomVisibleSentencesAsRead() {

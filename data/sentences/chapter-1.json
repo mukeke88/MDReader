@@ -1,671 +1,136 @@
 [ {
   "id" : 1,
   "paragraphId" : 1,
-  "text" : "可以。这里最容易让人混淆，我用“包裹里面装什么”和“包裹外面长什么样”来讲。",
-  "explanation" : "这里作者先承认概念容易混淆，并提出用“内部内容 vs 外部形式”的比喻来帮助理解。"
+  "text" : "“出口退费”的官方准确名称是出口退（免）税，指的是对报关出口的货物、服务或无形资产，免征出口环节的增值税和消费税，并退还其在国内生产、流通环节已缴纳的税款。",
+  "explanation" : "这句话说明，“出口退费”实际上指的是出口退（免）税政策，其核心是对出口商品或服务在出口环节不征税，同时把之前在国内已经缴纳的税款退还给企业。"
 }, {
   "id" : 2,
   "paragraphId" : 2,
-  "text" : "先说结论：",
-  "explanation" : "作者先给出总结性结论，再展开解释。"
+  "text" : "简单来说，就是要让中国产品以不含税成本进入国际市场，提升价格竞争力。",
+  "explanation" : "这句话用通俗语言解释政策目的，即通过退税降低产品成本，使中国商品在国际市场上更便宜、更有竞争力。"
 }, {
   "id" : 3,
   "paragraphId" : 2,
-  "text" : "protocol：更接近“你们双方约定的数据格式和认证规则”",
-  "explanation" : "protocol 本质是通信双方事先约定好的规则，包括数据结构和身份验证方式。"
+  "text" : "以下是其核心内容及最新政策要点。",
+  "explanation" : "这句话起到引导作用，表示接下来会介绍出口退税的主要机制和最新政策重点。"
 }, {
   "id" : 4,
-  "paragraphId" : 2,
-  "text" : "transport：更接近“这些数据通过什么通道、以什么外观被送出去”",
-  "explanation" : "transport 关注的是数据如何被传输，以及在网络中呈现出的形式。"
+  "paragraphId" : 3,
+  "text" : "根据最新的《中华人民共和国增值税法》，出口退税主要有两种方式：",
+  "explanation" : "这句话说明法律依据，并指出出口退税主要分为两种基本操作方式。"
 }, {
   "id" : 5,
-  "paragraphId" : 3,
-  "text" : "所以我之前说：",
-  "explanation" : "引出作者之前的简化说法。"
+  "paragraphId" : 4,
+  "text" : "生产企业采用免抵退税方式，即出口环节免税，对应的进项税额先用于抵扣内销的销项税额，未抵扣完的部分再退给企业。",
+  "explanation" : "这句话解释生产企业的退税方式：先用进项税抵扣国内销售的税，如果还有剩余，再退还给企业。"
 }, {
   "id" : 6,
-  "paragraphId" : 3,
-  "text" : "protocol = 包装方式",
-  "explanation" : "把 protocol 比作数据内部的“包装规则”。"
+  "paragraphId" : 4,
+  "text" : "外贸企业采用免退税方式，即出口环节免税，同时全额退还为购买该出口货物所支付的进项税额。",
+  "explanation" : "这句话说明外贸企业的方式更简单，出口免税，同时直接退还采购时支付的全部进项税。"
 }, {
   "id" : 7,
-  "paragraphId" : 3,
-  "text" : "transport = 伪装方式",
-  "explanation" : "把 transport 比作数据在外部的“表现或掩饰形式”。"
+  "paragraphId" : 4,
+  "text" : "注意：跨境电商企业以“海外仓”模式（代码9810）出口，若货物报关离境时尚未销售，可采用“离境即退税”模式，先办理出口预退税，待货物售出后再进行核算。",
+  "explanation" : "这句话强调特殊情况：跨境电商可以在货物还没卖出时先申请退税，之后再根据实际销售情况进行结算。"
 }, {
   "id" : 8,
-  "paragraphId" : 4,
-  "text" : "这个说法有助于入门，但不够精确。",
-  "explanation" : "说明刚才的比喻虽然有帮助，但不严谨。"
+  "paragraphId" : 5,
+  "text" : "申请出口退税需同时满足四项核心要求：",
+  "explanation" : "这句话说明申请退税必须符合四个基本条件。"
 }, {
   "id" : 9,
-  "paragraphId" : 4,
-  "text" : "更准确一点应该是：",
-  "explanation" : "接下来给出更精确的定义。"
+  "paragraphId" : 5,
+  "text" : "报关离境：货物已实际报关并运离关境。",
+  "explanation" : "说明必须真实完成出口，货物已经离开国内。"
 }, {
   "id" : 10,
-  "paragraphId" : 4,
-  "text" : "protocol = 业务层规则 / 会话规则",
-  "explanation" : "protocol 实际属于更高层，负责通信逻辑和规则。"
+  "paragraphId" : 5,
+  "text" : "财务作销售：在财务上已做出口销售处理。",
+  "explanation" : "说明企业账务上必须确认这笔出口销售。"
 }, {
   "id" : 11,
-  "paragraphId" : 4,
-  "text" : "transport = 传输层承载方式",
-  "explanation" : "transport 是承载数据的通道或机制。"
+  "paragraphId" : 5,
+  "text" : "收汇：已按规定收到外汇款项。",
+  "explanation" : "说明必须已经收到国外客户支付的货款。"
 }, {
   "id" : 12,
-  "paragraphId" : 4,
-  "text" : "“伪装”通常是 transport 再叠加 TLS、HTTP、WS、gRPC 之后产生的效果，不是 transport 天生就等于伪装",
-  "explanation" : "所谓“伪装效果”通常是多层组合的结果，而不是 transport 单独决定的。"
+  "paragraphId" : 5,
+  "text" : "符合企业类型和货物范围：属于有出口经营权的生产或外贸企业，且出口货物属于增值税、消费税征税范围。",
+  "explanation" : "说明企业和商品都要符合政策规定的范围，才可以申请退税。"
 }, {
   "id" : 13,
-  "paragraphId" : 5,
-  "text" : "一、先用快递比喻建立直觉",
-  "explanation" : "开始用生活类比帮助理解。"
+  "paragraphId" : 6,
+  "text" : "首次申报前，通过电子税务局办理出口退（免）税备案。",
+  "explanation" : "说明企业第一次申请前需要先完成备案手续。"
 }, {
   "id" : 14,
-  "paragraphId" : 5,
-  "text" : "假设你要寄一个东西。",
-  "explanation" : "设定一个简单的场景作为类比基础。"
+  "paragraphId" : 6,
+  "text" : "登录电子税务局，导入报关单数据并匹配发票，系统自动生成申报表。",
+  "explanation" : "说明申报时需要上传数据并匹配发票，系统会自动生成相关表格。"
 }, {
   "id" : 15,
   "paragraphId" : 6,
-  "text" : "protocol 像什么？",
-  "explanation" : "提出问题，引出类比。"
+  "text" : "提交前使用“数据自检”功能检查错误，确认无误后提交。",
+  "explanation" : "说明在正式提交前要检查数据，避免错误。"
 }, {
   "id" : 16,
   "paragraphId" : 6,
-  "text" : "像是寄件单的规则：",
-  "explanation" : "protocol 类似寄件单填写规则。"
+  "text" : "提交后由税务机关审核，通过后退税款划入企业账户。",
+  "explanation" : "说明流程最后由税务机关审核，审核通过后资金会退回企业账户。"
 }, {
   "id" : 17,
-  "paragraphId" : 6,
-  "text" : "收件人编号怎么写",
-  "explanation" : "定义目标信息的格式。"
+  "paragraphId" : 7,
+  "text" : "申报退税时，主要靠以下四类单证证明业务的真实性：",
+  "explanation" : "这句话说明申请退税需要提供关键证明材料。"
 }, {
   "id" : 18,
-  "paragraphId" : 6,
-  "text" : "寄件人身份怎么验证",
-  "explanation" : "定义身份认证方式。"
+  "paragraphId" : 7,
+  "text" : "出口货物报关单：海关出具的出口退税证明。",
+  "explanation" : "说明报关单是证明货物已经出口的重要凭证。"
 }, {
   "id" : 19,
-  "paragraphId" : 6,
-  "text" : "包裹里内容按什么格式摆放",
-  "explanation" : "规定数据结构排列。"
+  "paragraphId" : 7,
+  "text" : "增值税专用发票：国内采购环节的进项抵扣凭证。",
+  "explanation" : "说明发票用于证明企业已经支付过相关税款。"
 }, {
   "id" : 20,
-  "paragraphId" : 6,
-  "text" : "对方收到后怎么拆开识别",
-  "explanation" : "规定接收方如何解析数据。"
+  "paragraphId" : 7,
+  "text" : "出口发票：企业开具的出口销售凭证。",
+  "explanation" : "说明这是企业对外销售的证明文件。"
 }, {
   "id" : 21,
   "paragraphId" : 7,
-  "text" : "也就是说：",
-  "explanation" : "对上面内容进行总结。"
+  "text" : "收汇凭证：银行提供的外汇到账证明。",
+  "explanation" : "说明需要证明企业已经收到货款。"
 }, {
   "id" : 22,
   "paragraphId" : 7,
-  "text" : "protocol 决定“这份数据长什么结构，对方怎么认出你、怎么理解内容”",
-  "explanation" : "protocol 的核心作用是定义数据结构和解释方式。"
+  "text" : "特别提醒：需确保银行账号备案完成，并妥善保存所有单证以备核查。",
+  "explanation" : "说明企业还需要做好账户备案，并保存资料以应对后续检查。"
 }, {
   "id" : 23,
   "paragraphId" : 8,
-  "text" : "transport 像什么？",
-  "explanation" : "提出第二个类比问题。"
+  "text" : "根据2026年起施行的最新管理办法，以下几点需要特别留意：",
+  "explanation" : "这句话引出最新政策变化，需要重点关注。"
 }, {
   "id" : 24,
   "paragraphId" : 8,
-  "text" : "像是通过什么渠道送出去：",
-  "explanation" : "transport 类似运输方式。"
+  "text" : "新规时间：2026年1月1日起执行新的出口退税管理办法。",
+  "explanation" : "说明新政策的正式实施时间。"
 }, {
   "id" : 25,
   "paragraphId" : 8,
-  "text" : "走普通快递车",
-  "explanation" : "一种传输方式。"
+  "text" : "申请时限：最晚应在出口报关的次年4月30日前完成申报和收汇。",
+  "explanation" : "说明申请退税有时间限制，必须按时完成。"
 }, {
   "id" : 26,
   "paragraphId" : 8,
-  "text" : "走航空件",
-  "explanation" : "另一种传输方式。"
+  "text" : "违规“买单出口”风险：通过购买他人报关单的行为将完全失效。",
+  "explanation" : "说明违规操作将不再可行，并存在风险。"
 }, {
   "id" : 27,
   "paragraphId" : 8,
-  "text" : "走冷链车",
-  "explanation" : "不同特性的传输方式。"
-}, {
-  "id" : 28,
-  "paragraphId" : 8,
-  "text" : "外面套成纸箱还是文件袋",
-  "explanation" : "数据在外部呈现的形式。"
-}, {
-  "id" : 29,
-  "paragraphId" : 9,
-  "text" : "也就是说：",
-  "explanation" : "总结 transport 的作用。"
-}, {
-  "id" : 30,
-  "paragraphId" : 9,
-  "text" : "transport 决定“这些已经组织好的数据，怎么被运到对方那里”",
-  "explanation" : "transport 只负责“怎么送”，不负责“内容怎么组织”。"
-}, {
-  "id" : 31,
-  "paragraphId" : 10,
-  "text" : "二、protocol 到底负责什么",
-  "explanation" : "进入 protocol 的深入解释。"
-}, {
-  "id" : 32,
-  "paragraphId" : 10,
-  "text" : "你可以把 protocol 理解成“通信语言”。",
-  "explanation" : "protocol 类似双方约定的语言规则。"
-}, {
-  "id" : 33,
-  "paragraphId" : 11,
-  "text" : "客户端和服务器不只是“发点字节过去”就行，它们得事先约定：",
-  "explanation" : "通信不仅是发送数据，还需要规则。"
-}, {
-  "id" : 34,
-  "paragraphId" : 11,
-  "text" : "我是谁",
-  "explanation" : "身份标识。"
-}, {
-  "id" : 35,
-  "paragraphId" : 11,
-  "text" : "我怎么证明我是合法用户",
-  "explanation" : "身份验证机制。"
-}, {
-  "id" : 36,
-  "paragraphId" : 11,
-  "text" : "这段数据的头部怎么写",
-  "explanation" : "数据结构定义。"
-}, {
-  "id" : 37,
-  "paragraphId" : 11,
-  "text" : "正文从哪里开始",
-  "explanation" : "数据边界划分。"
-}, {
-  "id" : 38,
-  "paragraphId" : 11,
-  "text" : "对方收到后按什么规则解析",
-  "explanation" : "解析规则。"
-}, {
-  "id" : 39,
-  "paragraphId" : 12,
-  "text" : "如果没有 protocol，服务器看到一串数据，根本不知道：",
-  "explanation" : "没有协议就无法理解数据。"
-}, {
-  "id" : 40,
-  "paragraphId" : 12,
-  "text" : "这是谁发来的",
-  "explanation" : "无法识别来源。"
-}, {
-  "id" : 41,
-  "paragraphId" : 12,
-  "text" : "要不要接受",
-  "explanation" : "无法判断合法性。"
-}, {
-  "id" : 42,
-  "paragraphId" : 12,
-  "text" : "该怎么拆包",
-  "explanation" : "无法解析结构。"
-}, {
-  "id" : 43,
-  "paragraphId" : 12,
-  "text" : "后面是目标地址还是正文内容",
-  "explanation" : "无法区分数据含义。"
-}, {
-  "id" : 44,
-  "paragraphId" : 13,
-  "text" : "一个更直白的比喻",
-  "explanation" : "引入更简单的例子。"
-}, {
-  "id" : 45,
-  "paragraphId" : 13,
-  "text" : "你去银行柜台办业务。",
-  "explanation" : "设定生活场景。"
-}, {
-  "id" : 46,
-  "paragraphId" : 14,
-  "text" : "你不能只是把钱拍桌上。你得按规则来：",
-  "explanation" : "强调规则的重要性。"
-}, {
-  "id" : 47,
-  "paragraphId" : 14,
-  "text" : "先出示身份证",
-  "explanation" : "身份验证。"
-}, {
-  "id" : 48,
-  "paragraphId" : 14,
-  "text" : "报账号",
-  "explanation" : "目标信息。"
-}, {
-  "id" : 49,
-  "paragraphId" : 14,
-  "text" : "填表",
-  "explanation" : "结构化数据。"
-}, {
-  "id" : 50,
-  "paragraphId" : 14,
-  "text" : "柜员按表格格式读取",
-  "explanation" : "按协议解析。"
-}, {
-  "id" : 51,
-  "paragraphId" : 15,
-  "text" : "这个“表格规则”就是 protocol。",
-  "explanation" : "总结：protocol 就是规则本身。"
-}, {
-  "id" : 52,
-  "paragraphId" : 16,
-  "text" : "在这类代理系统里，protocol 常干的事",
-  "explanation" : "说明 protocol 的实际作用。"
-}, {
-  "id" : 53,
-  "paragraphId" : 16,
-  "text" : "身份识别",
-  "explanation" : "区分用户。"
-}, {
-  "id" : 54,
-  "paragraphId" : 16,
-  "text" : "例如用 UUID 之类的标识来区分用户。",
-  "explanation" : "具体实现方式。"
-}, {
-  "id" : 55,
-  "paragraphId" : 16,
-  "text" : "数据格式定义",
-  "explanation" : "定义数据结构。"
-}, {
-  "id" : 56,
-  "paragraphId" : 16,
-  "text" : "规定这一串字节里：",
-  "explanation" : "说明细节。"
-}, {
-  "id" : 57,
-  "paragraphId" : 16,
-  "text" : "前几个字节是什么",
-  "explanation" : "字段定义。"
-}, {
-  "id" : 58,
-  "paragraphId" : 16,
-  "text" : "哪一段表示目标地址",
-  "explanation" : "字段含义。"
-}, {
-  "id" : 59,
-  "paragraphId" : 16,
-  "text" : "哪一段表示端口",
-  "explanation" : "字段含义。"
-}, {
-  "id" : 60,
-  "paragraphId" : 16,
-  "text" : "哪一段是真正要转发的数据",
-  "explanation" : "正文内容。"
-}, {
-  "id" : 61,
-  "paragraphId" : 16,
-  "text" : "某些安全/握手机制",
-  "explanation" : "建立连接规则。"
-}, {
-  "id" : 62,
-  "paragraphId" : 16,
-  "text" : "决定双方怎么建立会话，怎样避免乱连。",
-  "explanation" : "确保连接安全。"
-}, {
-  "id" : 63,
-  "paragraphId" : 17,
-  "text" : "所以 protocol 不是“加密方式”本身",
-  "explanation" : "澄清常见误解。"
-}, {
-  "id" : 64,
-  "paragraphId" : 17,
-  "text" : "很多初学者会把 protocol 和 encryption 混在一起。",
-  "explanation" : "指出误区。"
-}, {
-  "id" : 65,
-  "paragraphId" : 17,
-  "text" : "其实不完全一样。",
-  "explanation" : "强调区别。"
-}, {
-  "id" : 66,
-  "paragraphId" : 17,
-  "text" : "protocol 说的是：我们怎么说话",
-  "explanation" : "定义通信规则。"
-}, {
-  "id" : 67,
-  "paragraphId" : 17,
-  "text" : "encryption 说的是：别人能不能看懂我们说的话",
-  "explanation" : "定义是否可被理解。"
-}, {
-  "id" : 68,
-  "paragraphId" : 18,
-  "text" : "就像：",
-  "explanation" : "引入类比。"
-}, {
-  "id" : 69,
-  "paragraphId" : 18,
-  "text" : "你们约定用中文写信，这是 protocol",
-  "explanation" : "语言规则。"
-}, {
-  "id" : 70,
-  "paragraphId" : 18,
-  "text" : "你把信锁进保险箱，这是 encryption",
-  "explanation" : "加密行为。"
-}, {
-  "id" : 71,
-  "paragraphId" : 19,
-  "text" : "三、transport 到底负责什么",
-  "explanation" : "开始讲 transport。"
-}, {
-  "id" : 72,
-  "paragraphId" : 19,
-  "text" : "transport 更像是“运货方式”。",
-  "explanation" : "核心定义。"
-}, {
-  "id" : 73,
-  "paragraphId" : 20,
-  "text" : "假设 protocol 已经把数据整理好了，接下来要解决的是：",
-  "explanation" : "承接逻辑。"
-}, {
-  "id" : 74,
-  "paragraphId" : 20,
-  "text" : "这些数据通过什么连接发过去？",
-  "explanation" : "transport 的核心问题。"
-}, {
-  "id" : 75,
-  "paragraphId" : 20,
-  "text" : "这就是 transport 关心的事情。",
-  "explanation" : "总结。"
-}, {
-  "id" : 76,
-  "paragraphId" : 21,
-  "text" : "transport 主要决定这些问题",
-  "explanation" : "列出关键点。"
-}, {
-  "id" : 77,
-  "paragraphId" : 21,
-  "text" : "走哪种底层连接",
-  "explanation" : "连接类型。"
-}, {
-  "id" : 78,
-  "paragraphId" : 21,
-  "text" : "例如基于：",
-  "explanation" : "举例说明。"
-}, {
-  "id" : 79,
-  "paragraphId" : 21,
-  "text" : "TCP",
-  "explanation" : "一种传输方式。"
-}, {
-  "id" : 80,
-  "paragraphId" : 21,
-  "text" : "类似 HTTP 的承载",
-  "explanation" : "另一种方式。"
-}, {
-  "id" : 81,
-  "paragraphId" : 21,
-  "text" : "WebSocket",
-  "explanation" : "实时连接方式。"
-}, {
-  "id" : 82,
-  "paragraphId" : 21,
-  "text" : "gRPC",
-  "explanation" : "高效通信方式。"
-}, {
-  "id" : 83,
-  "paragraphId" : 22,
-  "text" : "数据是怎么分段发送的",
-  "explanation" : "传输方式细节。"
-}, {
-  "id" : 84,
-  "paragraphId" : 22,
-  "text" : "是持续流式发，还是像消息一段一段发。",
-  "explanation" : "流式 vs 分块。"
-}, {
-  "id" : 85,
-  "paragraphId" : 23,
-  "text" : "外面看起来像什么",
-  "explanation" : "外部表现。"
-}, {
-  "id" : 86,
-  "paragraphId" : 23,
-  "text" : "比如外部观察者看到的可能像：",
-  "explanation" : "举例。"
-}, {
-  "id" : 87,
-  "paragraphId" : 23,
-  "text" : "普通 TCP 连接",
-  "explanation" : "简单形式。"
-}, {
-  "id" : 88,
-  "paragraphId" : 23,
-  "text" : "HTTPS 里的 WebSocket",
-  "explanation" : "更复杂形式。"
-}, {
-  "id" : 89,
-  "paragraphId" : 23,
-  "text" : "HTTP/2 上的 gRPC",
-  "explanation" : "高级形式。"
-}, {
-  "id" : 90,
-  "paragraphId" : 24,
-  "text" : "为什么我之前说它像“伪装方式”",
-  "explanation" : "解释之前的比喻。"
-}, {
-  "id" : 91,
-  "paragraphId" : 24,
-  "text" : "因为很多时候，大家谈 transport，不只是说“怎么传”，还在意：",
-  "explanation" : "说明实际关注点。"
-}, {
-  "id" : 92,
-  "paragraphId" : 24,
-  "text" : "传出去以后，网络上看起来像不像某种常见业务流量",
-  "explanation" : "强调“伪装”意义。"
-}, {
-  "id" : 93,
-  "paragraphId" : 25,
-  "text" : "所以对很多入门者来说，transport 的直观感受就是“外观”。",
-  "explanation" : "总结认知。"
-}, {
-  "id" : 94,
-  "paragraphId" : 25,
-  "text" : "但严格说：",
-  "explanation" : "引出修正。"
-}, {
-  "id" : 95,
-  "paragraphId" : 25,
-  "text" : "transport 首先是承载方式，其次才可能带来某种外观或伪装效果。",
-  "explanation" : "强调本质优先级。"
-}, {
-  "id" : 96,
-  "paragraphId" : 26,
-  "text" : "四、把两者放在一条链路里看",
-  "explanation" : "开始整体视角。"
-}, {
-  "id" : 97,
-  "paragraphId" : 26,
-  "text" : "可以把整个过程想成这样：",
-  "explanation" : "引入流程。"
-}, {
-  "id" : 98,
-  "paragraphId" : 26,
-  "text" : "原始请求 → protocol → transport → TLS → 发到服务器",
-  "explanation" : "说明发送流程：先封装，再传输，再加密。"
-}, {
-  "id" : 99,
-  "paragraphId" : 27,
-  "text" : "服务器端则是反过来：",
-  "explanation" : "接收流程。"
-}, {
-  "id" : 100,
-  "paragraphId" : 27,
-  "text" : "收到数据 → transport 解出 → protocol 解析 → 确认身份 → 还原请求",
-  "explanation" : "说明解析顺序。"
-}, {
-  "id" : 101,
-  "paragraphId" : 28,
-  "text" : "五、一个不涉及具体搭建的抽象例子",
-  "explanation" : "开始举例。"
-}, {
-  "id" : 102,
-  "paragraphId" : 28,
-  "text" : "假设你要把一句话送到服务器：",
-  "explanation" : "设定场景。"
-}, {
-  "id" : 103,
-  "paragraphId" : 28,
-  "text" : "“请帮我访问 example.com”",
-  "explanation" : "原始请求内容。"
-}, {
-  "id" : 104,
-  "paragraphId" : 29,
-  "text" : "这时候会发生什么？",
-  "explanation" : "提出问题。"
-}, {
-  "id" : 105,
-  "paragraphId" : 30,
-  "text" : "第一步：protocol 处理",
-  "explanation" : "步骤一。"
-}, {
-  "id" : 106,
-  "paragraphId" : 30,
-  "text" : "protocol 会把它变成一种双方都认识的结构",
-  "explanation" : "结构化数据。"
-}, {
-  "id" : 107,
-  "paragraphId" : 31,
-  "text" : "第二步：transport 处理",
-  "explanation" : "步骤二。"
-}, {
-  "id" : 108,
-  "paragraphId" : 31,
-  "text" : "transport 决定把这份结构化数据怎么送过去",
-  "explanation" : "决定传输方式。"
-}, {
-  "id" : 109,
-  "paragraphId" : 32,
-  "text" : "六、你可以把它们理解成“信件内容”和“信封渠道”",
-  "explanation" : "再次简化记忆。"
-}, {
-  "id" : 110,
-  "paragraphId" : 33,
-  "text" : "protocol = 信件内部格式",
-  "explanation" : "内部规则。"
-}, {
-  "id" : 111,
-  "paragraphId" : 33,
-  "text" : "transport = 信封和投递渠道",
-  "explanation" : "外部传输。"
-}, {
-  "id" : 112,
-  "paragraphId" : 34,
-  "text" : "七、为什么很多人会把两者搞混",
-  "explanation" : "解释混淆原因。"
-}, {
-  "id" : 113,
-  "paragraphId" : 34,
-  "text" : "因为在实际讨论中，它们总是一起出现",
-  "explanation" : "说明原因。"
-}, {
-  "id" : 114,
-  "paragraphId" : 35,
-  "text" : "其实它们是分层的：",
-  "explanation" : "引出分层结构。"
-}, {
-  "id" : 115,
-  "paragraphId" : 35,
-  "text" : "第一层：protocol 定义里面的数据结构",
-  "explanation" : "内部规则。"
-}, {
-  "id" : 116,
-  "paragraphId" : 35,
-  "text" : "第二层：transport 定义外面怎么传",
-  "explanation" : "传输方式。"
-}, {
-  "id" : 117,
-  "paragraphId" : 35,
-  "text" : "第三层：TLS 等 定义再外面怎么加密、长得像什么",
-  "explanation" : "外层安全与表现。"
-}, {
-  "id" : 118,
-  "paragraphId" : 36,
-  "text" : "八、用生活语言压缩成两句话",
-  "explanation" : "总结。"
-}, {
-  "id" : 119,
-  "paragraphId" : 36,
-  "text" : "protocol：规定包裹里面怎么装、标签怎么写、对方怎么验身份和拆包。",
-  "explanation" : "内部规则总结。"
-}, {
-  "id" : 120,
-  "paragraphId" : 36,
-  "text" : "transport：规定这个包裹走什么路、坐什么车、外面看起来像什么渠道发出的。",
-  "explanation" : "外部传输总结。"
-}, {
-  "id" : 121,
-  "paragraphId" : 37,
-  "text" : "九、再纠正一个常见误区",
-  "explanation" : "继续澄清。"
-}, {
-  "id" : 122,
-  "paragraphId" : 37,
-  "text" : "protocol 越复杂越高级 / transport 越花哨越安全",
-  "explanation" : "指出错误认知。"
-}, {
-  "id" : 123,
-  "paragraphId" : 38,
-  "text" : "其实不一定。",
-  "explanation" : "否定误区。"
-}, {
-  "id" : 124,
-  "paragraphId" : 38,
-  "text" : "真正重要的是：",
-  "explanation" : "引出关键点。"
-}, {
-  "id" : 125,
-  "paragraphId" : 38,
-  "text" : "双方能不能正确识别",
-  "explanation" : "正确解析。"
-}, {
-  "id" : 126,
-  "paragraphId" : 38,
-  "text" : "数据能不能稳定传输",
-  "explanation" : "可靠性。"
-}, {
-  "id" : 127,
-  "paragraphId" : 38,
-  "text" : "外层安全性是否合理",
-  "explanation" : "安全性。"
-}, {
-  "id" : 128,
-  "paragraphId" : 38,
-  "text" : "运维上是否可控",
-  "explanation" : "可维护性。"
-}, {
-  "id" : 129,
-  "paragraphId" : 38,
-  "text" : "信任链是否清晰",
-  "explanation" : "安全体系。"
-}, {
-  "id" : 130,
-  "paragraphId" : 39,
-  "text" : "也就是说，它们首先是工程设计问题，不是“越神秘越厉害”。",
-  "explanation" : "强调本质是工程实践。"
-}, {
-  "id" : 131,
-  "paragraphId" : 40,
-  "text" : "十、给你一个最短记忆版",
-  "explanation" : "最终总结。"
-}, {
-  "id" : 132,
-  "paragraphId" : 40,
-  "text" : "protocol：里面怎么编排",
-  "explanation" : "内部结构。"
-}, {
-  "id" : 133,
-  "paragraphId" : 40,
-  "text" : "transport：外面怎么运送",
-  "explanation" : "传输方式。"
-}, {
-  "id" : 134,
-  "paragraphId" : 40,
-  "text" : "TLS/外层：别人看起来像什么，能不能看懂",
-  "explanation" : "外部表现与安全。"
+  "text" : "跨境电商利好：海外仓“离境即退税”政策可加快资金回流。",
+  "explanation" : "说明新政策对跨境电商企业有利，可以提高资金周转效率。"
 } ]

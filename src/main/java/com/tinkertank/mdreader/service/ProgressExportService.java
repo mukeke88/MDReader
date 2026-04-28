@@ -5,11 +5,17 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,7 +36,7 @@ public class ProgressExportService {
         this.exportDir = Paths.get(exportDir);
     }
 
-    public Path exportReadingProgressTable() {
+    public ExportResult exportReadingProgressTable() {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
                 "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
                         + "opened_sentence_ids, read_sentence_ids, scored_sentence_ids, explanation_used_sentence_ids, "
@@ -86,7 +92,109 @@ public class ProgressExportService {
                     .append("updated_at = VALUES(updated_at);\n");
         }
 
-        return writeExport(sql.toString());
+        TableExportResult readingProgressResult = new TableExportResult("reading_progress", true, rows.size(), "exported");
+        TableExportResult redGreenCountsResult = appendDynamicTableExport(sql, "red_green_counts");
+
+        Path exportPath = writeExport(sql.toString());
+        return new ExportResult(exportPath, readingProgressResult, redGreenCountsResult);
+    }
+
+    private TableExportResult appendDynamicTableExport(StringBuilder sql, String tableName) {
+        if (!tableExists(tableName)) {
+            return new TableExportResult(tableName, false, 0, "missing");
+        }
+
+        sql.append("\n");
+        sql.append(exportCreateTableStatement(tableName)).append(";\n\n");
+
+        List<String> insertableColumns = getInsertableColumns(tableName);
+        TableData tableData = readTableData(tableName, insertableColumns);
+        if (tableData.getRows().isEmpty()) {
+            return new TableExportResult(tableName, true, 0, "empty");
+        }
+
+        String columnList = tableData.getColumns().stream()
+                .map(this::quoteIdentifier)
+                .collect(Collectors.joining(", "));
+
+        for (List<Object> row : tableData.getRows()) {
+            String values = row.stream()
+                    .map(this::toSqlLiteral)
+                    .collect(Collectors.joining(", "));
+            sql.append("INSERT INTO ")
+                    .append(quoteIdentifier(tableName))
+                    .append(" (")
+                    .append(columnList)
+                    .append(") VALUES (")
+                    .append(values)
+                    .append(");\n");
+        }
+
+        return new TableExportResult(tableName, true, tableData.getRows().size(), "exported");
+    }
+
+    private boolean tableExists(String tableName) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM information_schema.tables "
+                        + "WHERE table_schema = DATABASE() AND table_name = ?",
+                Integer.class,
+                tableName);
+        return count != null && count > 0;
+    }
+
+    private String exportCreateTableStatement(String tableName) {
+        return jdbcTemplate.queryForObject(
+                "SHOW CREATE TABLE " + quoteIdentifier(tableName),
+                (rs, rowNum) -> rs.getString("Create Table"));
+    }
+
+    private List<String> getInsertableColumns(String tableName) {
+        List<Map<String, Object>> columnRows = jdbcTemplate.queryForList(
+                "SELECT column_name, extra FROM information_schema.columns "
+                        + "WHERE table_schema = DATABASE() AND table_name = ? "
+                        + "ORDER BY ordinal_position",
+                tableName);
+
+        List<String> insertableColumns = new ArrayList<String>();
+        List<String> skippedColumns = new ArrayList<String>();
+        for (Map<String, Object> columnRow : columnRows) {
+            String columnName = String.valueOf(columnRow.get("column_name"));
+            String extra = columnRow.get("extra") == null ? "" : String.valueOf(columnRow.get("extra"));
+            if (extra.toLowerCase().contains("generated")) {
+                skippedColumns.add(columnName);
+                continue;
+            }
+            insertableColumns.add(columnName);
+        }
+
+        return insertableColumns;
+    }
+
+    private TableData readTableData(String tableName, List<String> columns) {
+        String selectList = columns.stream()
+                .map(this::quoteIdentifier)
+                .collect(Collectors.joining(", "));
+        return jdbcTemplate.query("SELECT " + selectList + " FROM " + quoteIdentifier(tableName), this::extractTableData);
+    }
+
+    private TableData extractTableData(ResultSet rs) throws SQLException {
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        List<String> columns = new ArrayList<>(columnCount);
+        for (int i = 1; i <= columnCount; i++) {
+            columns.add(metaData.getColumnLabel(i));
+        }
+
+        List<List<Object>> rows = new ArrayList<>();
+        while (rs.next()) {
+            List<Object> row = new ArrayList<>(columnCount);
+            for (int i = 1; i <= columnCount; i++) {
+                row.add(rs.getObject(i));
+            }
+            rows.add(row);
+        }
+
+        return new TableData(Collections.unmodifiableList(columns), rows);
     }
 
     private Path writeExport(String sql) {
@@ -136,5 +244,101 @@ public class ProgressExportService {
             return "'" + value.toString() + "'";
         }
         return "'" + String.valueOf(value) + "'";
+    }
+
+    private String toSqlLiteral(Object value) {
+        if (value == null) {
+            return "NULL";
+        }
+        if (value instanceof Boolean || value instanceof Number) {
+            return toSqlBooleanOrNumber(value);
+        }
+        if (value instanceof Timestamp) {
+            return toSqlTimestamp(value);
+        }
+        return toSqlString(value);
+    }
+
+    private String toSqlBooleanOrNumber(Object value) {
+        if (value instanceof Boolean) {
+            return toSqlBoolean(value);
+        }
+        return toSqlNumber(value);
+    }
+
+    private String quoteIdentifier(String identifier) {
+        return "`" + identifier.replace("`", "``") + "`";
+    }
+
+    private static final class TableData {
+        private final List<String> columns;
+        private final List<List<Object>> rows;
+
+        private TableData(List<String> columns, List<List<Object>> rows) {
+            this.columns = columns;
+            this.rows = rows;
+        }
+
+        private List<String> getColumns() {
+            return columns;
+        }
+
+        private List<List<Object>> getRows() {
+            return rows;
+        }
+    }
+
+    public static final class ExportResult {
+        private final Path exportPath;
+        private final TableExportResult readingProgress;
+        private final TableExportResult redGreenCounts;
+
+        private ExportResult(Path exportPath, TableExportResult readingProgress, TableExportResult redGreenCounts) {
+            this.exportPath = exportPath;
+            this.readingProgress = readingProgress;
+            this.redGreenCounts = redGreenCounts;
+        }
+
+        public Path getExportPath() {
+            return exportPath;
+        }
+
+        public TableExportResult getReadingProgress() {
+            return readingProgress;
+        }
+
+        public TableExportResult getRedGreenCounts() {
+            return redGreenCounts;
+        }
+    }
+
+    public static final class TableExportResult {
+        private final String tableName;
+        private final boolean included;
+        private final int rowCount;
+        private final String status;
+
+        private TableExportResult(String tableName, boolean included, int rowCount, String status) {
+            this.tableName = tableName;
+            this.included = included;
+            this.rowCount = rowCount;
+            this.status = status;
+        }
+
+        public String getTableName() {
+            return tableName;
+        }
+
+        public boolean isIncluded() {
+            return included;
+        }
+
+        public int getRowCount() {
+            return rowCount;
+        }
+
+        public String getStatus() {
+            return status;
+        }
     }
 }

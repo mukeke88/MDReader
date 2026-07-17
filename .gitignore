@@ -31,6 +31,22 @@ build/
 .gradle/
 !.mvn/wrapper/maven-wrapper.jar
 
+# Android / Android Studio
+Android/**/build/
+Android/**/.gradle/
+Android/.gradle/
+Android/local.properties
+Android/captures/
+Android/.externalNativeBuild/
+Android/.cxx/
+Android/*.iml
+Android/**/generated/
+Android/**/*.apk
+Android/**/*.aab
+Android/**/*.ap_
+Android/**/*.jks
+Android/**/*.keystore
+
 # JVM
 hs_err_pid*
 replay_pid*

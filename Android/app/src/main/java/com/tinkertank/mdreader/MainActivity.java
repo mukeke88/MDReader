@@ -1,8 +1,10 @@
 package com.tinkertank.mdreader;
 
 import android.app.Activity;
+import android.os.Build;
 import android.content.Intent;
 import android.database.Cursor;
+import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -10,9 +12,13 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -48,7 +54,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
-    private static final float READ_TRIGGER_FRACTION = 0.15f;
+    private static final float READ_TRIGGER_FRACTION = 0.08f;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -73,6 +79,7 @@ public class MainActivity extends Activity {
     private String activeChapterId = DEFAULT_CHAPTER_ID;
     private String chapterTitle = "";
     private Integer lastSentenceId = null;
+    private int topSafeAreaInset = 0;
     private int greenScore = 0;
     private int redScore = 0;
     private boolean hydrating = false;
@@ -104,6 +111,8 @@ public class MainActivity extends Activity {
     }
 
     private void buildUi() {
+        configureEdgeToEdge();
+
         root = new FrameLayout(this);
         root.setBackgroundColor(Color.rgb(247, 244, 238));
         setContentView(root);
@@ -114,6 +123,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
+        applySafeAreaInsets();
 
         LinearLayout headerRow = new LinearLayout(this);
         headerRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -191,6 +201,43 @@ public class MainActivity extends Activity {
         ));
 
         scrollView.getViewTreeObserver().addOnScrollChangedListener(this::markVisibleSentencesAsRead);
+    }
+
+    private void configureEdgeToEdge() {
+        Window window = getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setNavigationBarColor(Color.rgb(247, 244, 238));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false);
+        }
+    }
+
+    private void applySafeAreaInsets() {
+        if (root == null || contentRoot == null) {
+            return;
+        }
+
+        root.setOnApplyWindowInsetsListener((view, insets) -> {
+            int topInset = insets.getSystemWindowInsetTop();
+            int leftInset = insets.getSystemWindowInsetLeft();
+            int rightInset = insets.getSystemWindowInsetRight();
+            int bottomInset = insets.getSystemWindowInsetBottom();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                DisplayCutout cutout = insets.getDisplayCutout();
+                if (cutout != null) {
+                    topInset = Math.max(topInset, cutout.getSafeInsetTop());
+                    leftInset = Math.max(leftInset, cutout.getSafeInsetLeft());
+                    rightInset = Math.max(rightInset, cutout.getSafeInsetRight());
+                    bottomInset = Math.max(bottomInset, cutout.getSafeInsetBottom());
+                }
+            }
+
+            topSafeAreaInset = topInset;
+            contentRoot.setPadding(leftInset, topInset + dp(6), rightInset, bottomInset);
+            return insets;
+        });
+        root.requestApplyInsets();
     }
 
     private TextView scoreNumber(int color) {
@@ -457,6 +504,7 @@ public class MainActivity extends Activity {
         text.setTextSize(17);
         text.setLineSpacing(dp(2), 1.05f);
         text.setTextColor(Color.rgb(39, 38, 34));
+        enableTextSelection(text);
         card.addView(text);
 
         TextView explanation = new TextView(this);
@@ -464,19 +512,36 @@ public class MainActivity extends Activity {
         explanation.setTextSize(15);
         explanation.setTextColor(Color.rgb(76, 70, 60));
         explanation.setPadding(0, dp(10), 0, dp(8));
+        enableTextSelection(explanation);
         explanation.setVisibility(isExplanationOpen(sentence.id) ? View.VISIBLE : View.GONE);
         card.addView(explanation);
 
-        View explanationStrip = new View(this);
-        explanationStrip.setBackgroundColor(Color.rgb(249, 115, 22));
-        explanationStrip.setOnClickListener(v -> {
+        View.OnClickListener toggleListener = v -> {
             toggleSentenceExplanation(sentence.id);
             explanation.setVisibility(isExplanationOpen(sentence.id) ? View.VISIBLE : View.GONE);
             updateSentenceMarker(row, sentence.id);
-        });
-        row.addView(explanationStrip, new LinearLayout.LayoutParams(dp(6), ViewGroup.LayoutParams.MATCH_PARENT));
+        };
+        attachDoubleTapToggle(row, toggleListener);
+        attachDoubleTapToggle(card, toggleListener);
+        attachDoubleTapToggle(text, toggleListener);
+        attachDoubleTapToggle(explanation, toggleListener);
 
         return row;
+    }
+
+    private void attachDoubleTapToggle(View view, View.OnClickListener toggleListener) {
+        GestureDetector detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent event) {
+                toggleListener.onClick(view);
+                return true;
+            }
+        });
+
+        view.setOnTouchListener((target, event) -> {
+            detector.onTouchEvent(event);
+            return false;
+        });
     }
 
     private boolean isExplanationOpen(int sentenceId) {
@@ -646,8 +711,13 @@ public class MainActivity extends Activity {
     private void scrollToSentence(int sentenceId) {
         View card = sentenceViews.get(sentenceId);
         if (card != null) {
-            scrollView.smoothScrollTo(0, Math.max(0, card.getTop() - dp(80)));
+            scrollView.smoothScrollTo(0, Math.max(0, card.getTop() - topSafeAreaInset - dp(56)));
         }
+    }
+
+    private void enableTextSelection(TextView textView) {
+        textView.setTextIsSelectable(true);
+        textView.setCustomSelectionActionModeCallback(null);
     }
 
     private JSONObject getJson(String path) throws Exception {

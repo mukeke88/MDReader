@@ -16,6 +16,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 button,
@@ -36,7 +38,7 @@ button {
 .page-shell {
   max-width: 860px;
   margin: 0 auto;
-  padding: 20px 16px 48px;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 16px calc(48px + env(safe-area-inset-bottom, 0px));
 }
 
 .page-header {
@@ -282,6 +284,8 @@ h2 {
 .sentence-text {
   margin: 0;
   font-size: 0.98rem;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .sentence-toggle {
@@ -304,6 +308,8 @@ h2 {
   border-left: 3px solid #f97316;
   color: #7c2d12;
   font-size: 0.92rem;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .modal-backdrop {
@@ -389,7 +395,7 @@ h2 {
 
 @media (max-width: 720px) {
   .page-shell {
-    padding-top: 138px;
+    padding-top: calc(138px + env(safe-area-inset-top, 0px));
   }
 
   .page-header {

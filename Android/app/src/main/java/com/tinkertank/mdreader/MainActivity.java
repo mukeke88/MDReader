@@ -16,6 +16,9 @@ import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowInsets;
@@ -46,6 +49,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -64,6 +68,7 @@ public class MainActivity extends Activity {
     private final Set<Integer> readSentenceIds = new HashSet<>();
     private final Set<Integer> scoredSentenceIds = new HashSet<>();
     private final Set<Integer> explanationUsedSentenceIds = new HashSet<>();
+    private final List<TextView> selectableTextViews = new ArrayList<>();
 
     private FrameLayout root;
     private LinearLayout contentRoot;
@@ -83,6 +88,7 @@ public class MainActivity extends Activity {
     private int greenScore = 0;
     private int redScore = 0;
     private boolean hydrating = false;
+    private boolean clearSelectionWhenWindowFocusReturns = false;
     private final Runnable saveRunnable = this::persistProgress;
 
     @Override
@@ -98,6 +104,15 @@ public class MainActivity extends Activity {
         mainHandler.removeCallbacks(saveRunnable);
         executor.shutdownNow();
         super.onDestroy();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && clearSelectionWhenWindowFocusReturns) {
+            clearSelectionWhenWindowFocusReturns = false;
+            clearAllTextSelection();
+        }
     }
 
     @Override
@@ -459,6 +474,7 @@ public class MainActivity extends Activity {
         titleView.setText(chapterTitle.isEmpty() ? "MDReader" : chapterTitle);
         sentenceList.removeAllViews();
         sentenceViews.clear();
+        selectableTextViews.clear();
 
         int currentParagraph = -1;
         for (Sentence sentence : sentences) {
@@ -520,6 +536,7 @@ public class MainActivity extends Activity {
             toggleSentenceExplanation(sentence.id);
             explanation.setVisibility(isExplanationOpen(sentence.id) ? View.VISIBLE : View.GONE);
             updateSentenceMarker(row, sentence.id);
+            clearAllTextSelection();
         };
         attachDoubleTapToggle(row, toggleListener);
         attachDoubleTapToggle(card, toggleListener);
@@ -530,17 +547,26 @@ public class MainActivity extends Activity {
     }
 
     private void attachDoubleTapToggle(View view, View.OnClickListener toggleListener) {
+        final boolean[] consumeDoubleTap = {false};
+        final boolean[] consumeGestureUntilUp = {false};
         GestureDetector detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent event) {
+                consumeDoubleTap[0] = true;
+                consumeGestureUntilUp[0] = true;
                 toggleListener.onClick(view);
                 return true;
             }
         });
 
         view.setOnTouchListener((target, event) -> {
+            consumeDoubleTap[0] = false;
             detector.onTouchEvent(event);
-            return false;
+            boolean consume = consumeDoubleTap[0] || consumeGestureUntilUp[0];
+            if (event.getActionMasked() == MotionEvent.ACTION_UP || event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+                consumeGestureUntilUp[0] = false;
+            }
+            return consume;
         });
     }
 
@@ -717,7 +743,58 @@ public class MainActivity extends Activity {
 
     private void enableTextSelection(TextView textView) {
         textView.setTextIsSelectable(true);
-        textView.setCustomSelectionActionModeCallback(null);
+        textView.setCustomSelectionActionModeCallback(createSelectionActionCallback());
+        if (!selectableTextViews.contains(textView)) {
+            selectableTextViews.add(textView);
+        }
+    }
+
+    private ActionMode.Callback createSelectionActionCallback() {
+        return new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                if (isTranslateAction(item)) {
+                    clearSelectionWhenWindowFocusReturns = true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+        };
+    }
+
+    private boolean isTranslateAction(MenuItem item) {
+        CharSequence title = item.getTitle();
+        if (title != null) {
+            String normalizedTitle = title.toString().toLowerCase(Locale.ROOT);
+            if (normalizedTitle.contains("translate") || normalizedTitle.contains("翻译")) {
+                return true;
+            }
+        }
+
+        Intent intent = item.getIntent();
+        return intent != null && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction());
+    }
+
+    private void clearAllTextSelection() {
+        for (TextView textView : selectableTextViews) {
+            textView.clearFocus();
+            textView.setTextIsSelectable(false);
+            textView.setTextIsSelectable(true);
+            textView.setCustomSelectionActionModeCallback(createSelectionActionCallback());
+        }
     }
 
     private JSONObject getJson(String path) throws Exception {

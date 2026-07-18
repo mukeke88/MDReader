@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Selection;
+import android.text.Spannable;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -58,6 +60,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
+    private static final int TRANSLATE_TEXT_REQUEST = 11;
     private static final float READ_TRIGGER_FRACTION = 0.08f;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -88,7 +91,7 @@ public class MainActivity extends Activity {
     private int greenScore = 0;
     private int redScore = 0;
     private boolean hydrating = false;
-    private boolean clearSelectionWhenWindowFocusReturns = false;
+    private boolean clearSelectionWhenFocusReturns = false;
     private final Runnable saveRunnable = this::persistProgress;
 
     @Override
@@ -109,15 +112,22 @@ public class MainActivity extends Activity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus && clearSelectionWhenWindowFocusReturns) {
-            clearSelectionWhenWindowFocusReturns = false;
-            clearAllTextSelection();
+        if (!hasFocus && hasActiveTextSelection()) {
+            clearSelectionWhenFocusReturns = true;
+        } else if (hasFocus && clearSelectionWhenFocusReturns) {
+            clearSelectionWhenFocusReturns = false;
+            mainHandler.post(this::clearAllTextSelection);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TRANSLATE_TEXT_REQUEST) {
+            clearAllTextSelection();
+            return;
+        }
+
         if (requestCode != IMPORT_MARKDOWN_REQUEST || resultCode != RESULT_OK || data == null || data.getData() == null) {
             return;
         }
@@ -743,13 +753,13 @@ public class MainActivity extends Activity {
 
     private void enableTextSelection(TextView textView) {
         textView.setTextIsSelectable(true);
-        textView.setCustomSelectionActionModeCallback(createSelectionActionCallback());
+        textView.setCustomSelectionActionModeCallback(createSelectionActionCallback(textView));
         if (!selectableTextViews.contains(textView)) {
             selectableTextViews.add(textView);
         }
     }
 
-    private ActionMode.Callback createSelectionActionCallback() {
+    private ActionMode.Callback createSelectionActionCallback(TextView textView) {
         return new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -763,16 +773,42 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                Intent intent = item.getIntent();
+                if (intent != null && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+                    launchProcessTextAction(textView, mode, intent);
+                    return true;
+                }
+
                 if (isTranslateAction(item)) {
-                    clearSelectionWhenWindowFocusReturns = true;
+                    mainHandler.postDelayed(
+                            () -> clearTextSelection(textView, mode),
+                            300
+                    );
                 }
                 return false;
             }
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+                mainHandler.post(() -> clearTextSelection(textView, null));
             }
         };
+    }
+
+    private void launchProcessTextAction(TextView textView, ActionMode mode, Intent sourceIntent) {
+        int selectionStart = textView.getSelectionStart();
+        int selectionEnd = textView.getSelectionEnd();
+        int start = Math.max(0, Math.min(selectionStart, selectionEnd));
+        int end = Math.min(textView.length(), Math.max(selectionStart, selectionEnd));
+        CharSequence selectedText = start < end
+                ? textView.getText().subSequence(start, end)
+                : textView.getText();
+
+        Intent intent = new Intent(sourceIntent);
+        intent.putExtra(Intent.EXTRA_PROCESS_TEXT, selectedText);
+        intent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true);
+        mode.finish();
+        startActivityForResult(intent, TRANSLATE_TEXT_REQUEST);
     }
 
     private boolean isTranslateAction(MenuItem item) {
@@ -790,11 +826,33 @@ public class MainActivity extends Activity {
 
     private void clearAllTextSelection() {
         for (TextView textView : selectableTextViews) {
-            textView.clearFocus();
-            textView.setTextIsSelectable(false);
-            textView.setTextIsSelectable(true);
-            textView.setCustomSelectionActionModeCallback(createSelectionActionCallback());
+            clearTextSelection(textView, null);
         }
+    }
+
+    private void clearTextSelection(TextView textView, ActionMode mode) {
+        if (mode != null) {
+            mode.finish();
+        }
+
+        CharSequence text = textView.getText();
+        if (text instanceof Spannable) {
+            Selection.removeSelection((Spannable) text);
+        }
+        if (textView.isFocused()) {
+            textView.clearFocus();
+        }
+    }
+
+    private boolean hasActiveTextSelection() {
+        for (TextView textView : selectableTextViews) {
+            int start = textView.getSelectionStart();
+            int end = textView.getSelectionEnd();
+            if (start >= 0 && end > start) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private JSONObject getJson(String path) throws Exception {

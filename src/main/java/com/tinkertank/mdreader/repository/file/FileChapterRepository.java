@@ -12,9 +12,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@ConditionalOnProperty(name = "mdreader.content.storage", havingValue = "file")
 public class FileChapterRepository implements ChapterRepository {
 
     private final ObjectMapper objectMapper;

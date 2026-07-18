@@ -38,14 +38,6 @@
       </label>
     </div>
   </div>
-  <button
-    class="floating-export-button"
-    type="button"
-    :disabled="isExporting"
-    @click="$emit('export')"
-  >
-    {{ exportLabel }}
-  </button>
 </template>
 
 <script setup>
@@ -61,18 +53,10 @@ const props = defineProps({
   manualRedScore: {
     type: Number,
     required: true
-  },
-  isExporting: {
-    type: Boolean,
-    default: false
-  },
-  exportLabel: {
-    type: String,
-    default: 'Export Table'
   }
 })
 
-const emit = defineEmits(['update:greenScore', 'update:redScore', 'update:manualRedScore', 'export'])
+const emit = defineEmits(['update:greenScore', 'update:redScore', 'update:manualRedScore'])
 
 function normalizeScore(value) {
   const parsed = Number.parseInt(value, 10)

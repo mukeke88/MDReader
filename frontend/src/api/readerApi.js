@@ -1,4 +1,5 @@
-const API_BASE = 'http://localhost:18080/api'
+const configuredApiBase = window.MDREADER_CONFIG?.apiBaseUrl || '/api'
+const API_BASE = configuredApiBase.replace(/\/+$/, '')
 
 function encodePathSegment(value) {
   return encodeURIComponent(value)
@@ -15,16 +16,6 @@ export function fetchChapter(chapterId) {
   return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
 
-export function importChapter(chapterId, payload) {
-  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-}
-
 export function fetchProgress(chapterId) {
   return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
@@ -36,11 +27,5 @@ export function saveProgress(chapterId, payload) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
-  }).then(handleResponse)
-}
-
-export function exportProgressTable() {
-  return fetch(`${API_BASE}/progress/export`, {
-    method: 'POST'
   }).then(handleResponse)
 }

@@ -1,3 +1,27 @@
+CREATE TABLE IF NOT EXISTS chapters (
+    id VARCHAR(255) NOT NULL,
+    book_id VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    source_file VARCHAR(255) NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS sentences (
+    chapter_id VARCHAR(255) NOT NULL,
+    sentence_id INT NOT NULL,
+    paragraph_id INT NOT NULL,
+    text TEXT NOT NULL,
+    explanation TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (chapter_id, sentence_id),
+    CONSTRAINT fk_sentences_chapter
+        FOREIGN KEY (chapter_id) REFERENCES chapters (id)
+        ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS reading_progress (
     chapter_id VARCHAR(255) NOT NULL,
     last_sentence_id INT NULL,

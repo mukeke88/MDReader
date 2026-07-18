@@ -1,71 +1,104 @@
-# MDReader MVP
+# MDReader
 
-Small local-first reading prototype with a Vue 3 frontend, a Spring Boot backend on Java 8, and configurable progress storage.
+Shared-server reading app with:
 
-## Structure
+- Spring Boot backend
+- MySQL 8 storage for chapters, sentences, and reading progress
+- Vue web frontend served by Nginx
+- Native Android client using the same remote backend
 
-- `frontend/`: Vue 3 app
-- `src/main/java/`: Spring Boot backend
-- `data/`: local JSON content and progress files
-- `TestMaterial.md`: source text used to seed chapter sentence data
+The web app and Android app both call the same `/api` backend, so progress stays synchronized through the shared MySQL database.
 
-## MVP features
+## Configuration
 
-- Vertical sentence-by-sentence reading
-- Per-sentence explanation toggle
-- Global expand/collapse explanations
-- Read detection with `IntersectionObserver`
-- One-time scoring per sentence
-- Local file persistence through backend JSON files
-- Optional MySQL persistence for reading progress and score
-- Restore score, explanation state, read state, and last sentence on reload
-
-## Run locally
-
-### Backend
+Backend environment variables:
 
 ```bash
-mvn spring-boot:run
+SERVER_PORT=18080
+MDREADER_DB_URL=jdbc:mysql://localhost:3306/mdreader?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+MDREADER_DB_USERNAME=mdreader
+MDREADER_DB_PASSWORD=change-me
+MDREADER_CORS_ALLOWED_ORIGINS=https://your-server.example.com
 ```
 
-Runs on `http://localhost:8080`.
+Web frontend API address:
 
-### Backend with MySQL
+- Edit `frontend/public/mdreader-config.js`.
+- Keep `apiBaseUrl: '/api'` when Nginx serves the frontend and proxies `/api` to Spring Boot.
+- Change it to a full URL only if the frontend and backend are hosted on different origins.
 
-1. Create the database once with [`src/main/resources/db/mysql/setup-mysql.sql`](/d:/Code/TinkerTank/MDReader/src/main/resources/db/mysql/setup-mysql.sql).
-2. Edit [`src/main/resources/application-mysql.properties`](/d:/Code/TinkerTank/MDReader/src/main/resources/application-mysql.properties) and set your MySQL username and password.
-3. Start the backend with the MySQL profile:
+Android API address:
+
+- Edit `Android/app/src/main/res/values/server_config.xml`.
+- Set `api_base_url` to your remote backend URL, for example `https://your-server.example.com/api`.
+
+## Database Setup
+
+Create the database and tables:
 
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=mysql
+mysql -u root -p < src/main/resources/db/mysql/setup-mysql.sql
 ```
 
-In MySQL mode the app stores progress, including score fields, in the `reading_progress` table. Use the floating `Export Table` button to write a timestamped `.sql` file to `D:\Dropbox\SQL`.
+To migrate the existing JSON chapter content into MySQL, generate and run a seed file:
 
-### Frontend
+```bash
+node scripts/create-mysql-seed.js > src/main/resources/db/mysql/seed-data.sql
+mysql -u root -p mdreader < src/main/resources/db/mysql/seed-data.sql
+```
+
+The seed helper writes warnings to stderr for chapter metadata that references missing sentence JSON files.
+
+## Backend Packaging
+
+Run these manually on the machine where you package the backend:
+
+```bash
+mvn clean package
+```
+
+Run the packaged backend on the server:
+
+```bash
+java -jar target/mdreader-backend-0.0.1-SNAPSHOT.jar
+```
+
+Use environment variables or your service manager to provide the database credentials.
+
+## Frontend Packaging
+
+Run these manually:
 
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run build
 ```
 
-Runs on `http://localhost:5173`.
+Deploy `frontend/dist` to the Nginx web root. Configure Nginx to serve the frontend and proxy `/api` to the Spring Boot backend on port `18080`.
+
+Example Nginx location:
+
+```nginx
+location /api/ {
+    proxy_pass http://127.0.0.1:18080/api/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+## Android Packaging
+
+Open the `Android` folder in Android Studio.
+
+1. Edit `app/src/main/res/values/server_config.xml`.
+2. Choose **File > Sync Project with Gradle Files**.
+3. Use **Build > Generate Signed Bundle / APK** for a release build, or run the `app` configuration for testing.
 
 ## API
 
-- `GET /api/chapter/chapter-1`
-- `GET /api/progress/chapter-1`
-- `POST /api/progress/chapter-1`
-- `POST /api/progress/export` (MySQL profile only)
-
-## Step-by-step implementation plan
-
-1. Seed structured sentence JSON from `TestMaterial.md`.
-2. Render the chapter in Vue with sentence blocks.
-3. Add per-sentence explanation toggles.
-4. Add global expand and collapse controls.
-5. Mark sentences as read with `IntersectionObserver`.
-6. Score each sentence once based on whether explanation was used before scoring.
-7. Persist progress in backend JSON files.
-8. Restore reading state and scroll back to `lastSentenceId` on reload.
+- `GET /api/chapter/{chapterId}`
+- `GET /api/progress/{chapterId}`
+- `POST /api/progress/{chapterId}`

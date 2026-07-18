@@ -1,35 +1,25 @@
 # MDReader Android
 
-Native Android client for the MDReader Spring Boot backend.
-
-## Open in Android Studio
-
-1. Start the backend from the repository root:
-
-   ```bash
-   mvn spring-boot:run
-   ```
-
-   The backend runs on `http://localhost:18080`.
-
-2. In Android Studio, choose **File > Open** and select the `Android` folder.
-3. Let Android Studio sync the Gradle project.
-4. Run the `app` configuration.
+Native Android client for the remote MDReader backend.
 
 ## Server URL
 
-The Android emulator reaches your Windows host through:
+Set the backend address in one place:
 
 ```text
-http://10.0.2.2:18080/api
+app/src/main/res/values/server_config.xml
 ```
 
-That is the default used by the app.
+Example:
 
-For a physical Android device on the same Wi-Fi network, tap **Server** in the app and replace the URL with your PC LAN address, for example:
-
-```text
-http://192.168.1.25:18080/api
+```xml
+<string name="api_base_url">https://your-server.example.com/api</string>
 ```
 
-The backend must be reachable from the device, and Windows Firewall may need to allow Java/Spring Boot inbound access on port `18080`.
+## Android Studio Steps
+
+1. Open the `Android` folder in Android Studio.
+2. Edit `app/src/main/res/values/server_config.xml`.
+3. Choose **File > Sync Project with Gradle Files**.
+4. Run the `app` configuration for testing.
+5. For release, use **Build > Generate Signed Bundle / APK**.

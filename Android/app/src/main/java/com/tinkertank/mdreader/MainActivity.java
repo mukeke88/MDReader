@@ -1,20 +1,15 @@
 package com.tinkertank.mdreader;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -46,9 +41,6 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
-    private static final String DEFAULT_API_BASE = "http://10.0.2.2:18080/api";
-    private static final String PREFS_NAME = "mdreader";
-    private static final String PREF_API_BASE = "apiBase";
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -59,7 +51,6 @@ public class MainActivity extends Activity {
     private final Set<Integer> scoredSentenceIds = new HashSet<>();
     private final Set<Integer> explanationUsedSentenceIds = new HashSet<>();
 
-    private SharedPreferences prefs;
     private LinearLayout root;
     private LinearLayout scoreBar;
     private LinearLayout sentenceList;
@@ -85,8 +76,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        apiBase = prefs.getString(PREF_API_BASE, DEFAULT_API_BASE);
+        apiBase = normalizeApiBase(getString(R.string.api_base_url));
         buildUi();
         loadPage(DEFAULT_CHAPTER_ID);
     }
@@ -129,11 +119,8 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
-        actions.addView(actionButton("Server", v -> showServerDialog()));
-        actions.addView(actionButton("Import", v -> showImportDialog()));
         actions.addView(actionButton("Expand", v -> setGlobalExpanded(true)));
         actions.addView(actionButton("Collapse", v -> setGlobalExpanded(false)));
-        actions.addView(actionButton("Export", v -> exportProgressTable()));
 
         titleView = new TextView(this);
         titleView.setTextSize(24);
@@ -507,114 +494,6 @@ public class MainActivity extends Activity {
         return payload;
     }
 
-    private void exportProgressTable() {
-        mainHandler.removeCallbacks(saveRunnable);
-        String progressKey = getCurrentProgressKey();
-        if (progressKey == null) {
-            Toast.makeText(this, "Temporary chapters are not exported", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        JSONObject payload = buildProgressJson(progressKey);
-        statusView.setText("Exporting progress");
-        executor.execute(() -> {
-            try {
-                postJson("/progress/" + encode(progressKey), payload);
-                postJson("/progress/export", new JSONObject());
-                mainHandler.post(() -> {
-                    statusView.setText("Exported progress table");
-                    Toast.makeText(this, "Exported", Toast.LENGTH_SHORT).show();
-                });
-            } catch (Exception error) {
-                mainHandler.post(() -> {
-                    statusView.setText("Export failed: " + error.getMessage());
-                    Toast.makeText(this, "Export failed", Toast.LENGTH_LONG).show();
-                });
-            }
-        });
-    }
-
-    private void showServerDialog() {
-        EditText input = new EditText(this);
-        input.setSingleLine(true);
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
-        input.setText(apiBase);
-        input.setSelectAllOnFocus(true);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Server URL")
-                .setView(input)
-                .setPositiveButton("Save", (dialog, which) -> {
-                    apiBase = input.getText().toString().trim();
-                    prefs.edit().putString(PREF_API_BASE, apiBase).apply();
-                    loadPage(activeChapterId);
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
-
-    private void showImportDialog() {
-        LinearLayout form = new LinearLayout(this);
-        form.setOrientation(LinearLayout.VERTICAL);
-        int padding = dp(18);
-        form.setPadding(padding, dp(8), padding, 0);
-
-        EditText titleInput = new EditText(this);
-        titleInput.setHint("Optional title");
-        form.addView(titleInput);
-
-        EditText markdownInput = new EditText(this);
-        markdownInput.setHint("Paste markdown here");
-        markdownInput.setMinLines(8);
-        markdownInput.setGravity(Gravity.TOP | Gravity.START);
-        markdownInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        form.addView(markdownInput);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Paste Markdown")
-                .setView(form)
-                .setPositiveButton("Import", (dialog, which) -> importChapter(
-                        titleInput.getText().toString().trim(),
-                        markdownInput.getText().toString()
-                ))
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
-
-    private void importChapter(String title, String markdown) {
-        if (markdown.trim().isEmpty()) {
-            Toast.makeText(this, "Paste markdown content first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        JSONObject payload = new JSONObject();
-        try {
-            payload.put("title", title);
-            payload.put("markdown", markdown);
-        } catch (Exception ignored) {
-            // Values are local strings.
-        }
-
-        statusView.setText("Importing markdown");
-        loading.setVisibility(View.VISIBLE);
-        executor.execute(() -> {
-            try {
-                JSONObject chapter = postJson("/chapter/" + encode(activeChapterId) + "/import", payload);
-                String progressKey = buildProgressKey(chapter.optString("title", ""));
-                JSONObject progress = progressKey == null
-                        ? new JSONObject()
-                        : getJson("/progress/" + encode(progressKey));
-                mainHandler.post(() -> applyChapterState(chapter, progress));
-            } catch (Exception error) {
-                mainHandler.post(() -> {
-                    loading.setVisibility(View.GONE);
-                    statusView.setText("Import failed: " + error.getMessage());
-                    Toast.makeText(this, "Import failed", Toast.LENGTH_LONG).show();
-                });
-            }
-        });
-    }
-
     private void scrollToSentence(int sentenceId) {
         View card = sentenceViews.get(sentenceId);
         if (card != null) {
@@ -646,6 +525,14 @@ public class MainActivity extends Activity {
         connection.setReadTimeout(7000);
         connection.setRequestProperty("Accept", "application/json");
         return connection;
+    }
+
+    private String normalizeApiBase(String value) {
+        String normalized = value == null ? "" : value.trim();
+        while (normalized.endsWith("/")) {
+            normalized = normalized.substring(0, normalized.length() - 1);
+        }
+        return normalized;
     }
 
     private JSONObject readJson(HttpURLConnection connection) throws Exception {

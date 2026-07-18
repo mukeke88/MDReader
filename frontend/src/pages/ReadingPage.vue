@@ -4,12 +4,9 @@
       :green-score="progress.greenScore"
       :red-score="progress.redScore"
       :manual-red-score="progress.manualRedScore"
-      :is-exporting="isExporting"
-      :export-label="exportLabel"
       @update:greenScore="setGreenScore"
       @update:redScore="setRedScore"
       @update:manualRedScore="setManualRedScore"
-      @export="exportReadingProgress"
     />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
@@ -18,11 +15,10 @@
 
     <header class="page-header">
       <div>
-        <p class="eyebrow">Local MVP</p>
+        <p class="eyebrow">Shared Server</p>
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
       </div>
       <div class="header-actions">
-        <button class="ghost-button" @click="openImportModal">Paste Markdown</button>
         <button
           v-if="progress.lastSentenceId"
           class="ghost-button"
@@ -53,38 +49,6 @@
         </div>
       </section>
     </main>
-
-    <div v-if="isImportModalOpen" class="modal-backdrop" @click.self="closeImportModal">
-      <section class="import-modal">
-        <div class="import-modal__header">
-          <div>
-            <p class="eyebrow">Import</p>
-            <h2>Paste Markdown</h2>
-          </div>
-          <button class="ghost-button" @click="closeImportModal">Close</button>
-        </div>
-
-        <label class="field-label" for="import-title">Title</label>
-        <input id="import-title" v-model="importForm.title" class="text-input" type="text" placeholder="Optional title override" />
-
-        <label class="field-label" for="import-markdown">Markdown Content</label>
-        <textarea
-          id="import-markdown"
-          v-model="importForm.markdown"
-          class="markdown-input"
-          placeholder="Paste markdown here"
-        />
-
-        <p v-if="importError" class="import-error">{{ importError }}</p>
-
-        <div class="import-actions">
-          <button class="ghost-button" @click="closeImportModal">Cancel</button>
-          <button class="toggle-button" :disabled="isImporting" @click="submitImport">
-            {{ isImporting ? 'Importing...' : 'Load as Current Material' }}
-          </button>
-        </div>
-      </section>
-    </div>
   </div>
 </template>
 
@@ -93,7 +57,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 import GlobalExplanationToggle from '../components/GlobalExplanationToggle.vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { exportProgressTable, fetchChapter, fetchProgress, importChapter, saveProgress } from '../api/readerApi'
+import { fetchChapter, fetchProgress, saveProgress } from '../api/readerApi'
 
 const DEFAULT_CHAPTER_ID = 'chapter-1'
 const READ_TRIGGER_PERCENT = 15
@@ -129,36 +93,12 @@ const progress = reactive({
 const sentenceObserver = ref(null)
 const persistTimer = ref(null)
 const isHydratingProgress = ref(true)
-const isImportModalOpen = ref(false)
-const isImporting = ref(false)
-const isExporting = ref(false)
-const exportStatus = ref('idle')
-const importError = ref('')
-const importForm = reactive({
-  title: '',
-  markdown: ''
-})
 
 const readIdSet = computed(() => new Set(progress.readSentenceIds))
 const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
 const scoredIdSet = computed(() => new Set(progress.scoredSentenceIds))
 const explanationUsedIdSet = computed(() => new Set(progress.explanationUsedSentenceIds))
 const orderedSentenceIds = computed(() => chapter.sentences.map(sentence => sentence.id))
-const exportLabel = computed(() => {
-  if (isExporting.value) {
-    return 'Exporting...'
-  }
-
-  if (exportStatus.value === 'exported') {
-    return 'Exported'
-  }
-
-  if (exportStatus.value === 'failed') {
-    return 'Export failed'
-  }
-
-  return 'Export Table'
-})
 const paragraphGroups = computed(() => {
   const groups = new Map()
   chapter.sentences.forEach((sentence) => {
@@ -375,43 +315,6 @@ function schedulePersist() {
   }, 250)
 }
 
-async function persistNow() {
-  if (isHydratingProgress.value) {
-    return
-  }
-
-  const progressKey = getCurrentProgressKey()
-  if (!progressKey) {
-    return
-  }
-
-  window.clearTimeout(persistTimer.value)
-  await saveProgress(progressKey, { ...progress, chapterId: progressKey })
-}
-
-async function exportReadingProgress() {
-  if (isExporting.value) {
-    return
-  }
-
-  isExporting.value = true
-  exportStatus.value = 'idle'
-
-  try {
-    await persistNow()
-    await exportProgressTable()
-    exportStatus.value = 'exported'
-  } catch (error) {
-    exportStatus.value = 'failed'
-    console.error('Failed to export reading progress table', error)
-  } finally {
-    isExporting.value = false
-    window.setTimeout(() => {
-      exportStatus.value = 'idle'
-    }, 1800)
-  }
-}
-
 function markBottomVisibleSentencesAsRead() {
   const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24
   if (!nearBottom) {
@@ -506,54 +409,6 @@ function buildObserver() {
     threshold: 0,
     rootMargin: `0px 0px ${bottomMargin}% 0px`
   })
-}
-
-function openImportModal() {
-  importError.value = ''
-  isImportModalOpen.value = true
-}
-
-function closeImportModal() {
-  if (isImporting.value) {
-    return
-  }
-  isImportModalOpen.value = false
-  importError.value = ''
-}
-
-async function submitImport() {
-  if (!importForm.markdown.trim()) {
-    importError.value = 'Paste markdown content first.'
-    return
-  }
-
-  isImporting.value = true
-  importError.value = ''
-
-  try {
-    const chapterResponse = await importChapter(activeChapterId.value, {
-      title: importForm.title.trim(),
-      markdown: importForm.markdown
-    })
-
-    updateUrlChapter(chapterResponse.chapterId)
-    const progressKey = buildProgressKey(chapterResponse.title)
-    const progressResponse = progressKey
-      ? await fetchProgress(progressKey)
-      : createEmptyProgress()
-
-    await hydrateChapterState(chapterResponse, progressResponse)
-    importForm.title = ''
-    importForm.markdown = ''
-    closeImportModal()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    markBottomVisibleSentencesAsRead()
-  } catch (error) {
-    importError.value = 'Import failed. Check the pasted markdown format and try again.'
-    console.error('Failed to import chapter markdown', error)
-  } finally {
-    isImporting.value = false
-  }
 }
 
 watch(progress, () => {

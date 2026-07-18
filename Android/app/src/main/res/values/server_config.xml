@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="api_base_url">https://your-server.example.com/api</string>
+    <string name="api_base_url">http://123.57.3.26/api</string>
 </resources>

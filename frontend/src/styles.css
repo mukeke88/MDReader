@@ -270,6 +270,10 @@ h2 {
   border-left-color: rgba(16, 185, 129, 0.8);
 }
 
+.sentence-card--explained {
+  border-left-color: rgba(126, 34, 206, 0.88);
+}
+
 .sentence-main {
   min-width: 0;
   padding: 10px 6px 10px 0;

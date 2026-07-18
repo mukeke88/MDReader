@@ -2,7 +2,10 @@
   <article
     :id="`sentence-${sentence.id}`"
     class="sentence-card"
-    :class="{ 'sentence-card--read': isRead }"
+    :class="{
+      'sentence-card--read': isRead,
+      'sentence-card--explained': isExplanationOpen
+    }"
     :data-sentence-id="sentence.id"
     ref="sentenceElement"
   >

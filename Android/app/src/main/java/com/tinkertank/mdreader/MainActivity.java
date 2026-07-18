@@ -47,6 +47,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
+    private static final float READ_TRIGGER_FRACTION = 0.66f;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -367,7 +368,7 @@ public class MainActivity extends Activity {
             if (sentence.paragraphId != currentParagraph) {
                 currentParagraph = sentence.paragraphId;
                 TextView label = new TextView(this);
-                label.setText("P" + currentParagraph);
+                label.setText("P");
                 label.setTextColor(Color.rgb(121, 109, 88));
                 label.setTypeface(Typeface.DEFAULT_BOLD);
                 label.setPadding(dp(6), dp(14), dp(6), dp(4));
@@ -393,9 +394,7 @@ public class MainActivity extends Activity {
         row.setLayoutParams(rowParams);
 
         View readStrip = new View(this);
-        readStrip.setBackgroundColor(readSentenceIds.contains(sentence.id)
-                ? Color.rgb(16, 185, 129)
-                : Color.TRANSPARENT);
+        readStrip.setBackgroundColor(markerColor(sentence.id));
         row.addView(readStrip, new LinearLayout.LayoutParams(dp(3), ViewGroup.LayoutParams.MATCH_PARENT));
 
         LinearLayout card = new LinearLayout(this);
@@ -423,7 +422,7 @@ public class MainActivity extends Activity {
         explanationStrip.setOnClickListener(v -> {
             toggleSentenceExplanation(sentence.id);
             explanation.setVisibility(isExplanationOpen(sentence.id) ? View.VISIBLE : View.GONE);
-            updateReadIndicator(row, sentence.id);
+            updateSentenceMarker(row, sentence.id);
         });
         row.addView(explanationStrip, new LinearLayout.LayoutParams(dp(6), ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -451,7 +450,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        int threshold = scrollView.getScrollY() + Math.round(scrollView.getHeight() * 0.33f);
+        int threshold = scrollView.getScrollY() + Math.round(scrollView.getHeight() * READ_TRIGGER_FRACTION);
         int latestVisibleId = -1;
         for (Sentence sentence : sentences) {
             View card = sentenceViews.get(sentence.id);
@@ -481,7 +480,7 @@ public class MainActivity extends Activity {
 
         View card = sentenceViews.get(sentenceId);
         if (card != null) {
-            updateReadIndicator(card, sentenceId);
+            updateSentenceMarker(card, sentenceId);
         }
 
         if (changed) {
@@ -533,14 +532,22 @@ public class MainActivity extends Activity {
         redScoreView.setText("R " + redScore);
     }
 
-    private void updateReadIndicator(View row, int sentenceId) {
+    private void updateSentenceMarker(View row, int sentenceId) {
         if (!(row instanceof LinearLayout)) {
             return;
         }
         View strip = ((LinearLayout) row).getChildAt(0);
-        strip.setBackgroundColor(readSentenceIds.contains(sentenceId)
-                ? Color.rgb(16, 185, 129)
-                : Color.TRANSPARENT);
+        strip.setBackgroundColor(markerColor(sentenceId));
+    }
+
+    private int markerColor(int sentenceId) {
+        if (openedSentenceIds.contains(sentenceId)) {
+            return Color.rgb(126, 34, 206);
+        }
+        if (readSentenceIds.contains(sentenceId)) {
+            return Color.rgb(16, 185, 129);
+        }
+        return Color.TRANSPARENT;
     }
 
     private void schedulePersist() {

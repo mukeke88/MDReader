@@ -220,3 +220,36 @@ sudo systemctl restart mdreader
 sudo systemctl reload nginx
 ```
 - If web works but Android does not, make sure your phone can reach `http://YOUR_SERVER_IP` or `https://YOUR_DOMAIN` from mobile browser first.
+
+**Updating an Existing Deployment**
+After you make program changes locally, update the same server deployment like this:
+
+1. Copy the updated project to the server:
+```powershell
+scp -r D:\coding\TinkerTank\MDReader\* your-linux-user@YOUR_SERVER_IP:/opt/mdreader/
+```
+
+2. Rebuild and restart the backend:
+```bash
+cd /opt/mdreader
+mvn clean package
+sudo systemctl restart mdreader
+sudo systemctl status mdreader
+```
+
+3. Rebuild the web frontend:
+```bash
+cd /opt/mdreader/frontend
+npm install
+npm run build
+```
+
+4. Reload Nginx:
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+5. Only rerun the MySQL seed/import step when you intentionally want to replace the server's chapter content. Do not rerun it for ordinary UI or backend code updates, because reading progress is stored on the server.
+
+6. For Android changes, build and reinstall the APK from Android Studio after updating `app/src/main/res/values/server_config.xml` if the server URL changed.

@@ -16,6 +16,16 @@ export function fetchChapter(chapterId) {
   return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
 
+export function importChapterMarkdown(chapterId, payload) {
+  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  }).then(handleResponse)
+}
+
 export function fetchProgress(chapterId) {
   return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`).then(handleResponse)
 }

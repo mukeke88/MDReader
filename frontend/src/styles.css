@@ -168,11 +168,6 @@ h2 {
   color: #b91c1c;
 }
 
-.score-input--manual-red {
-  color: #dc2626;
-}
-
-.score-input--manual-red,
 .score-input--red,
 .score-input--green {
   width: 48px;
@@ -242,6 +237,11 @@ h2 {
   color: #1f2937;
   border: 1px solid rgba(31, 41, 55, 0.08);
   white-space: nowrap;
+}
+
+.ghost-button--primary {
+  background: #1f2937;
+  color: #fff;
 }
 
 .toggle-button {

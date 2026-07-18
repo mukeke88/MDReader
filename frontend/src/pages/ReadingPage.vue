@@ -3,10 +3,8 @@
     <ScoreIndicator
       :green-score="progress.greenScore"
       :red-score="progress.redScore"
-      :manual-red-score="progress.manualRedScore"
       @update:greenScore="setGreenScore"
       @update:redScore="setRedScore"
-      @update:manualRedScore="setManualRedScore"
     />
     <GlobalExplanationToggle
       :model-value="progress.globalExpanded"
@@ -25,6 +23,9 @@
           @click="scrollToSentence(progress.lastSentenceId)"
         >
           Back to Last Reading Position
+        </button>
+        <button class="ghost-button ghost-button--primary" @click="openImportModal">
+          Import Markdown
         </button>
       </div>
     </header>
@@ -49,6 +50,52 @@
         </div>
       </section>
     </main>
+
+    <div v-if="isImportModalOpen" class="modal-backdrop" @click.self="closeImportModal">
+      <form class="import-modal" @submit.prevent="submitMarkdownImport">
+        <div class="import-modal__header">
+          <div>
+            <p class="eyebrow">Markdown Import</p>
+            <h2>Import Chapter</h2>
+          </div>
+          <button type="button" class="ghost-button" @click="closeImportModal">Close</button>
+        </div>
+
+        <label class="field-label">
+          Chapter Title
+          <input v-model="importForm.title" class="text-input" required />
+        </label>
+
+        <label class="field-label">
+          Markdown File
+          <input
+            class="text-input"
+            type="file"
+            accept=".md,.markdown,.txt,text/markdown,text/plain"
+            @change="loadMarkdownFile"
+          />
+        </label>
+
+        <label class="field-label">
+          Markdown
+          <textarea
+            v-model="importForm.markdown"
+            class="markdown-input"
+            required
+            placeholder="PARAGRAPH&#10;**Sentence text**&#10;Explanation text"
+          />
+        </label>
+
+        <p v-if="importError" class="import-error">{{ importError }}</p>
+
+        <div class="import-actions">
+          <button type="button" class="ghost-button" @click="closeImportModal">Cancel</button>
+          <button type="submit" class="ghost-button ghost-button--primary" :disabled="isImporting">
+            {{ isImporting ? 'Importing...' : 'Import' }}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -57,7 +104,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 import GlobalExplanationToggle from '../components/GlobalExplanationToggle.vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { fetchChapter, fetchProgress, saveProgress } from '../api/readerApi'
+import { fetchChapter, fetchProgress, importChapterMarkdown, saveProgress } from '../api/readerApi'
 
 const DEFAULT_CHAPTER_ID = 'chapter-1'
 const READ_TRIGGER_PERCENT = 15
@@ -82,7 +129,6 @@ const progress = reactive({
   totalScore: 0,
   greenScore: 0,
   redScore: 0,
-  manualRedScore: 0,
   globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
@@ -93,6 +139,13 @@ const progress = reactive({
 const sentenceObserver = ref(null)
 const persistTimer = ref(null)
 const isHydratingProgress = ref(true)
+const isImportModalOpen = ref(false)
+const isImporting = ref(false)
+const importError = ref('')
+const importForm = reactive({
+  title: '',
+  markdown: ''
+})
 
 const readIdSet = computed(() => new Set(progress.readSentenceIds))
 const openedIdSet = computed(() => new Set(progress.openedSentenceIds))
@@ -164,9 +217,6 @@ function mergeProgressState(savedProgress) {
   progress.redScore = Number.isFinite(savedProgress.redScore)
     ? savedProgress.redScore
     : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
-  progress.manualRedScore = Number.isFinite(savedProgress.manualRedScore)
-    ? savedProgress.manualRedScore
-    : 0
   progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
@@ -181,7 +231,6 @@ function createEmptyProgress() {
     totalScore: 0,
     greenScore: 0,
     redScore: 0,
-    manualRedScore: 0,
     globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
@@ -250,10 +299,6 @@ function setGreenScore(value) {
 
 function setRedScore(value) {
   progress.redScore = Math.max(0, Number.parseInt(value, 10) || 0)
-}
-
-function setManualRedScore(value) {
-  progress.manualRedScore = Math.max(0, Number.parseInt(value, 10) || 0)
 }
 
 function scoreSentence(sentenceId) {
@@ -381,6 +426,63 @@ async function loadPage() {
   }
 }
 
+function openImportModal() {
+  importForm.title = normalizeChapterName(chapter.title)
+  importForm.markdown = ''
+  importError.value = ''
+  isImportModalOpen.value = true
+}
+
+function closeImportModal() {
+  if (isImporting.value) {
+    return
+  }
+  isImportModalOpen.value = false
+}
+
+function titleFromFileName(name) {
+  return name.replace(/\.(md|markdown|txt)$/i, '')
+}
+
+function loadMarkdownFile(event) {
+  const [file] = event.target.files || []
+  if (!file) {
+    return
+  }
+
+  if (!normalizeChapterName(importForm.title)) {
+    importForm.title = titleFromFileName(file.name)
+  }
+
+  const reader = new FileReader()
+  reader.onload = () => {
+    importForm.markdown = String(reader.result || '')
+  }
+  reader.onerror = () => {
+    importError.value = 'Unable to read selected file'
+  }
+  reader.readAsText(file)
+}
+
+async function submitMarkdownImport() {
+  isImporting.value = true
+  importError.value = ''
+  try {
+    const chapterResponse = await importChapterMarkdown(activeChapterId.value, {
+      title: importForm.title,
+      markdown: importForm.markdown
+    })
+    await hydrateChapterState(chapterResponse, createEmptyProgress())
+    refreshObservedSentences()
+    updateUrlChapter(chapterResponse.chapterId)
+    isImportModalOpen.value = false
+  } catch (error) {
+    importError.value = error.message || 'Import failed'
+  } finally {
+    isImporting.value = false
+  }
+}
+
 function updateUrlChapter(chapterId) {
   const url = new URL(window.location.href)
   if (chapterId === DEFAULT_CHAPTER_ID) {
@@ -415,8 +517,8 @@ watch(progress, () => {
   schedulePersist()
 }, { deep: true })
 
-watch(() => [progress.greenScore, progress.redScore, progress.manualRedScore], ([greenScore, redScore, manualRedScore]) => {
-  progress.totalScore = greenScore + redScore + manualRedScore
+watch(() => [progress.greenScore, progress.redScore], ([greenScore, redScore]) => {
+  progress.totalScore = greenScore + redScore
 }, { immediate: true })
 
 onMounted(async () => {

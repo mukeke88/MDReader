@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -47,7 +48,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
-    private static final float READ_TRIGGER_FRACTION = 0.66f;
+    private static final float READ_TRIGGER_FRACTION = 0.15f;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -151,6 +152,7 @@ public class MainActivity extends Activity {
         headerRow.addView(greenScoreView, greenScoreParams);
         headerRow.addView(scoreDivider);
         headerRow.addView(redScoreView);
+        headerRow.addView(refreshButton(), new LinearLayout.LayoutParams(dp(32), dp(32)));
 
         titleView = new TextView(this);
         titleView.setTextSize(22);
@@ -201,6 +203,17 @@ public class MainActivity extends Activity {
         view.setGravity(Gravity.CENTER);
         view.setMinWidth(dp(24));
         return view;
+    }
+
+    private ImageButton refreshButton() {
+        ImageButton button = new ImageButton(this);
+        button.setImageResource(android.R.drawable.ic_popup_sync);
+        button.setBackgroundColor(Color.TRANSPARENT);
+        button.setColorFilter(Color.rgb(36, 35, 32));
+        button.setContentDescription("Refresh reading progress");
+        button.setPadding(dp(6), dp(6), dp(6), dp(6));
+        button.setOnClickListener(v -> refreshProgressFromServer(true));
+        return button;
     }
 
     private Button actionButton(String text, View.OnClickListener listener) {
@@ -312,6 +325,31 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void refreshProgressFromServer(boolean showFeedback) {
+        String progressKey = getCurrentProgressKey();
+        if (progressKey == null) {
+            return;
+        }
+
+        hydrating = true;
+        mainHandler.removeCallbacks(saveRunnable);
+        loading.setVisibility(View.VISIBLE);
+        setStatus("Refreshing progress...");
+        executor.execute(() -> {
+            try {
+                JSONObject progress = getJson("/progress/" + encode(progressKey));
+                mainHandler.post(() -> applyProgressState(progress, true, showFeedback));
+            } catch (Exception error) {
+                mainHandler.post(() -> {
+                    hydrating = false;
+                    loading.setVisibility(View.GONE);
+                    setStatus("Refresh failed: " + error.getMessage());
+                    Toast.makeText(this, "Failed to refresh progress", Toast.LENGTH_LONG).show();
+                });
+            }
+        });
+    }
+
     private void applyChapterState(JSONObject chapter, JSONObject progress) {
         sentences.clear();
         openedSentenceIds.clear();
@@ -336,6 +374,15 @@ public class MainActivity extends Activity {
             }
         }
 
+        applyProgressState(progress, true, false);
+    }
+
+    private void applyProgressState(JSONObject progress, boolean scrollToLast, boolean showFeedback) {
+        openedSentenceIds.clear();
+        readSentenceIds.clear();
+        scoredSentenceIds.clear();
+        explanationUsedSentenceIds.clear();
+
         lastSentenceId = progress.has("lastSentenceId") && !progress.isNull("lastSentenceId")
                 ? progress.optInt("lastSentenceId")
                 : null;
@@ -350,8 +397,11 @@ public class MainActivity extends Activity {
         loading.setVisibility(View.GONE);
         hydrating = false;
         setStatus("");
+        if (showFeedback) {
+            Toast.makeText(this, "Progress refreshed", Toast.LENGTH_SHORT).show();
+        }
 
-        if (lastSentenceId != null) {
+        if (scrollToLast && lastSentenceId != null) {
             mainHandler.postDelayed(() -> scrollToSentence(lastSentenceId), 250);
         } else {
             mainHandler.postDelayed(this::markVisibleSentencesAsRead, 250);
@@ -528,8 +578,8 @@ public class MainActivity extends Activity {
     }
 
     private void updateScores() {
-        greenScoreView.setText("G " + greenScore);
-        redScoreView.setText("R " + redScore);
+        greenScoreView.setText(String.valueOf(greenScore));
+        redScoreView.setText(String.valueOf(redScore));
     }
 
     private void updateSentenceMarker(View row, int sentenceId) {

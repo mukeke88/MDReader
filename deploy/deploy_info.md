@@ -250,6 +250,20 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+commands in one:
+cd /opt/mdreader
+
+mvn clean package
+
+sudo systemctl restart mdreader
+
+cd frontend
+
+npm install
+npm run build
+
+sudo nginx -t && sudo systemctl reload nginx
+
 5. Only rerun the MySQL seed/import step when you intentionally want to replace the server's chapter content. Do not rerun it for ordinary UI or backend code updates, because reading progress is stored on the server.
 
 6. For Android changes, build and reinstall the APK from Android Studio after updating `app/src/main/res/values/server_config.xml` if the server URL changed.

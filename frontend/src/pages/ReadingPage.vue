@@ -6,10 +6,6 @@
       @update:greenScore="setGreenScore"
       @update:redScore="setRedScore"
     />
-    <GlobalExplanationToggle
-      :model-value="progress.globalExpanded"
-      @update:modelValue="setGlobalExplanationEnabled"
-    />
 
     <header class="page-header">
       <div>
@@ -101,7 +97,6 @@
 
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
-import GlobalExplanationToggle from '../components/GlobalExplanationToggle.vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
 import { fetchChapter, fetchProgress, importChapterMarkdown, saveProgress } from '../api/readerApi'
@@ -129,7 +124,6 @@ const progress = reactive({
   totalScore: 0,
   greenScore: 0,
   redScore: 0,
-  globalExpanded: false,
   openedSentenceIds: [],
   readSentenceIds: [],
   scoredSentenceIds: [],
@@ -217,7 +211,6 @@ function mergeProgressState(savedProgress) {
   progress.redScore = Number.isFinite(savedProgress.redScore)
     ? savedProgress.redScore
     : deriveRedScore(scoredSentenceIds, explanationUsedSentenceIds)
-  progress.globalExpanded = !!savedProgress.globalExpanded
   progress.openedSentenceIds = dedupe(savedProgress.openedSentenceIds || [])
   progress.readSentenceIds = dedupe(savedProgress.readSentenceIds || [])
   progress.scoredSentenceIds = scoredSentenceIds
@@ -231,7 +224,6 @@ function createEmptyProgress() {
     totalScore: 0,
     greenScore: 0,
     redScore: 0,
-    globalExpanded: false,
     openedSentenceIds: [],
     readSentenceIds: [],
     scoredSentenceIds: [],
@@ -240,7 +232,7 @@ function createEmptyProgress() {
 }
 
 function isExplanationOpen(sentenceId) {
-  return progress.globalExpanded || openedIdSet.value.has(sentenceId)
+  return openedIdSet.value.has(sentenceId)
 }
 
 function markExplanationUsed(sentenceId) {
@@ -279,18 +271,6 @@ function toggleSentenceExplanation(sentenceId) {
   markExplanationUsed(sentenceId)
   handleSentenceRead(sentenceId)
   progress.openedSentenceIds = dedupe(progress.openedSentenceIds.concat(sentenceId))
-}
-
-function setGlobalExplanationEnabled(enabled) {
-  progress.globalExpanded = enabled
-  if (!enabled) {
-    return
-  }
-
-  const unscoredIds = chapter.sentences
-    .map(sentence => sentence.id)
-    .filter(id => !scoredIdSet.value.has(id))
-  progress.explanationUsedSentenceIds = dedupe(progress.explanationUsedSentenceIds.concat(unscoredIds))
 }
 
 function setGreenScore(value) {

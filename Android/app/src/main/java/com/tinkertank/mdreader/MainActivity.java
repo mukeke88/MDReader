@@ -59,7 +59,6 @@ public class MainActivity extends Activity {
 
     private FrameLayout root;
     private LinearLayout contentRoot;
-    private LinearLayout controlRail;
     private LinearLayout sentenceList;
     private ScrollView scrollView;
     private TextView titleView;
@@ -74,7 +73,6 @@ public class MainActivity extends Activity {
     private Integer lastSentenceId = null;
     private int greenScore = 0;
     private int redScore = 0;
-    private boolean globalExpanded = false;
     private boolean hydrating = false;
     private final Runnable saveRunnable = this::persistProgress;
 
@@ -115,26 +113,61 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        titleView = new TextView(this);
-        titleView.setTextSize(24);
-        titleView.setTypeface(Typeface.DEFAULT_BOLD);
-        titleView.setTextColor(Color.rgb(36, 35, 32));
-        titleView.setPadding(dp(18), dp(12), dp(64), dp(6));
-        contentRoot.addView(titleView);
+        LinearLayout headerRow = new LinearLayout(this);
+        headerRow.setOrientation(LinearLayout.HORIZONTAL);
+        headerRow.setGravity(Gravity.CENTER_VERTICAL);
+        headerRow.setPadding(dp(8), dp(4), dp(8), dp(4));
+        contentRoot.addView(headerRow, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
 
-        statusView = new TextView(this);
-        statusView.setTextColor(Color.rgb(95, 88, 76));
-        statusView.setPadding(dp(18), 0, dp(64), dp(8));
-        contentRoot.addView(statusView);
+        Button importButton = actionButton("IM", v -> openMarkdownFilePicker());
+        importButton.setMinWidth(0);
+        importButton.setMinimumWidth(0);
+        importButton.setMinHeight(0);
+        importButton.setMinimumHeight(0);
+        importButton.setPadding(dp(8), 0, dp(8), 0);
+        headerRow.addView(importButton, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                dp(32)
+        ));
 
-        Button importButton = actionButton("Import Markdown", v -> openMarkdownFilePicker());
-        LinearLayout.LayoutParams importParams = new LinearLayout.LayoutParams(
+        greenScoreView = scoreNumber(Color.rgb(4, 120, 87));
+        TextView scoreDivider = new TextView(this);
+        scoreDivider.setText("/");
+        scoreDivider.setTextSize(16);
+        scoreDivider.setTypeface(Typeface.DEFAULT_BOLD);
+        scoreDivider.setTextColor(Color.rgb(156, 163, 175));
+        scoreDivider.setGravity(Gravity.CENTER);
+        redScoreView = scoreNumber(Color.rgb(185, 28, 28));
+
+        LinearLayout.LayoutParams greenScoreParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        importParams.setMargins(dp(18), 0, dp(64), dp(8));
-        importButton.setLayoutParams(importParams);
-        contentRoot.addView(importButton);
+        greenScoreParams.setMargins(dp(8), 0, 0, 0);
+        headerRow.addView(greenScoreView, greenScoreParams);
+        headerRow.addView(scoreDivider);
+        headerRow.addView(redScoreView);
+
+        titleView = new TextView(this);
+        titleView.setTextSize(22);
+        titleView.setTypeface(Typeface.DEFAULT_BOLD);
+        titleView.setTextColor(Color.rgb(36, 35, 32));
+        titleView.setSingleLine(true);
+        titleView.setPadding(dp(10), 0, 0, 0);
+        headerRow.addView(titleView, new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1f
+        ));
+
+        statusView = new TextView(this);
+        statusView.setTextColor(Color.rgb(95, 88, 76));
+        statusView.setPadding(dp(12), 0, dp(12), dp(4));
+        statusView.setVisibility(View.GONE);
+        contentRoot.addView(statusView);
 
         loading = new ProgressBar(this);
         loading.setIndeterminate(true);
@@ -146,7 +179,7 @@ public class MainActivity extends Activity {
         scrollView = new ScrollView(this);
         sentenceList = new LinearLayout(this);
         sentenceList.setOrientation(LinearLayout.VERTICAL);
-        sentenceList.setPadding(dp(12), dp(4), dp(54), dp(24));
+        sentenceList.setPadding(dp(12), dp(4), dp(12), dp(24));
         scrollView.addView(sentenceList);
         contentRoot.addView(scrollView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -154,43 +187,18 @@ public class MainActivity extends Activity {
                 1f
         ));
 
-        controlRail = new LinearLayout(this);
-        controlRail.setOrientation(LinearLayout.VERTICAL);
-        controlRail.setGravity(Gravity.CENTER);
-        controlRail.setPadding(0, dp(6), dp(6), dp(6));
-        FrameLayout.LayoutParams railParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.RIGHT | Gravity.CENTER_VERTICAL
-        );
-        root.addView(controlRail, railParams);
-
-        greenScoreView = scoreChip("G 0");
-        redScoreView = scoreChip("R 0");
-        controlRail.addView(greenScoreView);
-        controlRail.addView(redScoreView);
-        controlRail.addView(compactButton("All", v -> setGlobalExpanded(true)));
-        controlRail.addView(compactButton("One", v -> setGlobalExpanded(false)));
-
         scrollView.getViewTreeObserver().addOnScrollChangedListener(this::markVisibleSentencesAsRead);
     }
 
-    private TextView scoreChip(String text) {
+    private TextView scoreNumber(int color) {
         TextView view = new TextView(this);
-        view.setText(text);
-        view.setTextSize(14);
+        view.setText("0");
+        view.setTextSize(16);
         view.setTypeface(Typeface.DEFAULT_BOLD);
-        view.setTextColor(Color.rgb(36, 35, 32));
-        view.setPadding(dp(6), dp(5), dp(6), dp(5));
+        view.setTextColor(color);
+        view.setPadding(dp(2), 0, dp(2), 0);
         view.setGravity(Gravity.CENTER);
-        view.setBackgroundColor(Color.rgb(235, 230, 220));
-        view.setMinWidth(dp(42));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(0, 0, 0, dp(6));
-        view.setLayoutParams(params);
+        view.setMinWidth(dp(24));
         return view;
     }
 
@@ -209,17 +217,6 @@ public class MainActivity extends Activity {
         return button;
     }
 
-    private Button compactButton(String text, View.OnClickListener listener) {
-        Button button = actionButton(text, listener);
-        button.setMinWidth(dp(42));
-        button.setMinimumWidth(dp(42));
-        button.setPadding(dp(4), 0, dp(4), 0);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(42), dp(38));
-        params.setMargins(0, 0, 0, dp(6));
-        button.setLayoutParams(params);
-        return button;
-    }
-
     private void openMarkdownFilePicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -232,10 +229,15 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, IMPORT_MARKDOWN_REQUEST);
     }
 
+    private void setStatus(String text) {
+        statusView.setText(text);
+        statusView.setVisibility(text == null || text.trim().isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
     private void importMarkdownFromUri(Uri uri) {
         hydrating = true;
         loading.setVisibility(View.VISIBLE);
-        statusView.setText("Importing Markdown...");
+        setStatus("Importing Markdown...");
         executor.execute(() -> {
             try {
                 String markdown;
@@ -259,7 +261,7 @@ public class MainActivity extends Activity {
                 mainHandler.post(() -> {
                     hydrating = false;
                     loading.setVisibility(View.GONE);
-                    statusView.setText("Import failed: " + error.getMessage());
+                    setStatus("Import failed: " + error.getMessage());
                     Toast.makeText(this, "Failed to import Markdown", Toast.LENGTH_LONG).show();
                 });
             }
@@ -289,7 +291,7 @@ public class MainActivity extends Activity {
     private void loadPage(String chapterId) {
         hydrating = true;
         loading.setVisibility(View.VISIBLE);
-        statusView.setText("Loading from " + apiBase);
+        setStatus("Loading from " + apiBase);
         executor.execute(() -> {
             try {
                 JSONObject chapter = getJson("/chapter/" + encode(chapterId));
@@ -302,7 +304,7 @@ public class MainActivity extends Activity {
                 mainHandler.post(() -> {
                     loading.setVisibility(View.GONE);
                     hydrating = false;
-                    statusView.setText("Load failed: " + error.getMessage());
+                    setStatus("Load failed: " + error.getMessage());
                     Toast.makeText(this, "Failed to load chapter", Toast.LENGTH_LONG).show();
                 });
             }
@@ -342,13 +344,11 @@ public class MainActivity extends Activity {
         addAll(explanationUsedSentenceIds, progress.optJSONArray("explanationUsedSentenceIds"));
         greenScore = progress.has("greenScore") ? progress.optInt("greenScore") : deriveGreenScore();
         redScore = progress.has("redScore") ? progress.optInt("redScore") : deriveRedScore();
-        globalExpanded = progress.optBoolean("globalExpanded", false);
-
         renderChapter();
         updateScores();
         loading.setVisibility(View.GONE);
         hydrating = false;
-        statusView.setText(sentences.size() + " sentences loaded");
+        setStatus("");
 
         if (lastSentenceId != null) {
             mainHandler.postDelayed(() -> scrollToSentence(lastSentenceId), 250);
@@ -431,7 +431,7 @@ public class MainActivity extends Activity {
     }
 
     private boolean isExplanationOpen(int sentenceId) {
-        return globalExpanded || openedSentenceIds.contains(sentenceId);
+        return openedSentenceIds.contains(sentenceId);
     }
 
     private void toggleSentenceExplanation(int sentenceId) {
@@ -443,19 +443,6 @@ public class MainActivity extends Activity {
             markExplanationUsed(sentenceId);
             handleSentenceRead(sentenceId);
         }
-        schedulePersist();
-    }
-
-    private void setGlobalExpanded(boolean expanded) {
-        globalExpanded = expanded;
-        if (expanded) {
-            for (Sentence sentence : sentences) {
-                if (!scoredSentenceIds.contains(sentence.id)) {
-                    explanationUsedSentenceIds.add(sentence.id);
-                }
-            }
-        }
-        renderChapter();
         schedulePersist();
     }
 
@@ -575,7 +562,7 @@ public class MainActivity extends Activity {
             try {
                 postJson("/progress/" + encode(progressKey), payload);
             } catch (Exception error) {
-                mainHandler.post(() -> statusView.setText("Save failed: " + error.getMessage()));
+                mainHandler.post(() -> setStatus("Save failed: " + error.getMessage()));
             }
         });
     }
@@ -589,7 +576,6 @@ public class MainActivity extends Activity {
             payload.put("greenScore", greenScore);
             payload.put("redScore", redScore);
             payload.put("manualRedScore", 0);
-            payload.put("globalExpanded", globalExpanded);
             payload.put("openedSentenceIds", toArray(openedSentenceIds));
             payload.put("readSentenceIds", toArray(readSentenceIds));
             payload.put("scoredSentenceIds", toArray(scoredSentenceIds));

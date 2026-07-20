@@ -299,7 +299,9 @@ function handleSentenceRead(sentenceId) {
   if (!readIdSet.value.has(sentenceId)) {
     progress.readSentenceIds = dedupe(progress.readSentenceIds.concat(sentenceId))
   }
-  progress.lastSentenceId = sentenceId
+  if (!progress.lastSentenceId || sentenceId > progress.lastSentenceId) {
+    progress.lastSentenceId = sentenceId
+  }
   scoreSentence(sentenceId)
 }
 

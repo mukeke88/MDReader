@@ -1,17 +1,17 @@
 package com.tinkertank.mdreader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Build;
 import android.content.Intent;
-import android.database.Cursor;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputType;
 import android.text.Selection;
 import android.text.Spannable;
 import android.view.GestureDetector;
@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -132,7 +133,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        importMarkdownFromUri(data.getData());
+        promptForImportTitle(data.getData());
     }
 
     private void buildUi() {
@@ -315,12 +316,39 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, IMPORT_MARKDOWN_REQUEST);
     }
 
+    private void promptForImportTitle(Uri uri) {
+        EditText input = new EditText(this);
+        input.setHint("Chapter Title");
+        input.setSingleLine(true);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        input.setPadding(dp(16), dp(8), dp(16), dp(8));
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Chapter Title")
+                .setView(input)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Import", null)
+                .create();
+        dialog.setOnShowListener(currentDialog ->
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+                    String title = input.getText().toString().trim();
+                    if (title.isEmpty()) {
+                        input.setError("Enter a chapter title");
+                        return;
+                    }
+                    dialog.dismiss();
+                    importMarkdownFromUri(uri, title);
+                })
+        );
+        dialog.show();
+    }
+
     private void setStatus(String text) {
         statusView.setText(text);
         statusView.setVisibility(text == null || text.trim().isEmpty() ? View.GONE : View.VISIBLE);
     }
 
-    private void importMarkdownFromUri(Uri uri) {
+    private void importMarkdownFromUri(Uri uri, String title) {
         hydrating = true;
         loading.setVisibility(View.VISIBLE);
         setStatus("Importing Markdown...");
@@ -330,16 +358,9 @@ public class MainActivity extends Activity {
                 try (InputStream stream = getContentResolver().openInputStream(uri)) {
                     markdown = readText(stream);
                 }
-                String title = titleFromUri(uri);
-                String lowerTitle = title.toLowerCase();
-                if (lowerTitle.endsWith(".md")) {
-                    title = title.substring(0, title.length() - 3);
-                } else if (lowerTitle.endsWith(".markdown")) {
-                    title = title.substring(0, title.length() - 9);
-                }
 
                 JSONObject payload = new JSONObject();
-                payload.put("title", title.trim().isEmpty() ? "Imported Markdown" : title.trim());
+                payload.put("title", title.trim());
                 payload.put("markdown", markdown);
                 JSONObject chapter = postJson("/chapter/" + encode(activeChapterId) + "/import", payload);
                 mainHandler.post(() -> applyChapterState(chapter, new JSONObject()));
@@ -352,26 +373,6 @@ public class MainActivity extends Activity {
                 });
             }
         });
-    }
-
-    private String titleFromUri(Uri uri) {
-        String title = null;
-        try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                if (nameIndex >= 0) {
-                    title = cursor.getString(nameIndex);
-                }
-            }
-        } catch (Exception ignored) {
-            // Fall back to URI path below.
-        }
-
-        if (title == null || title.trim().isEmpty()) {
-            String path = uri.getLastPathSegment();
-            title = path == null || path.trim().isEmpty() ? "Imported Markdown" : path;
-        }
-        return title;
     }
 
     private void loadPage(String chapterId) {
@@ -605,7 +606,7 @@ public class MainActivity extends Activity {
         int latestVisibleId = -1;
         for (Sentence sentence : sentences) {
             View card = sentenceViews.get(sentence.id);
-            if (card != null && card.getTop() <= threshold) {
+            if (card != null && card.getBottom() <= threshold) {
                 latestVisibleId = sentence.id;
             }
         }
@@ -626,7 +627,10 @@ public class MainActivity extends Activity {
 
     private void handleSentenceRead(int sentenceId) {
         boolean changed = readSentenceIds.add(sentenceId);
-        lastSentenceId = sentenceId;
+        if (lastSentenceId == null || sentenceId > lastSentenceId) {
+            lastSentenceId = sentenceId;
+            changed = true;
+        }
         changed = scoreSentence(sentenceId) || changed;
 
         View card = sentenceViews.get(sentenceId);

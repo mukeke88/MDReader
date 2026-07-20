@@ -9,8 +9,32 @@
 
     <header class="page-header">
       <div>
-        <p class="eyebrow">Shared Server</p>
+        <p class="eyebrow">Reader</p>
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
+      </div>
+      <div class="reader-controls">
+        <label class="compact-field">
+          User
+          <input
+            v-model="userInput"
+            class="compact-input"
+            autocomplete="off"
+            @change="applyUserInput"
+            @keyup.enter="applyUserInput"
+          />
+        </label>
+        <label class="compact-field">
+          Document
+          <select class="compact-input" :value="activeChapterId" @change="changeChapter">
+            <option
+              v-for="availableChapter in chapters"
+              :key="availableChapter.id"
+              :value="availableChapter.id"
+            >
+              {{ availableChapter.title || availableChapter.id }}
+            </option>
+          </select>
+        </label>
       </div>
       <div class="header-actions">
         <button
@@ -99,9 +123,11 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { fetchChapter, fetchProgress, importChapterMarkdown, saveProgress } from '../api/readerApi'
+import { fetchChapter, fetchChapters, fetchProgress, importChapterMarkdown, saveProgress } from '../api/readerApi'
 
 const DEFAULT_CHAPTER_ID = 'chapter-1'
+const DEFAULT_USER_ID = 'default'
+const USER_STORAGE_KEY = 'mdreader.userId'
 const READ_TRIGGER_PERCENT = 15
 const TEMP_CHAPTER_NAME = 'temp'
 
@@ -110,7 +136,19 @@ function getChapterIdFromUrl() {
   return params.get('chapter') || DEFAULT_CHAPTER_ID
 }
 
+function normalizeUserId(value) {
+  return (value || '').trim() || DEFAULT_USER_ID
+}
+
+function getUserIdFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  return params.get('user') || window.localStorage.getItem(USER_STORAGE_KEY) || DEFAULT_USER_ID
+}
+
 const activeChapterId = ref(getChapterIdFromUrl())
+const activeUserId = ref(normalizeUserId(getUserIdFromUrl()))
+const userInput = ref(activeUserId.value)
+const chapters = ref([])
 
 const chapter = reactive({
   chapterId: activeChapterId.value,
@@ -119,6 +157,7 @@ const chapter = reactive({
 })
 
 const progress = reactive({
+  userId: activeUserId.value,
   chapterId: activeChapterId.value,
   lastSentenceId: null,
   totalScore: 0,
@@ -169,21 +208,13 @@ function normalizeChapterName(value) {
   return (value || '').trim()
 }
 
-function buildProgressKey(title) {
+function buildLegacyProgressKey(title) {
   const chapterName = normalizeChapterName(title)
-  if (!chapterName) {
-    return activeChapterId.value
-  }
-
-  if (chapterName.toLowerCase() === TEMP_CHAPTER_NAME) {
+  if (!chapterName || chapterName.toLowerCase() === TEMP_CHAPTER_NAME) {
     return null
   }
 
   return chapterName.replace(/[\\/#?%]/g, '_')
-}
-
-function getCurrentProgressKey() {
-  return buildProgressKey(chapter.title)
 }
 
 function updateDocumentTitle() {
@@ -203,6 +234,8 @@ function mergeProgressState(savedProgress) {
   const scoredSentenceIds = dedupe(savedProgress.scoredSentenceIds || [])
   const explanationUsedSentenceIds = dedupe(savedProgress.explanationUsedSentenceIds || [])
 
+  progress.userId = savedProgress.userId || activeUserId.value
+  progress.chapterId = savedProgress.chapterId || activeChapterId.value
   progress.lastSentenceId = savedProgress.lastSentenceId || null
   progress.totalScore = savedProgress.totalScore || 0
   progress.greenScore = Number.isFinite(savedProgress.greenScore)
@@ -219,7 +252,8 @@ function mergeProgressState(savedProgress) {
 
 function createEmptyProgress() {
   return {
-    chapterId: getCurrentProgressKey() || activeChapterId.value,
+    userId: activeUserId.value,
+    chapterId: activeChapterId.value,
     lastSentenceId: null,
     totalScore: 0,
     greenScore: 0,
@@ -229,6 +263,20 @@ function createEmptyProgress() {
     scoredSentenceIds: [],
     explanationUsedSentenceIds: []
   }
+}
+
+function hasSavedProgress(savedProgress) {
+  return Boolean(
+    savedProgress.lastSentenceId ||
+    savedProgress.totalScore ||
+    savedProgress.greenScore ||
+    savedProgress.redScore ||
+    savedProgress.manualRedScore ||
+    (savedProgress.openedSentenceIds || []).length ||
+    (savedProgress.readSentenceIds || []).length ||
+    (savedProgress.scoredSentenceIds || []).length ||
+    (savedProgress.explanationUsedSentenceIds || []).length
+  )
 }
 
 function isExplanationOpen(sentenceId) {
@@ -329,14 +377,14 @@ function schedulePersist() {
     return
   }
 
-  const progressKey = getCurrentProgressKey()
-  if (!progressKey) {
-    return
-  }
-
   window.clearTimeout(persistTimer.value)
   persistTimer.value = window.setTimeout(() => {
-    saveProgress(progressKey, { ...progress, chapterId: progressKey }).catch((error) => {
+    const payload = {
+      ...progress,
+      userId: activeUserId.value,
+      chapterId: activeChapterId.value
+    }
+    saveProgress(activeChapterId.value, activeUserId.value, payload).catch((error) => {
       console.error('Failed to save progress', error)
     })
   }, 250)
@@ -378,34 +426,67 @@ async function hydrateChapterState(chapterResponse, progressResponse) {
   chapter.sentences = chapterResponse.sentences
   updateDocumentTitle()
   mergeProgressState(progressResponse)
-  progress.chapterId = getCurrentProgressKey() || chapter.chapterId
+  progress.userId = activeUserId.value
+  progress.chapterId = chapter.chapterId
   await nextTick()
   isHydratingProgress.value = false
+}
+
+async function loadChapterOptions() {
+  chapters.value = await fetchChapters()
 }
 
 async function loadPage() {
   try {
     const chapterResponse = await fetchChapter(activeChapterId.value)
-    const progressKey = buildProgressKey(chapterResponse.title)
-    const progressResponse = progressKey
-      ? await fetchProgress(progressKey)
-      : createEmptyProgress()
+    let progressResponse = await fetchProgress(chapterResponse.chapterId, activeUserId.value)
+    const legacyProgressKey = buildLegacyProgressKey(chapterResponse.title)
+    if (!hasSavedProgress(progressResponse) && legacyProgressKey && legacyProgressKey !== chapterResponse.chapterId) {
+      progressResponse = await fetchProgress(legacyProgressKey, activeUserId.value)
+    }
 
     await hydrateChapterState(chapterResponse, progressResponse)
-    updateUrlChapter(chapterResponse.chapterId)
+    updateUrlState(chapterResponse.chapterId)
     if (progress.lastSentenceId) {
       scrollToSentence(progress.lastSentenceId)
     }
   } catch (error) {
     if (activeChapterId.value !== DEFAULT_CHAPTER_ID) {
       activeChapterId.value = DEFAULT_CHAPTER_ID
-      updateUrlChapter(DEFAULT_CHAPTER_ID)
+      updateUrlState(DEFAULT_CHAPTER_ID)
       await loadPage()
       return
     }
 
     console.error('Failed to load chapter', error)
   }
+}
+
+async function applyUserInput() {
+  const nextUserId = normalizeUserId(userInput.value)
+  if (nextUserId === activeUserId.value) {
+    userInput.value = nextUserId
+    return
+  }
+
+  activeUserId.value = nextUserId
+  userInput.value = nextUserId
+  window.localStorage.setItem(USER_STORAGE_KEY, nextUserId)
+  updateUrlState(activeChapterId.value)
+  await loadPage()
+}
+
+async function changeChapter(event) {
+  const nextChapterId = event.target.value
+  if (!nextChapterId || nextChapterId === activeChapterId.value) {
+    return
+  }
+
+  activeChapterId.value = nextChapterId
+  updateUrlState(nextChapterId)
+  await loadPage()
+  refreshObservedSentences()
+  markBottomVisibleSentencesAsRead()
 }
 
 function openImportModal() {
@@ -455,8 +536,9 @@ async function submitMarkdownImport() {
       markdown: importForm.markdown
     })
     await hydrateChapterState(chapterResponse, createEmptyProgress())
+    await loadChapterOptions()
     refreshObservedSentences()
-    updateUrlChapter(chapterResponse.chapterId)
+    updateUrlState(chapterResponse.chapterId)
     isImportModalOpen.value = false
   } catch (error) {
     importError.value = error.message || 'Import failed'
@@ -465,12 +547,17 @@ async function submitMarkdownImport() {
   }
 }
 
-function updateUrlChapter(chapterId) {
+function updateUrlState(chapterId) {
   const url = new URL(window.location.href)
   if (chapterId === DEFAULT_CHAPTER_ID) {
     url.searchParams.delete('chapter')
   } else {
     url.searchParams.set('chapter', chapterId)
+  }
+  if (activeUserId.value === DEFAULT_USER_ID) {
+    url.searchParams.delete('user')
+  } else {
+    url.searchParams.set('user', activeUserId.value)
   }
   window.history.replaceState({}, '', url)
 }
@@ -507,6 +594,7 @@ onMounted(async () => {
   updateDocumentTitle()
   buildObserver()
   window.addEventListener('scroll', markBottomVisibleSentencesAsRead, { passive: true })
+  await loadChapterOptions()
   await loadPage()
   refreshObservedSentences()
   markBottomVisibleSentencesAsRead()

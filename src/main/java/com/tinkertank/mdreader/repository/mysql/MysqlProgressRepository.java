@@ -26,6 +26,7 @@ public class MysqlProgressRepository implements ProgressRepository {
         @Override
         public ReadingProgress mapRow(ResultSet rs, int rowNum) throws SQLException {
             ReadingProgress progress = new ReadingProgress();
+            progress.setUserId(rs.getString("user_id"));
             progress.setChapterId(rs.getString("chapter_id"));
             int lastSentenceId = rs.getInt("last_sentence_id");
             if (rs.wasNull()) {
@@ -51,13 +52,13 @@ public class MysqlProgressRepository implements ProgressRepository {
     }
 
     @Override
-    public ReadingProgress findByChapterId(String chapterId) {
+    public ReadingProgress findByUserIdAndChapterId(String userId, String chapterId) {
         try {
             ReadingProgress progress = jdbcTemplate.queryForObject(
-                    "SELECT chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
+                    "SELECT user_id, chapter_id, last_sentence_id, total_score, green_score, red_score, manual_red_score, global_expanded, "
                             + "opened_sentence_ids, read_sentence_ids, scored_sentence_ids, explanation_used_sentence_ids "
-                            + "FROM reading_progress WHERE chapter_id = ?",
-                    new Object[]{chapterId},
+                            + "FROM reading_progress WHERE user_id = ? AND chapter_id = ?",
+                    new Object[]{userId, chapterId},
                     new RowMapper<ReadingProgress>() {
                         @Override
                         public ReadingProgress mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -72,17 +73,19 @@ public class MysqlProgressRepository implements ProgressRepository {
             return progress;
         } catch (EmptyResultDataAccessException ex) {
             ReadingProgress empty = new ReadingProgress();
+            empty.setUserId(userId);
             empty.setChapterId(chapterId);
             return empty;
         }
     }
 
     @Override
-    public ReadingProgress save(String chapterId, ReadingProgress progress) {
+    public ReadingProgress save(String userId, String chapterId, ReadingProgress progress) {
+        progress.setUserId(userId);
         progress.setChapterId(chapterId);
-        String sql = "INSERT INTO reading_progress (chapter_id, last_sentence_id, total_score, green_score, red_score, "
+        String sql = "INSERT INTO reading_progress (user_id, chapter_id, last_sentence_id, total_score, green_score, red_score, "
                 + "manual_red_score, global_expanded, opened_sentence_ids, read_sentence_ids, scored_sentence_ids, "
-                + "explanation_used_sentence_ids) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                + "explanation_used_sentence_ids) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
                 + "ON DUPLICATE KEY UPDATE last_sentence_id = VALUES(last_sentence_id), "
                 + "total_score = VALUES(total_score), green_score = VALUES(green_score), red_score = VALUES(red_score), "
                 + "manual_red_score = VALUES(manual_red_score), "
@@ -92,21 +95,22 @@ public class MysqlProgressRepository implements ProgressRepository {
 
         jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, chapterId);
+            statement.setString(1, userId);
+            statement.setString(2, chapterId);
             if (progress.getLastSentenceId() == null) {
-                statement.setNull(2, Types.INTEGER);
+                statement.setNull(3, Types.INTEGER);
             } else {
-                statement.setInt(2, progress.getLastSentenceId());
+                statement.setInt(3, progress.getLastSentenceId());
             }
-            statement.setInt(3, progress.getTotalScore());
-            statement.setInt(4, progress.getGreenScore());
-            statement.setInt(5, progress.getRedScore());
-            statement.setInt(6, progress.getManualRedScore());
-            statement.setBoolean(7, progress.isGlobalExpanded());
-            statement.setString(8, writeIntList(progress.getOpenedSentenceIds()));
-            statement.setString(9, writeIntList(progress.getReadSentenceIds()));
-            statement.setString(10, writeIntList(progress.getScoredSentenceIds()));
-            statement.setString(11, writeIntList(progress.getExplanationUsedSentenceIds()));
+            statement.setInt(4, progress.getTotalScore());
+            statement.setInt(5, progress.getGreenScore());
+            statement.setInt(6, progress.getRedScore());
+            statement.setInt(7, progress.getManualRedScore());
+            statement.setBoolean(8, progress.isGlobalExpanded());
+            statement.setString(9, writeIntList(progress.getOpenedSentenceIds()));
+            statement.setString(10, writeIntList(progress.getReadSentenceIds()));
+            statement.setString(11, writeIntList(progress.getScoredSentenceIds()));
+            statement.setString(12, writeIntList(progress.getExplanationUsedSentenceIds()));
             return statement;
         });
         return progress;

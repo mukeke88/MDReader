@@ -1,8 +1,10 @@
 package com.tinkertank.mdreader.controller;
 
 import com.tinkertank.mdreader.model.ChapterImportRequest;
+import com.tinkertank.mdreader.model.ChapterMeta;
 import com.tinkertank.mdreader.model.ChapterResponse;
 import com.tinkertank.mdreader.service.ChapterService;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,11 @@ public class ChapterController {
 
     public ChapterController(ChapterService chapterService) {
         this.chapterService = chapterService;
+    }
+
+    @GetMapping
+    public List<ChapterMeta> getChapters() {
+        return chapterService.getChapters();
     }
 
     @GetMapping("/{chapterId}")

@@ -4,7 +4,7 @@ import com.tinkertank.mdreader.model.ReadingProgress;
 
 public interface ProgressRepository {
 
-    ReadingProgress findByChapterId(String chapterId);
+    ReadingProgress findByUserIdAndChapterId(String userId, String chapterId);
 
-    ReadingProgress save(String chapterId, ReadingProgress progress);
+    ReadingProgress save(String userId, String chapterId, ReadingProgress progress);
 }

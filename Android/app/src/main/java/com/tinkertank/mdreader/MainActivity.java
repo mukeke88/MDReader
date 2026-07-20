@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,9 +29,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +63,10 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends Activity {
     private static final String DEFAULT_CHAPTER_ID = "chapter-1";
+    private static final String DEFAULT_USER_ID = "default";
+    private static final String PREFS_NAME = "mdreader";
+    private static final String PREF_USER_ID = "userId";
+    private static final String PREF_CHAPTER_ID = "chapterId";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
     private static final int TRANSLATE_TEXT_REQUEST = 11;
     private static final float READ_TRIGGER_FRACTION = 0.08f;
@@ -67,6 +74,7 @@ public class MainActivity extends Activity {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final List<Sentence> sentences = new ArrayList<>();
+    private final List<ChapterOption> chapterOptions = new ArrayList<>();
     private final Map<Integer, View> sentenceViews = new HashMap<>();
     private final Set<Integer> openedSentenceIds = new HashSet<>();
     private final Set<Integer> readSentenceIds = new HashSet<>();
@@ -86,6 +94,7 @@ public class MainActivity extends Activity {
 
     private String apiBase;
     private String activeChapterId = DEFAULT_CHAPTER_ID;
+    private String activeUserId = DEFAULT_USER_ID;
     private String chapterTitle = "";
     private Integer lastSentenceId = null;
     private int topSafeAreaInset = 0;
@@ -99,8 +108,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiBase = normalizeApiBase(getString(R.string.api_base_url));
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        activeUserId = normalizeUserId(preferences.getString(PREF_USER_ID, DEFAULT_USER_ID));
+        activeChapterId = preferences.getString(PREF_CHAPTER_ID, DEFAULT_CHAPTER_ID);
         buildUi();
-        loadPage(DEFAULT_CHAPTER_ID);
+        loadChapterOptions(false);
+        loadPage(activeChapterId);
     }
 
     @Override
@@ -189,6 +202,7 @@ public class MainActivity extends Activity {
         headerRow.addView(scoreDivider);
         headerRow.addView(redScoreView);
         headerRow.addView(refreshButton(), new LinearLayout.LayoutParams(dp(32), dp(32)));
+        headerRow.addView(settingsButton(), new LinearLayout.LayoutParams(dp(32), dp(32)));
 
         titleView = new TextView(this);
         titleView.setTextSize(22);
@@ -289,6 +303,17 @@ public class MainActivity extends Activity {
         return button;
     }
 
+    private ImageButton settingsButton() {
+        ImageButton button = new ImageButton(this);
+        button.setImageResource(android.R.drawable.ic_menu_manage);
+        button.setBackgroundColor(Color.TRANSPARENT);
+        button.setColorFilter(Color.rgb(36, 35, 32));
+        button.setContentDescription("Settings");
+        button.setPadding(dp(6), dp(6), dp(6), dp(6));
+        button.setOnClickListener(v -> openSettings());
+        return button;
+    }
+
     private Button actionButton(String text, View.OnClickListener listener) {
         Button button = new Button(this);
         button.setText(text);
@@ -302,6 +327,139 @@ public class MainActivity extends Activity {
         params.setMargins(0, 0, dp(6), 0);
         button.setLayoutParams(params);
         return button;
+    }
+
+    private void openSettings() {
+        if (chapterOptions.isEmpty()) {
+            loadChapterOptions(true);
+            return;
+        }
+        showSettingsDialog();
+    }
+
+    private void showSettingsDialog() {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(8), dp(20), 0);
+
+        TextView userLabel = dialogLabel("User");
+        EditText userInput = new EditText(this);
+        userInput.setSingleLine(true);
+        userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        userInput.setText(activeUserId);
+        userInput.setSelectAllOnFocus(true);
+
+        TextView documentLabel = dialogLabel("Document");
+        Spinner documentSpinner = new Spinner(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                chapterOptionLabels()
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        documentSpinner.setAdapter(adapter);
+        int selectedIndex = findChapterOptionIndex(activeChapterId);
+        if (selectedIndex >= 0) {
+            documentSpinner.setSelection(selectedIndex);
+        }
+
+        layout.addView(userLabel);
+        layout.addView(userInput);
+        layout.addView(documentLabel);
+        layout.addView(documentSpinner);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Settings")
+                .setView(layout)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Apply", null)
+                .create();
+        dialog.setOnShowListener(currentDialog ->
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+                    String nextUserId = normalizeUserId(userInput.getText().toString());
+                    ChapterOption selectedChapter = chapterOptions.get(documentSpinner.getSelectedItemPosition());
+                    boolean changed = !nextUserId.equals(activeUserId)
+                            || !selectedChapter.id.equals(activeChapterId);
+                    activeUserId = nextUserId;
+                    activeChapterId = selectedChapter.id;
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                            .edit()
+                            .putString(PREF_USER_ID, activeUserId)
+                            .putString(PREF_CHAPTER_ID, activeChapterId)
+                            .apply();
+                    dialog.dismiss();
+                    if (changed) {
+                        loadPage(activeChapterId);
+                    }
+                })
+        );
+        dialog.show();
+    }
+
+    private TextView dialogLabel(String text) {
+        TextView label = new TextView(this);
+        label.setText(text);
+        label.setTextColor(Color.rgb(95, 88, 76));
+        label.setTypeface(Typeface.DEFAULT_BOLD);
+        label.setPadding(0, dp(10), 0, 0);
+        return label;
+    }
+
+    private List<String> chapterOptionLabels() {
+        List<String> labels = new ArrayList<>();
+        for (ChapterOption option : chapterOptions) {
+            labels.add(option.title.isEmpty() ? option.id : option.title);
+        }
+        return labels;
+    }
+
+    private int findChapterOptionIndex(String chapterId) {
+        for (int i = 0; i < chapterOptions.size(); i++) {
+            if (chapterOptions.get(i).id.equals(chapterId)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void loadChapterOptions(boolean openSettingsAfterLoad) {
+        setStatus(openSettingsAfterLoad ? "Loading documents..." : statusView.getText().toString());
+        executor.execute(() -> {
+            try {
+                JSONArray chapters = getJsonArray("/chapter");
+                List<ChapterOption> loadedOptions = new ArrayList<>();
+                for (int i = 0; i < chapters.length(); i++) {
+                    JSONObject item = chapters.optJSONObject(i);
+                    if (item != null) {
+                        loadedOptions.add(new ChapterOption(
+                                item.optString("id", DEFAULT_CHAPTER_ID),
+                                item.optString("title", "")
+                        ));
+                    }
+                }
+                mainHandler.post(() -> {
+                    chapterOptions.clear();
+                    chapterOptions.addAll(loadedOptions);
+                    if (chapterOptions.isEmpty()) {
+                        chapterOptions.add(new ChapterOption(activeChapterId, chapterTitle));
+                    }
+                    if (openSettingsAfterLoad) {
+                        setStatus("");
+                        showSettingsDialog();
+                    }
+                });
+            } catch (Exception error) {
+                mainHandler.post(() -> {
+                    if (chapterOptions.isEmpty()) {
+                        chapterOptions.add(new ChapterOption(activeChapterId, chapterTitle));
+                    }
+                    setStatus(openSettingsAfterLoad ? "Document list failed: " + error.getMessage() : "");
+                    if (openSettingsAfterLoad) {
+                        showSettingsDialog();
+                    }
+                });
+            }
+        });
     }
 
     private void openMarkdownFilePicker() {
@@ -363,7 +521,10 @@ public class MainActivity extends Activity {
                 payload.put("title", title.trim());
                 payload.put("markdown", markdown);
                 JSONObject chapter = postJson("/chapter/" + encode(activeChapterId) + "/import", payload);
-                mainHandler.post(() -> applyChapterState(chapter, new JSONObject()));
+                mainHandler.post(() -> {
+                    applyChapterState(chapter, new JSONObject());
+                    loadChapterOptions(false);
+                });
             } catch (Exception error) {
                 mainHandler.post(() -> {
                     hydrating = false;
@@ -382,10 +543,7 @@ public class MainActivity extends Activity {
         executor.execute(() -> {
             try {
                 JSONObject chapter = getJson("/chapter/" + encode(chapterId));
-                String progressKey = buildProgressKey(chapter.optString("title", ""));
-                JSONObject progress = progressKey == null
-                        ? new JSONObject()
-                        : getJson("/progress/" + encode(progressKey));
+                JSONObject progress = getProgressWithFallback(chapter);
                 mainHandler.post(() -> applyChapterState(chapter, progress));
             } catch (Exception error) {
                 mainHandler.post(() -> {
@@ -399,18 +557,13 @@ public class MainActivity extends Activity {
     }
 
     private void refreshProgressFromServer(boolean showFeedback) {
-        String progressKey = getCurrentProgressKey();
-        if (progressKey == null) {
-            return;
-        }
-
         hydrating = true;
         mainHandler.removeCallbacks(saveRunnable);
         loading.setVisibility(View.VISIBLE);
         setStatus("Refreshing progress...");
         executor.execute(() -> {
             try {
-                JSONObject progress = getJson("/progress/" + encode(progressKey));
+                JSONObject progress = getJson(progressPath(activeChapterId));
                 mainHandler.post(() -> applyProgressState(progress, true, showFeedback));
             } catch (Exception error) {
                 mainHandler.post(() -> {
@@ -714,25 +867,21 @@ public class MainActivity extends Activity {
     }
 
     private void persistProgress() {
-        String progressKey = getCurrentProgressKey();
-        if (progressKey == null) {
-            return;
-        }
-
-        JSONObject payload = buildProgressJson(progressKey);
+        JSONObject payload = buildProgressJson();
         executor.execute(() -> {
             try {
-                postJson("/progress/" + encode(progressKey), payload);
+                postJson(progressPath(activeChapterId), payload);
             } catch (Exception error) {
                 mainHandler.post(() -> setStatus("Save failed: " + error.getMessage()));
             }
         });
     }
 
-    private JSONObject buildProgressJson(String progressKey) {
+    private JSONObject buildProgressJson() {
         JSONObject payload = new JSONObject();
         try {
-            payload.put("chapterId", progressKey);
+            payload.put("userId", activeUserId);
+            payload.put("chapterId", activeChapterId);
             payload.put("lastSentenceId", lastSentenceId == null ? JSONObject.NULL : lastSentenceId);
             payload.put("totalScore", greenScore + redScore);
             payload.put("greenScore", greenScore);
@@ -864,6 +1013,11 @@ public class MainActivity extends Activity {
         return readJson(connection);
     }
 
+    private JSONArray getJsonArray(String path) throws Exception {
+        HttpURLConnection connection = openConnection(path, "GET");
+        return readJsonArray(connection);
+    }
+
     private JSONObject postJson(String path, JSONObject payload) throws Exception {
         HttpURLConnection connection = openConnection(path, "POST");
         connection.setDoOutput(true);
@@ -873,6 +1027,39 @@ public class MainActivity extends Activity {
             writer.write(payload.toString());
         }
         return readJson(connection);
+    }
+
+    private JSONObject getProgressWithFallback(JSONObject chapter) throws Exception {
+        String chapterId = chapter.optString("chapterId", activeChapterId);
+        JSONObject progress = getJson(progressPath(chapterId));
+        String legacyProgressKey = buildProgressKey(chapter.optString("title", ""));
+        if (!hasSavedProgress(progress)
+                && legacyProgressKey != null
+                && !legacyProgressKey.equals(chapterId)) {
+            progress = getJson(progressPath(legacyProgressKey));
+        }
+        return progress;
+    }
+
+    private boolean hasSavedProgress(JSONObject progress) {
+        return progress.optInt("lastSentenceId", 0) > 0
+                || progress.optInt("totalScore", 0) > 0
+                || progress.optInt("greenScore", 0) > 0
+                || progress.optInt("redScore", 0) > 0
+                || progress.optInt("manualRedScore", 0) > 0
+                || jsonArrayLength(progress, "openedSentenceIds") > 0
+                || jsonArrayLength(progress, "readSentenceIds") > 0
+                || jsonArrayLength(progress, "scoredSentenceIds") > 0
+                || jsonArrayLength(progress, "explanationUsedSentenceIds") > 0;
+    }
+
+    private int jsonArrayLength(JSONObject object, String key) {
+        JSONArray array = object.optJSONArray(key);
+        return array == null ? 0 : array.length();
+    }
+
+    private String progressPath(String chapterId) throws Exception {
+        return "/progress/" + encode(chapterId) + "?userId=" + encode(activeUserId);
     }
 
     private HttpURLConnection openConnection(String path, String method) throws Exception {
@@ -893,6 +1080,11 @@ public class MainActivity extends Activity {
         return normalized;
     }
 
+    private String normalizeUserId(String value) {
+        String normalized = value == null ? "" : value.trim();
+        return normalized.isEmpty() ? DEFAULT_USER_ID : normalized;
+    }
+
     private JSONObject readJson(HttpURLConnection connection) throws Exception {
         int statusCode = connection.getResponseCode();
         InputStream stream = statusCode >= 200 && statusCode < 300
@@ -906,6 +1098,21 @@ public class MainActivity extends Activity {
             return new JSONObject();
         }
         return new JSONObject(body);
+    }
+
+    private JSONArray readJsonArray(HttpURLConnection connection) throws Exception {
+        int statusCode = connection.getResponseCode();
+        InputStream stream = statusCode >= 200 && statusCode < 300
+                ? connection.getInputStream()
+                : connection.getErrorStream();
+        String body = readAll(stream);
+        if (statusCode < 200 || statusCode >= 300) {
+            throw new IllegalStateException("HTTP " + statusCode + " " + body);
+        }
+        if (body == null || body.trim().isEmpty()) {
+            return new JSONArray();
+        }
+        return new JSONArray(body);
     }
 
     private String readAll(InputStream stream) throws Exception {
@@ -1019,6 +1226,16 @@ public class MainActivity extends Activity {
             this.paragraphId = paragraphId;
             this.text = text;
             this.explanation = explanation;
+        }
+    }
+
+    private static final class ChapterOption {
+        final String id;
+        final String title;
+
+        ChapterOption(String id, String title) {
+            this.id = id;
+            this.title = title == null ? "" : title;
         }
     }
 }

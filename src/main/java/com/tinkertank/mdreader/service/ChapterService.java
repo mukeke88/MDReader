@@ -30,6 +30,10 @@ public class ChapterService {
         return response;
     }
 
+    public List<ChapterMeta> getChapters() {
+        return chapterRepository.findAllChapters();
+    }
+
     public ChapterResponse importMarkdown(String chapterId, ChapterImportRequest request) {
         String normalizedTitle = request.getTitle().trim();
         List<Sentence> sentences = parseMarkdown(request.getMarkdown());

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ReadingProgress {
 
+    private String userId;
     private String chapterId;
     private Integer lastSentenceId;
     private int totalScore;
@@ -16,6 +17,14 @@ public class ReadingProgress {
     private List<Integer> readSentenceIds = new ArrayList<Integer>();
     private List<Integer> scoredSentenceIds = new ArrayList<Integer>();
     private List<Integer> explanationUsedSentenceIds = new ArrayList<Integer>();
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getChapterId() {
         return chapterId;

@@ -29,24 +29,35 @@ public class FileProgressRepository implements ProgressRepository {
     }
 
     @Override
-    public ReadingProgress findByChapterId(String chapterId) {
+    public ReadingProgress findByUserIdAndChapterId(String userId, String chapterId) {
         Map<String, ReadingProgress> progressMap = readAll();
-        ReadingProgress progress = progressMap.get(chapterId);
+        ReadingProgress progress = progressMap.get(progressKey(userId, chapterId));
+        if (progress == null && "default".equals(userId)) {
+            progress = progressMap.get(chapterId);
+        }
         if (progress != null) {
+            progress.setUserId(userId);
+            progress.setChapterId(chapterId);
             return progress;
         }
         ReadingProgress empty = new ReadingProgress();
+        empty.setUserId(userId);
         empty.setChapterId(chapterId);
         return empty;
     }
 
     @Override
-    public ReadingProgress save(String chapterId, ReadingProgress progress) {
+    public ReadingProgress save(String userId, String chapterId, ReadingProgress progress) {
+        progress.setUserId(userId);
         progress.setChapterId(chapterId);
         Map<String, ReadingProgress> progressMap = readAll();
-        progressMap.put(chapterId, progress);
+        progressMap.put(progressKey(userId, chapterId), progress);
         writeAll(progressMap);
         return progress;
+    }
+
+    private String progressKey(String userId, String chapterId) {
+        return userId + "::" + chapterId;
     }
 
     private Map<String, ReadingProgress> readAll() {

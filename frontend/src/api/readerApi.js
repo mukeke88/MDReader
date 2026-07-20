@@ -16,6 +16,10 @@ export function fetchChapter(chapterId) {
   return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}`).then(handleResponse)
 }
 
+export function fetchChapters() {
+  return fetch(`${API_BASE}/chapter`).then(handleResponse)
+}
+
 export function importChapterMarkdown(chapterId, payload) {
   return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`, {
     method: 'POST',
@@ -26,12 +30,20 @@ export function importChapterMarkdown(chapterId, payload) {
   }).then(handleResponse)
 }
 
-export function fetchProgress(chapterId) {
-  return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`).then(handleResponse)
+function buildProgressUrl(chapterId, userId) {
+  const url = new URL(`${API_BASE}/progress/${encodePathSegment(chapterId)}`, window.location.origin)
+  if (userId) {
+    url.searchParams.set('userId', userId)
+  }
+  return url.toString()
 }
 
-export function saveProgress(chapterId, payload) {
-  return fetch(`${API_BASE}/progress/${encodePathSegment(chapterId)}`, {
+export function fetchProgress(chapterId, userId) {
+  return fetch(buildProgressUrl(chapterId, userId)).then(handleResponse)
+}
+
+export function saveProgress(chapterId, userId, payload) {
+  return fetch(buildProgressUrl(chapterId, userId), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

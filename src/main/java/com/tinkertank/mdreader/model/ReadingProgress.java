@@ -7,6 +7,7 @@ public class ReadingProgress {
 
     private String userId;
     private String chapterId;
+    private String documentId;
     private Integer lastSentenceId;
     private int totalScore;
     private int greenScore;
@@ -32,6 +33,14 @@ public class ReadingProgress {
 
     public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public Integer getLastSentenceId() {

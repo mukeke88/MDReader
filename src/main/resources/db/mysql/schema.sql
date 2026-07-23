@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS sentences (
 CREATE TABLE IF NOT EXISTS reading_progress (
     user_id VARCHAR(255) NOT NULL DEFAULT 'default',
     chapter_id VARCHAR(255) NOT NULL,
+    document_id VARCHAR(255) NOT NULL,
     last_sentence_id INT NULL,
     total_score INT NOT NULL DEFAULT 0,
     green_score INT NOT NULL DEFAULT 0,
@@ -37,5 +38,6 @@ CREATE TABLE IF NOT EXISTS reading_progress (
     explanation_used_sentence_ids JSON NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, chapter_id)
+    PRIMARY KEY (user_id, chapter_id),
+    INDEX idx_reading_progress_document (document_id)
 );

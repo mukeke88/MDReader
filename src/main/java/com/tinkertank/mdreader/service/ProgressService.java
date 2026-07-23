@@ -16,10 +16,13 @@ public class ProgressService {
     }
 
     public ReadingProgress getProgress(String userId, String chapterId) {
-        return progressRepository.findByUserIdAndChapterId(normalizeUserId(userId), chapterId);
+        ReadingProgress progress = progressRepository.findByUserIdAndChapterId(normalizeUserId(userId), chapterId);
+        progress.setDocumentId(chapterId);
+        return progress;
     }
 
     public ReadingProgress saveProgress(String userId, String chapterId, ReadingProgress progress) {
+        progress.setDocumentId(chapterId);
         return progressRepository.save(normalizeUserId(userId), chapterId, progress);
     }
 

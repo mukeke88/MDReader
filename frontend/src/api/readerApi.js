@@ -21,7 +21,10 @@ export function fetchChapters() {
 }
 
 export function importChapterMarkdown(chapterId, payload) {
-  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`, {
+  const importUrl = chapterId
+    ? `${API_BASE}/chapter/${encodePathSegment(chapterId)}/import`
+    : `${API_BASE}/chapter/import`
+  return fetch(importUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

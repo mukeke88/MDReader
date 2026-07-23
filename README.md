@@ -49,6 +49,12 @@ mysql -u root -p mdreader < src/main/resources/db/mysql/seed-data.sql
 
 The seed helper writes warnings to stderr for chapter metadata that references missing sentence JSON files.
 
+For an existing MySQL deployment, add explicit document tracking to reading progress:
+
+```bash
+mysql -u root -p mdreader < scripts/migrate-progress-documents.sql
+```
+
 ## Backend Packaging
 
 Run these manually on the machine where you package the backend:
@@ -100,5 +106,7 @@ Open the `Android` folder in Android Studio.
 ## API
 
 - `GET /api/chapter/{chapterId}`
+- `POST /api/chapter/import`
+- `POST /api/chapter/{chapterId}/import`
 - `GET /api/progress/{chapterId}`
 - `POST /api/progress/{chapterId}`

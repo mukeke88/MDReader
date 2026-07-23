@@ -38,11 +38,13 @@ public class FileProgressRepository implements ProgressRepository {
         if (progress != null) {
             progress.setUserId(userId);
             progress.setChapterId(chapterId);
+            progress.setDocumentId(chapterId);
             return progress;
         }
         ReadingProgress empty = new ReadingProgress();
         empty.setUserId(userId);
         empty.setChapterId(chapterId);
+        empty.setDocumentId(chapterId);
         return empty;
     }
 
@@ -50,6 +52,7 @@ public class FileProgressRepository implements ProgressRepository {
     public ReadingProgress save(String userId, String chapterId, ReadingProgress progress) {
         progress.setUserId(userId);
         progress.setChapterId(chapterId);
+        progress.setDocumentId(chapterId);
         Map<String, ReadingProgress> progressMap = readAll();
         progressMap.put(progressKey(userId, chapterId), progress);
         writeAll(progressMap);

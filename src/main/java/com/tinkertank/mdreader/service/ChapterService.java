@@ -8,6 +8,8 @@ import com.tinkertank.mdreader.model.Sentence;
 import com.tinkertank.mdreader.repository.ChapterRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,6 +56,36 @@ public class ChapterService {
         chapterRepository.saveChapter(meta);
         chapterRepository.saveSentences(chapterId, sentences);
         return getChapter(chapterId);
+    }
+
+    public ChapterResponse importMarkdown(ChapterImportRequest request) {
+        String normalizedTitle = request.getTitle().trim();
+        String chapterId = nextDocumentId(normalizedTitle);
+        return importMarkdown(chapterId, request);
+    }
+
+    private String nextDocumentId(String title) {
+        String baseId = title.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("(^-|-$)", "");
+        if (baseId.isEmpty()) {
+            baseId = "document";
+        }
+        if (baseId.length() > 48) {
+            baseId = baseId.substring(0, 48).replaceAll("-$", "");
+        }
+
+        String candidate = baseId;
+        int suffix = 2;
+        while (chapterRepository.findChapter(candidate).isPresent()) {
+            candidate = baseId + "-" + suffix;
+            suffix++;
+            if (suffix > 999) {
+                candidate = baseId + "-" + UUID.randomUUID().toString().substring(0, 8);
+                break;
+            }
+        }
+        return candidate;
     }
 
     private List<Sentence> parseMarkdown(String markdown) {

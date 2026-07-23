@@ -531,7 +531,7 @@ async function submitMarkdownImport() {
   isImporting.value = true
   importError.value = ''
   try {
-    const chapterResponse = await importChapterMarkdown(activeChapterId.value, {
+    const chapterResponse = await importChapterMarkdown(null, {
       title: importForm.title,
       markdown: importForm.markdown
     })

@@ -520,9 +520,13 @@ public class MainActivity extends Activity {
                 JSONObject payload = new JSONObject();
                 payload.put("title", title.trim());
                 payload.put("markdown", markdown);
-                JSONObject chapter = postJson("/chapter/" + encode(activeChapterId) + "/import", payload);
+                JSONObject chapter = postJson("/chapter/import", payload);
                 mainHandler.post(() -> {
                     applyChapterState(chapter, new JSONObject());
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                            .edit()
+                            .putString(PREF_CHAPTER_ID, activeChapterId)
+                            .apply();
                     loadChapterOptions(false);
                 });
             } catch (Exception error) {
@@ -755,6 +759,11 @@ public class MainActivity extends Activity {
             return;
         }
 
+        if (!scrollView.canScrollVertically(1)) {
+            markSentencesUpTo(lastSentenceId());
+            return;
+        }
+
         int threshold = scrollView.getScrollY() + Math.round(scrollView.getHeight() * READ_TRIGGER_FRACTION);
         int latestVisibleId = -1;
         for (Sentence sentence : sentences) {
@@ -776,6 +785,10 @@ public class MainActivity extends Activity {
             }
             handleSentenceRead(sentence.id);
         }
+    }
+
+    private int lastSentenceId() {
+        return sentences.isEmpty() ? -1 : sentences.get(sentences.size() - 1).id;
     }
 
     private void handleSentenceRead(int sentenceId) {

@@ -6,8 +6,10 @@ import com.tinkertank.mdreader.model.ChapterMeta;
 import com.tinkertank.mdreader.model.Sentence;
 import com.tinkertank.mdreader.repository.ChapterRepository;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -102,6 +104,7 @@ public class FileChapterRepository implements ChapterRepository {
 
     private List<ChapterMeta> readAllChapters() {
         try {
+            ensureChapterStorageExists();
             return objectMapper.readValue(
                     dataDirectory.resolve("chapters.json").toFile(),
                     new TypeReference<List<ChapterMeta>>() {
@@ -113,12 +116,21 @@ public class FileChapterRepository implements ChapterRepository {
 
     private void writeAllChapters(List<ChapterMeta> chapters) {
         try {
+            ensureChapterStorageExists();
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(
                     dataDirectory.resolve("chapters.json").toFile(),
                     chapters
             );
         } catch (IOException e) {
             throw new IllegalStateException("Unable to write chapter metadata", e);
+        }
+    }
+
+    private void ensureChapterStorageExists() throws IOException {
+        Files.createDirectories(dataDirectory.resolve("sentences"));
+        Path chaptersFile = dataDirectory.resolve("chapters.json");
+        if (!Files.exists(chaptersFile)) {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(chaptersFile.toFile(), new ArrayList<ChapterMeta>());
         }
     }
 }

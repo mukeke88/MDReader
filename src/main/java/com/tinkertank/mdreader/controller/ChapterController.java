@@ -33,6 +33,11 @@ public class ChapterController {
         return chapterService.getChapter(chapterId);
     }
 
+    @PostMapping("/import")
+    public ChapterResponse importMarkdown(@Valid @RequestBody ChapterImportRequest request) {
+        return chapterService.importMarkdown(request);
+    }
+
     @PostMapping("/{chapterId}/import")
     public ChapterResponse importMarkdown(@PathVariable String chapterId,
                                           @Valid @RequestBody ChapterImportRequest request) {

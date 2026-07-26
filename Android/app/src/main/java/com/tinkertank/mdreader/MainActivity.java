@@ -2,6 +2,7 @@ package com.tinkertank.mdreader;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -13,11 +14,13 @@ import android.content.pm.ResolveInfo;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
+import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
 import android.view.GestureDetector;
@@ -26,10 +29,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowInsets;
+import android.view.textclassifier.TextClassifier;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -37,6 +42,8 @@ import android.widget.ImageButton;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -110,6 +117,7 @@ public class MainActivity extends Activity {
     private int redScore = 0;
     private boolean hydrating = false;
     private boolean clearSelectionWhenFocusReturns = false;
+    private SelectionPopupActionMode activeSelectionMode;
     private final Runnable saveRunnable = this::persistProgress;
 
     @Override
@@ -691,7 +699,7 @@ public class MainActivity extends Activity {
         card.setPadding(dp(12), dp(10), dp(8), dp(10));
         row.addView(card, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        TextView text = new TextView(this);
+        TextView text = new SelectableReaderTextView(this);
         text.setText(sentence.text);
         text.setTextSize(17);
         text.setLineSpacing(dp(2), 1.05f);
@@ -699,7 +707,7 @@ public class MainActivity extends Activity {
         enableTextSelection(text);
         card.addView(text);
 
-        TextView explanation = new TextView(this);
+        TextView explanation = new SelectableReaderTextView(this);
         explanation.setText(sentence.explanation);
         explanation.setTextSize(15);
         explanation.setTextColor(Color.rgb(76, 70, 60));
@@ -927,10 +935,35 @@ public class MainActivity extends Activity {
 
     private void enableTextSelection(TextView textView) {
         textView.setTextIsSelectable(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            textView.setTextClassifier(TextClassifier.NO_OP);
+        }
         textView.setCustomSelectionActionModeCallback(createSelectionActionCallback(textView));
         if (!selectableTextViews.contains(textView)) {
             selectableTextViews.add(textView);
         }
+    }
+
+    private ActionMode startPrivateSelectionActionMode(
+            TextView textView,
+            ActionMode.Callback callback,
+            int type
+    ) {
+        if (activeSelectionMode != null
+                && !activeSelectionMode.isFinished()
+                && activeSelectionMode.isFor(textView)) {
+            return activeSelectionMode;
+        }
+        if (activeSelectionMode != null) {
+            activeSelectionMode.finish();
+        }
+
+        SelectionPopupActionMode mode = new SelectionPopupActionMode(textView, callback, type);
+        if (!mode.start()) {
+            return null;
+        }
+        activeSelectionMode = mode;
+        return mode;
     }
 
     private ActionMode.Callback createSelectionActionCallback(TextView textView) {
@@ -1011,6 +1044,50 @@ public class MainActivity extends Activity {
         return intent;
     }
 
+    private Intent createEudicPeekIntent(CharSequence selectedText) {
+        Uri uri = new Uri.Builder()
+                .scheme("eudic")
+                .authority("peek")
+                .appendPath(selectedText.toString())
+                .build();
+        return new Intent(Intent.ACTION_VIEW, uri).setPackage(EUDIC_PACKAGE);
+    }
+
+    private void launchEudicLookup(TextView textView, ActionMode mode) {
+        CharSequence selectedText = getSelectedText(textView);
+        Intent peekIntent = createEudicPeekIntent(selectedText);
+        Intent processTextIntent = createEudicProcessTextIntent();
+        if (processTextIntent != null) {
+            processTextIntent.putExtra(Intent.EXTRA_PROCESS_TEXT, selectedText);
+            processTextIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true);
+        }
+
+        mode.finish();
+        mainHandler.post(() -> {
+            try {
+                startActivity(peekIntent);
+            } catch (ActivityNotFoundException | SecurityException peekError) {
+                if (processTextIntent == null) {
+                    Toast.makeText(
+                            MainActivity.this,
+                            "无法打开欧路词典，请确认已安装最新版",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return;
+                }
+                try {
+                    startActivity(processTextIntent);
+                } catch (ActivityNotFoundException | SecurityException processTextError) {
+                    Toast.makeText(
+                            MainActivity.this,
+                            "无法打开欧路词典，请确认已安装最新版",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        });
+    }
+
     private void copySelectedText(TextView textView) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard != null) {
@@ -1060,6 +1137,8 @@ public class MainActivity extends Activity {
     private void clearTextSelection(TextView textView, ActionMode mode) {
         if (mode != null) {
             mode.finish();
+        } else if (activeSelectionMode != null && activeSelectionMode.isFor(textView)) {
+            activeSelectionMode.finish();
         }
 
         CharSequence text = textView.getText();
@@ -1069,6 +1148,265 @@ public class MainActivity extends Activity {
         if (textView.isFocused()) {
             textView.clearFocus();
         }
+    }
+
+    private final class SelectableReaderTextView extends TextView {
+        SelectableReaderTextView(Context context) {
+            super(context);
+        }
+
+        @Override
+        public ActionMode startActionMode(ActionMode.Callback callback) {
+            return startPrivateSelectionActionMode(this, callback, ActionMode.TYPE_PRIMARY);
+        }
+
+        @Override
+        public ActionMode startActionMode(ActionMode.Callback callback, int type) {
+            return startPrivateSelectionActionMode(this, callback, type);
+        }
+    }
+
+    private final class SelectionPopupActionMode extends ActionMode {
+        private final TextView textView;
+        private final ActionMode.Callback callback;
+        private final PopupWindow popupWindow;
+        private final LinearLayout toolbar;
+        private final Menu menu;
+        private CharSequence title;
+        private CharSequence subtitle;
+        private View customView;
+        private boolean finished;
+        private final Runnable showToolbarRunnable = this::showOrUpdateToolbar;
+
+        SelectionPopupActionMode(TextView textView, ActionMode.Callback callback, int type) {
+            this.textView = textView;
+            this.callback = callback;
+            setType(type);
+
+            PopupMenu menuHolder = new PopupMenu(MainActivity.this, textView);
+            menu = menuHolder.getMenu();
+
+            toolbar = new LinearLayout(MainActivity.this);
+            toolbar.setOrientation(LinearLayout.HORIZONTAL);
+            toolbar.setGravity(Gravity.CENTER_VERTICAL);
+            toolbar.setPadding(dp(4), dp(2), dp(4), dp(2));
+
+            GradientDrawable background = new GradientDrawable();
+            background.setColor(Color.WHITE);
+            background.setCornerRadius(dp(10));
+            background.setStroke(dp(1), Color.rgb(205, 205, 205));
+
+            Intent eudicIntent = createEudicProcessTextIntent();
+            if (eudicIntent != null) {
+                TextView eudicButton = createPrivateToolbarButton("欧路词典");
+                eudicButton.setOnClickListener(view -> launchEudicLookup(textView, this));
+                toolbar.addView(eudicButton);
+                toolbar.addView(createPrivateToolbarDivider());
+            }
+
+            TextView copyButton = createPrivateToolbarButton("复制");
+            copyButton.setOnClickListener(view -> {
+                copySelectedText(textView);
+                finish();
+            });
+            toolbar.addView(copyButton);
+
+            popupWindow = new PopupWindow(
+                    toolbar,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    false
+            );
+            popupWindow.setBackgroundDrawable(background);
+            popupWindow.setOutsideTouchable(false);
+            popupWindow.setTouchable(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.setElevation(dp(12));
+            }
+        }
+
+        boolean start() {
+            if (!callback.onCreateActionMode(this, menu)) {
+                finished = true;
+                return false;
+            }
+            callback.onPrepareActionMode(this, menu);
+            mainHandler.post(showToolbarRunnable);
+            return true;
+        }
+
+        boolean isFor(TextView candidate) {
+            return textView == candidate;
+        }
+
+        boolean isFinished() {
+            return finished;
+        }
+
+        private void showOrUpdateToolbar() {
+            if (finished || textView.getLayout() == null || !textView.isShown()) {
+                return;
+            }
+
+            toolbar.measure(
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            );
+            int popupWidth = toolbar.getMeasuredWidth();
+            int popupHeight = toolbar.getMeasuredHeight();
+
+            int selectionStart = Math.max(0, textView.getSelectionStart());
+            int selectionEnd = Math.max(selectionStart, textView.getSelectionEnd());
+            Layout layout = textView.getLayout();
+            int line = layout.getLineForOffset(Math.min(selectionStart, textView.length()));
+            int endLine = layout.getLineForOffset(Math.min(selectionEnd, textView.length()));
+            int[] location = new int[2];
+            textView.getLocationOnScreen(location);
+
+            int selectionX = location[0]
+                    + textView.getTotalPaddingLeft()
+                    + Math.round(layout.getPrimaryHorizontal(selectionStart))
+                    - textView.getScrollX();
+            int selectionTop = location[1]
+                    + textView.getTotalPaddingTop()
+                    + layout.getLineTop(line)
+                    - textView.getScrollY();
+            int selectionBottom = location[1]
+                    + textView.getTotalPaddingTop()
+                    + layout.getLineBottom(endLine)
+                    - textView.getScrollY();
+
+            int screenWidth = getResources().getDisplayMetrics().widthPixels;
+            int screenHeight = getResources().getDisplayMetrics().heightPixels;
+            int margin = dp(8);
+            int x = Math.max(
+                    margin,
+                    Math.min(selectionX - popupWidth / 2, screenWidth - popupWidth - margin)
+            );
+            int y = selectionTop - popupHeight - margin;
+            if (y < topSafeAreaInset + margin) {
+                y = Math.min(selectionBottom + margin, screenHeight - popupHeight - margin);
+            }
+
+            if (popupWindow.isShowing()) {
+                popupWindow.update(x, y, -1, -1);
+            } else {
+                popupWindow.showAtLocation(
+                        getWindow().getDecorView(),
+                        Gravity.TOP | Gravity.LEFT,
+                        x,
+                        y
+                );
+            }
+        }
+
+        @Override
+        public void invalidate() {
+            if (!finished) {
+                callback.onPrepareActionMode(this, menu);
+                mainHandler.post(showToolbarRunnable);
+            }
+        }
+
+        @Override
+        public void invalidateContentRect() {
+            mainHandler.post(showToolbarRunnable);
+        }
+
+        @Override
+        public void hide(long duration) {
+            if (popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
+            if (!finished) {
+                long delay = duration < 0 ? DEFAULT_HIDE_DURATION : duration;
+                mainHandler.postDelayed(showToolbarRunnable, delay);
+            }
+        }
+
+        @Override
+        public void finish() {
+            if (finished) {
+                return;
+            }
+            finished = true;
+            mainHandler.removeCallbacks(showToolbarRunnable);
+            if (popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
+            if (activeSelectionMode == this) {
+                activeSelectionMode = null;
+            }
+            callback.onDestroyActionMode(this);
+        }
+
+        @Override
+        public void setTitle(CharSequence value) {
+            title = value;
+        }
+
+        @Override
+        public void setTitle(int resId) {
+            setTitle(getText(resId));
+        }
+
+        @Override
+        public void setSubtitle(CharSequence value) {
+            subtitle = value;
+        }
+
+        @Override
+        public void setSubtitle(int resId) {
+            setSubtitle(getText(resId));
+        }
+
+        @Override
+        public void setCustomView(View view) {
+            customView = view;
+        }
+
+        @Override
+        public Menu getMenu() {
+            return menu;
+        }
+
+        @Override
+        public CharSequence getTitle() {
+            return title;
+        }
+
+        @Override
+        public CharSequence getSubtitle() {
+            return subtitle;
+        }
+
+        @Override
+        public View getCustomView() {
+            return customView;
+        }
+
+        @Override
+        public MenuInflater getMenuInflater() {
+            return new MenuInflater(MainActivity.this);
+        }
+    }
+
+    private TextView createPrivateToolbarButton(String label) {
+        TextView button = new TextView(this);
+        button.setText(label);
+        button.setTextColor(Color.rgb(32, 33, 36));
+        button.setTextSize(15);
+        button.setGravity(Gravity.CENTER);
+        button.setMinHeight(dp(44));
+        button.setPadding(dp(16), 0, dp(16), 0);
+        return button;
+    }
+
+    private View createPrivateToolbarDivider() {
+        View divider = new View(this);
+        divider.setBackgroundColor(Color.rgb(224, 224, 224));
+        divider.setLayoutParams(new LinearLayout.LayoutParams(dp(1), dp(24)));
+        return divider;
     }
 
     private boolean hasActiveTextSelection() {

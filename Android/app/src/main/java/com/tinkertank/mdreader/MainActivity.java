@@ -108,8 +108,14 @@ public class MainActivity extends Activity {
     private int redScore = 0;
     private boolean hydrating = false;
     private boolean clearSelectionWhenFocusReturns = false;
+    private boolean visibleSentenceCheckScheduled = false;
+    private int nextSentenceToMarkIndex = 0;
     private DirectLookupActionMode activeSelectionMode;
     private final Runnable saveRunnable = this::persistProgress;
+    private final Runnable visibleSentenceCheckRunnable = () -> {
+        visibleSentenceCheckScheduled = false;
+        markVisibleSentencesAsRead();
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +132,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         mainHandler.removeCallbacks(saveRunnable);
+        if (scrollView != null) {
+            scrollView.removeCallbacks(visibleSentenceCheckRunnable);
+        }
         executor.shutdownNow();
         super.onDestroy();
     }
@@ -242,7 +251,7 @@ public class MainActivity extends Activity {
                 1f
         ));
 
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(this::markVisibleSentencesAsRead);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(this::scheduleVisibleSentenceCheck);
     }
 
     private void configureEdgeToEdge() {
@@ -662,6 +671,7 @@ public class MainActivity extends Activity {
             sentenceViews.put(sentence.id, card);
             sentenceList.addView(card);
         }
+        resetNextSentenceToMarkIndex();
     }
 
     private View createSentenceCard(Sentence sentence) {
@@ -756,45 +766,71 @@ public class MainActivity extends Activity {
         schedulePersist();
     }
 
+    private void scheduleVisibleSentenceCheck() {
+        if (visibleSentenceCheckScheduled) {
+            return;
+        }
+        visibleSentenceCheckScheduled = true;
+        scrollView.postOnAnimation(visibleSentenceCheckRunnable);
+    }
+
+    private void resetNextSentenceToMarkIndex() {
+        nextSentenceToMarkIndex = 0;
+        while (nextSentenceToMarkIndex < sentences.size()
+                && readSentenceIds.contains(sentences.get(nextSentenceToMarkIndex).id)) {
+            nextSentenceToMarkIndex++;
+        }
+    }
+
     private void markVisibleSentencesAsRead() {
         if (hydrating || sentenceViews.isEmpty()) {
             return;
         }
 
+        int targetIndex = nextSentenceToMarkIndex - 1;
         if (!scrollView.canScrollVertically(1)) {
-            markSentencesUpTo(lastSentenceId());
-            return;
-        }
-
-        int threshold = scrollView.getScrollY() + Math.round(scrollView.getHeight() * READ_TRIGGER_FRACTION);
-        int latestVisibleId = -1;
-        for (Sentence sentence : sentences) {
-            View card = sentenceViews.get(sentence.id);
-            if (card != null && card.getBottom() <= threshold) {
-                latestVisibleId = sentence.id;
+            targetIndex = sentences.size() - 1;
+        } else {
+            int threshold = scrollView.getScrollY()
+                    + Math.round(scrollView.getHeight() * READ_TRIGGER_FRACTION);
+            for (int index = nextSentenceToMarkIndex; index < sentences.size(); index++) {
+                View card = sentenceViews.get(sentences.get(index).id);
+                if (card == null || card.getBottom() > threshold) {
+                    break;
+                }
+                targetIndex = index;
             }
         }
 
-        if (latestVisibleId > -1) {
-            markSentencesUpTo(latestVisibleId);
+        if (targetIndex >= nextSentenceToMarkIndex) {
+            markSentencesThroughIndex(targetIndex);
         }
     }
 
-    private void markSentencesUpTo(int targetSentenceId) {
-        for (Sentence sentence : sentences) {
-            if (sentence.id > targetSentenceId) {
-                break;
-            }
-            handleSentenceRead(sentence.id);
+    private void markSentencesThroughIndex(int targetIndex) {
+        boolean changed = false;
+        while (nextSentenceToMarkIndex <= targetIndex) {
+            Sentence sentence = sentences.get(nextSentenceToMarkIndex);
+            changed = applySentenceReadState(sentence.id) || changed;
+            nextSentenceToMarkIndex++;
         }
-    }
 
-    private int lastSentenceId() {
-        return sentences.isEmpty() ? -1 : sentences.get(sentences.size() - 1).id;
+        if (changed) {
+            updateScores();
+            schedulePersist();
+        }
     }
 
     private void handleSentenceRead(int sentenceId) {
-        boolean changed = readSentenceIds.add(sentenceId);
+        if (applySentenceReadState(sentenceId)) {
+            updateScores();
+            schedulePersist();
+        }
+    }
+
+    private boolean applySentenceReadState(int sentenceId) {
+        boolean readChanged = readSentenceIds.add(sentenceId);
+        boolean changed = readChanged;
         if (lastSentenceId == null || sentenceId > lastSentenceId) {
             lastSentenceId = sentenceId;
             changed = true;
@@ -802,14 +838,11 @@ public class MainActivity extends Activity {
         changed = scoreSentence(sentenceId) || changed;
 
         View card = sentenceViews.get(sentenceId);
-        if (card != null) {
+        if (readChanged && card != null) {
             updateSentenceMarker(card, sentenceId);
         }
 
-        if (changed) {
-            updateScores();
-            schedulePersist();
-        }
+        return changed;
     }
 
     private boolean scoreSentence(int sentenceId) {

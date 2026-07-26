@@ -2,9 +2,14 @@ package com.tinkertank.mdreader;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Build;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -69,6 +74,9 @@ public class MainActivity extends Activity {
     private static final String PREF_CHAPTER_ID = "chapterId";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
     private static final int TRANSLATE_TEXT_REQUEST = 11;
+    private static final int MENU_EUDIC = 1001;
+    private static final int MENU_COPY = 1002;
+    private static final String EUDIC_PACKAGE = "com.qianyan.eudic";
     private static final float READ_TRIGGER_FRACTION = 0.08f;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -929,16 +937,24 @@ public class MainActivity extends Activity {
         return new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                populateSelectionMenu(menu);
                 return true;
             }
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                populateSelectionMenu(menu);
                 return true;
             }
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                if (item.getItemId() == MENU_COPY) {
+                    copySelectedText(textView);
+                    mode.finish();
+                    return true;
+                }
+
                 Intent intent = item.getIntent();
                 if (intent != null && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
                     launchProcessTextAction(textView, mode, intent);
@@ -961,17 +977,62 @@ public class MainActivity extends Activity {
         };
     }
 
-    private void launchProcessTextAction(TextView textView, ActionMode mode, Intent sourceIntent) {
+    private void populateSelectionMenu(Menu menu) {
+        menu.clear();
+
+        Intent eudicIntent = createEudicProcessTextIntent();
+        if (eudicIntent != null) {
+            menu.add(Menu.NONE, MENU_EUDIC, 0, "欧路词典")
+                    .setIntent(eudicIntent)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
+        menu.add(Menu.NONE, MENU_COPY, 1, "复制")
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    private Intent createEudicProcessTextIntent() {
+        Intent intent = new Intent(Intent.ACTION_PROCESS_TEXT)
+                .setType("text/plain")
+                .setPackage(EUDIC_PACKAGE)
+                .putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true);
+        ResolveInfo resolveInfo = getPackageManager().resolveActivity(
+                intent,
+                PackageManager.MATCH_DEFAULT_ONLY
+        );
+        if (resolveInfo == null || resolveInfo.activityInfo == null) {
+            return null;
+        }
+
+        intent.setClassName(
+                resolveInfo.activityInfo.packageName,
+                resolveInfo.activityInfo.name
+        );
+        return intent;
+    }
+
+    private void copySelectedText(TextView textView) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(
+                    ClipData.newPlainText("selected text", getSelectedText(textView))
+            );
+        }
+    }
+
+    private CharSequence getSelectedText(TextView textView) {
         int selectionStart = textView.getSelectionStart();
         int selectionEnd = textView.getSelectionEnd();
         int start = Math.max(0, Math.min(selectionStart, selectionEnd));
         int end = Math.min(textView.length(), Math.max(selectionStart, selectionEnd));
-        CharSequence selectedText = start < end
+        return start < end
                 ? textView.getText().subSequence(start, end)
                 : textView.getText();
+    }
 
+    private void launchProcessTextAction(TextView textView, ActionMode mode, Intent sourceIntent) {
         Intent intent = new Intent(sourceIntent);
-        intent.putExtra(Intent.EXTRA_PROCESS_TEXT, selectedText);
+        intent.putExtra(Intent.EXTRA_PROCESS_TEXT, getSelectedText(textView));
         intent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true);
         mode.finish();
         startActivityForResult(intent, TRANSLATE_TEXT_REQUEST);

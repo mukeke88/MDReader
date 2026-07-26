@@ -3,8 +3,6 @@ package com.tinkertank.mdreader;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
 import android.content.Intent;
@@ -14,13 +12,11 @@ import android.content.pm.ResolveInfo;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
-import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
 import android.view.GestureDetector;
@@ -43,7 +39,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,7 +62,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -80,9 +74,6 @@ public class MainActivity extends Activity {
     private static final String PREF_USER_ID = "userId";
     private static final String PREF_CHAPTER_ID = "chapterId";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
-    private static final int TRANSLATE_TEXT_REQUEST = 11;
-    private static final int MENU_EUDIC = 1001;
-    private static final int MENU_COPY = 1002;
     private static final String EUDIC_PACKAGE = "com.qianyan.eudic";
     private static final float READ_TRIGGER_FRACTION = 0.08f;
 
@@ -117,7 +108,7 @@ public class MainActivity extends Activity {
     private int redScore = 0;
     private boolean hydrating = false;
     private boolean clearSelectionWhenFocusReturns = false;
-    private SelectionPopupActionMode activeSelectionMode;
+    private DirectLookupActionMode activeSelectionMode;
     private final Runnable saveRunnable = this::persistProgress;
 
     @Override
@@ -153,11 +144,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TRANSLATE_TEXT_REQUEST) {
-            clearAllTextSelection();
-            return;
-        }
-
         if (requestCode != IMPORT_MARKDOWN_REQUEST || resultCode != RESULT_OK || data == null || data.getData() == null) {
             return;
         }
@@ -958,7 +944,7 @@ public class MainActivity extends Activity {
             activeSelectionMode.finish();
         }
 
-        SelectionPopupActionMode mode = new SelectionPopupActionMode(textView, callback, type);
+        DirectLookupActionMode mode = new DirectLookupActionMode(textView, callback, type);
         if (!mode.start()) {
             return null;
         }
@@ -970,36 +956,16 @@ public class MainActivity extends Activity {
         return new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                populateSelectionMenu(menu);
                 return true;
             }
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                populateSelectionMenu(menu);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                if (item.getItemId() == MENU_COPY) {
-                    copySelectedText(textView);
-                    mode.finish();
-                    return true;
-                }
-
-                Intent intent = item.getIntent();
-                if (intent != null && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
-                    launchProcessTextAction(textView, mode, intent);
-                    return true;
-                }
-
-                if (isTranslateAction(item)) {
-                    mainHandler.postDelayed(
-                            () -> clearTextSelection(textView, mode),
-                            300
-                    );
-                }
                 return false;
             }
 
@@ -1008,20 +974,6 @@ public class MainActivity extends Activity {
                 mainHandler.post(() -> clearTextSelection(textView, null));
             }
         };
-    }
-
-    private void populateSelectionMenu(Menu menu) {
-        menu.clear();
-
-        Intent eudicIntent = createEudicProcessTextIntent();
-        if (eudicIntent != null) {
-            menu.add(Menu.NONE, MENU_EUDIC, 0, "欧路词典")
-                    .setIntent(eudicIntent)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
-
-        menu.add(Menu.NONE, MENU_COPY, 1, "复制")
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     private Intent createEudicProcessTextIntent() {
@@ -1088,15 +1040,6 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void copySelectedText(TextView textView) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard != null) {
-            clipboard.setPrimaryClip(
-                    ClipData.newPlainText("selected text", getSelectedText(textView))
-            );
-        }
-    }
-
     private CharSequence getSelectedText(TextView textView) {
         int selectionStart = textView.getSelectionStart();
         int selectionEnd = textView.getSelectionEnd();
@@ -1105,27 +1048,6 @@ public class MainActivity extends Activity {
         return start < end
                 ? textView.getText().subSequence(start, end)
                 : textView.getText();
-    }
-
-    private void launchProcessTextAction(TextView textView, ActionMode mode, Intent sourceIntent) {
-        Intent intent = new Intent(sourceIntent);
-        intent.putExtra(Intent.EXTRA_PROCESS_TEXT, getSelectedText(textView));
-        intent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true);
-        mode.finish();
-        startActivityForResult(intent, TRANSLATE_TEXT_REQUEST);
-    }
-
-    private boolean isTranslateAction(MenuItem item) {
-        CharSequence title = item.getTitle();
-        if (title != null) {
-            String normalizedTitle = title.toString().toLowerCase(Locale.ROOT);
-            if (normalizedTitle.contains("translate") || normalizedTitle.contains("翻译")) {
-                return true;
-            }
-        }
-
-        Intent intent = item.getIntent();
-        return intent != null && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction());
     }
 
     private void clearAllTextSelection() {
@@ -1166,63 +1088,24 @@ public class MainActivity extends Activity {
         }
     }
 
-    private final class SelectionPopupActionMode extends ActionMode {
+    private final class DirectLookupActionMode extends ActionMode {
         private final TextView textView;
         private final ActionMode.Callback callback;
-        private final PopupWindow popupWindow;
-        private final LinearLayout toolbar;
         private final Menu menu;
         private CharSequence title;
         private CharSequence subtitle;
         private View customView;
         private boolean finished;
-        private final Runnable showToolbarRunnable = this::showOrUpdateToolbar;
+        private final Runnable lookupRunnable;
 
-        SelectionPopupActionMode(TextView textView, ActionMode.Callback callback, int type) {
+        DirectLookupActionMode(TextView textView, ActionMode.Callback callback, int type) {
             this.textView = textView;
             this.callback = callback;
+            lookupRunnable = () -> launchEudicLookup(this.textView, this);
             setType(type);
 
             PopupMenu menuHolder = new PopupMenu(MainActivity.this, textView);
             menu = menuHolder.getMenu();
-
-            toolbar = new LinearLayout(MainActivity.this);
-            toolbar.setOrientation(LinearLayout.HORIZONTAL);
-            toolbar.setGravity(Gravity.CENTER_VERTICAL);
-            toolbar.setPadding(dp(4), dp(2), dp(4), dp(2));
-
-            GradientDrawable background = new GradientDrawable();
-            background.setColor(Color.WHITE);
-            background.setCornerRadius(dp(10));
-            background.setStroke(dp(1), Color.rgb(205, 205, 205));
-
-            Intent eudicIntent = createEudicProcessTextIntent();
-            if (eudicIntent != null) {
-                TextView eudicButton = createPrivateToolbarButton("欧路词典");
-                eudicButton.setOnClickListener(view -> launchEudicLookup(textView, this));
-                toolbar.addView(eudicButton);
-                toolbar.addView(createPrivateToolbarDivider());
-            }
-
-            TextView copyButton = createPrivateToolbarButton("复制");
-            copyButton.setOnClickListener(view -> {
-                copySelectedText(textView);
-                finish();
-            });
-            toolbar.addView(copyButton);
-
-            popupWindow = new PopupWindow(
-                    toolbar,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    false
-            );
-            popupWindow.setBackgroundDrawable(background);
-            popupWindow.setOutsideTouchable(false);
-            popupWindow.setTouchable(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                popupWindow.setElevation(dp(12));
-            }
         }
 
         boolean start() {
@@ -1231,7 +1114,7 @@ public class MainActivity extends Activity {
                 return false;
             }
             callback.onPrepareActionMode(this, menu);
-            mainHandler.post(showToolbarRunnable);
+            mainHandler.post(lookupRunnable);
             return true;
         }
 
@@ -1243,84 +1126,10 @@ public class MainActivity extends Activity {
             return finished;
         }
 
-        private void showOrUpdateToolbar() {
-            if (finished || textView.getLayout() == null || !textView.isShown()) {
-                return;
-            }
-
-            toolbar.measure(
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            );
-            int popupWidth = toolbar.getMeasuredWidth();
-            int popupHeight = toolbar.getMeasuredHeight();
-
-            int selectionStart = Math.max(0, textView.getSelectionStart());
-            int selectionEnd = Math.max(selectionStart, textView.getSelectionEnd());
-            Layout layout = textView.getLayout();
-            int line = layout.getLineForOffset(Math.min(selectionStart, textView.length()));
-            int endLine = layout.getLineForOffset(Math.min(selectionEnd, textView.length()));
-            int[] location = new int[2];
-            textView.getLocationOnScreen(location);
-
-            int selectionX = location[0]
-                    + textView.getTotalPaddingLeft()
-                    + Math.round(layout.getPrimaryHorizontal(selectionStart))
-                    - textView.getScrollX();
-            int selectionTop = location[1]
-                    + textView.getTotalPaddingTop()
-                    + layout.getLineTop(line)
-                    - textView.getScrollY();
-            int selectionBottom = location[1]
-                    + textView.getTotalPaddingTop()
-                    + layout.getLineBottom(endLine)
-                    - textView.getScrollY();
-
-            int screenWidth = getResources().getDisplayMetrics().widthPixels;
-            int screenHeight = getResources().getDisplayMetrics().heightPixels;
-            int margin = dp(8);
-            int x = Math.max(
-                    margin,
-                    Math.min(selectionX - popupWidth / 2, screenWidth - popupWidth - margin)
-            );
-            int y = selectionTop - popupHeight - margin;
-            if (y < topSafeAreaInset + margin) {
-                y = Math.min(selectionBottom + margin, screenHeight - popupHeight - margin);
-            }
-
-            if (popupWindow.isShowing()) {
-                popupWindow.update(x, y, -1, -1);
-            } else {
-                popupWindow.showAtLocation(
-                        getWindow().getDecorView(),
-                        Gravity.TOP | Gravity.LEFT,
-                        x,
-                        y
-                );
-            }
-        }
-
         @Override
         public void invalidate() {
             if (!finished) {
                 callback.onPrepareActionMode(this, menu);
-                mainHandler.post(showToolbarRunnable);
-            }
-        }
-
-        @Override
-        public void invalidateContentRect() {
-            mainHandler.post(showToolbarRunnable);
-        }
-
-        @Override
-        public void hide(long duration) {
-            if (popupWindow.isShowing()) {
-                popupWindow.dismiss();
-            }
-            if (!finished) {
-                long delay = duration < 0 ? DEFAULT_HIDE_DURATION : duration;
-                mainHandler.postDelayed(showToolbarRunnable, delay);
             }
         }
 
@@ -1330,10 +1139,7 @@ public class MainActivity extends Activity {
                 return;
             }
             finished = true;
-            mainHandler.removeCallbacks(showToolbarRunnable);
-            if (popupWindow.isShowing()) {
-                popupWindow.dismiss();
-            }
+            mainHandler.removeCallbacks(lookupRunnable);
             if (activeSelectionMode == this) {
                 activeSelectionMode = null;
             }
@@ -1389,24 +1195,6 @@ public class MainActivity extends Activity {
         public MenuInflater getMenuInflater() {
             return new MenuInflater(MainActivity.this);
         }
-    }
-
-    private TextView createPrivateToolbarButton(String label) {
-        TextView button = new TextView(this);
-        button.setText(label);
-        button.setTextColor(Color.rgb(32, 33, 36));
-        button.setTextSize(15);
-        button.setGravity(Gravity.CENTER);
-        button.setMinHeight(dp(44));
-        button.setPadding(dp(16), 0, dp(16), 0);
-        return button;
-    }
-
-    private View createPrivateToolbarDivider() {
-        View divider = new View(this);
-        divider.setBackgroundColor(Color.rgb(224, 224, 224));
-        divider.setLayoutParams(new LinearLayout.LayoutParams(dp(1), dp(24)));
-        return divider;
     }
 
     private boolean hasActiveTextSelection() {

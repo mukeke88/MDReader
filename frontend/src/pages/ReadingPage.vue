@@ -1,5 +1,5 @@
 <template>
-  <div class="page-shell">
+  <div v-if="!isSettingsPageOpen" class="page-shell">
     <ScoreIndicator
       :green-score="progress.greenScore"
       :red-score="progress.redScore"
@@ -12,30 +12,6 @@
         <p class="eyebrow">Reader</p>
         <h1>{{ chapter.title || 'Loading chapter...' }}</h1>
       </div>
-      <div class="reader-controls">
-        <label class="compact-field">
-          User
-          <input
-            v-model="userInput"
-            class="compact-input"
-            autocomplete="off"
-            @change="applyUserInput"
-            @keyup.enter="applyUserInput"
-          />
-        </label>
-        <label class="compact-field">
-          Document
-          <select class="compact-input" :value="activeChapterId" @change="changeChapter">
-            <option
-              v-for="availableChapter in chapters"
-              :key="availableChapter.id"
-              :value="availableChapter.id"
-            >
-              {{ availableChapter.title || availableChapter.id }}
-            </option>
-          </select>
-        </label>
-      </div>
       <div class="header-actions">
         <button
           v-if="progress.lastSentenceId"
@@ -47,6 +23,9 @@
         <button class="ghost-button ghost-button--primary" @click="openImportModal">
           Import Markdown
         </button>
+        <button class="ghost-button" @click="openSettingsPage">
+          Settings
+        </button>
       </div>
     </header>
 
@@ -56,7 +35,12 @@
         :key="paragraph.id"
         class="paragraph-group"
       >
-        <div class="paragraph-label" aria-hidden="true">P</div>
+        <div class="paragraph-marker" aria-hidden="true">
+          <span class="paragraph-label">P</span>
+          <span v-if="showParagraphPosition" class="paragraph-position">
+            {{ paragraph.position }}/{{ paragraph.total }}
+          </span>
+        </div>
         <div class="paragraph-sentences">
           <SentenceBlock
             v-for="sentence in paragraph.sentences"
@@ -117,6 +101,55 @@
       </form>
     </div>
   </div>
+
+  <main v-else class="settings-page">
+    <header class="settings-page__header">
+      <button class="ghost-button" type="button" @click="closeSettingsPage">Back</button>
+      <div>
+        <p class="eyebrow">MDReader</p>
+        <h1>Settings</h1>
+      </div>
+    </header>
+
+    <section class="settings-card">
+      <label class="settings-field">
+        <span>User</span>
+        <input
+          v-model="settingsUserInput"
+          class="compact-input"
+          autocomplete="off"
+          @keyup.enter="applySettings"
+        />
+      </label>
+
+      <label class="settings-field">
+        <span>Document</span>
+        <select v-model="settingsChapterId" class="compact-input">
+          <option
+            v-for="availableChapter in chapters"
+            :key="availableChapter.id"
+            :value="availableChapter.id"
+          >
+            {{ availableChapter.title || availableChapter.id }}
+          </option>
+        </select>
+      </label>
+
+      <label class="settings-switch">
+        <span>
+          <strong>Paragraph position</strong>
+          <small>Show the current paragraph and total, for example 23/50.</small>
+        </span>
+        <input v-model="settingsShowParagraphPosition" type="checkbox" role="switch" />
+      </label>
+
+      <div class="settings-actions">
+        <button class="ghost-button ghost-button--primary" type="button" @click="applySettings">
+          Apply
+        </button>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
@@ -128,6 +161,7 @@ import { fetchChapter, fetchChapters, fetchProgress, importChapterMarkdown, save
 const DEFAULT_CHAPTER_ID = 'chapter-1'
 const DEFAULT_USER_ID = 'default'
 const USER_STORAGE_KEY = 'mdreader.userId'
+const PARAGRAPH_POSITION_STORAGE_KEY = 'mdreader.showParagraphPosition'
 const READ_TRIGGER_PERCENT = 15
 const TEMP_CHAPTER_NAME = 'temp'
 
@@ -149,6 +183,13 @@ const activeChapterId = ref(getChapterIdFromUrl())
 const activeUserId = ref(normalizeUserId(getUserIdFromUrl()))
 const userInput = ref(activeUserId.value)
 const chapters = ref([])
+const showParagraphPosition = ref(
+  window.localStorage.getItem(PARAGRAPH_POSITION_STORAGE_KEY) === 'true'
+)
+const isSettingsPageOpen = ref(false)
+const settingsUserInput = ref(activeUserId.value)
+const settingsChapterId = ref(activeChapterId.value)
+const settingsShowParagraphPosition = ref(showParagraphPosition.value)
 
 const chapter = reactive({
   chapterId: activeChapterId.value,
@@ -195,9 +236,13 @@ const paragraphGroups = computed(() => {
     groups.get(paragraphId).push(sentence)
   })
 
-  return Array.from(groups.entries())
-    .sort((a, b) => a[0] - b[0])
-    .map(([id, sentences]) => ({ id, sentences }))
+  const entries = Array.from(groups.entries()).sort((a, b) => a[0] - b[0])
+  return entries.map(([id, sentences], index) => ({
+    id,
+    sentences,
+    position: index + 1,
+    total: entries.length
+  }))
 })
 
 function dedupe(ids) {
@@ -462,31 +507,40 @@ async function loadPage() {
   }
 }
 
-async function applyUserInput() {
-  const nextUserId = normalizeUserId(userInput.value)
-  if (nextUserId === activeUserId.value) {
-    userInput.value = nextUserId
-    return
-  }
+function openSettingsPage() {
+  settingsUserInput.value = activeUserId.value
+  settingsChapterId.value = activeChapterId.value
+  settingsShowParagraphPosition.value = showParagraphPosition.value
+  isSettingsPageOpen.value = true
+}
+
+function closeSettingsPage() {
+  isSettingsPageOpen.value = false
+}
+
+async function applySettings() {
+  const nextUserId = normalizeUserId(settingsUserInput.value)
+  const nextChapterId = settingsChapterId.value || activeChapterId.value
+  const readingSourceChanged = nextUserId !== activeUserId.value
+    || nextChapterId !== activeChapterId.value
 
   activeUserId.value = nextUserId
   userInput.value = nextUserId
-  window.localStorage.setItem(USER_STORAGE_KEY, nextUserId)
-  updateUrlState(activeChapterId.value)
-  await loadPage()
-}
-
-async function changeChapter(event) {
-  const nextChapterId = event.target.value
-  if (!nextChapterId || nextChapterId === activeChapterId.value) {
-    return
-  }
-
   activeChapterId.value = nextChapterId
+  showParagraphPosition.value = settingsShowParagraphPosition.value
+  window.localStorage.setItem(USER_STORAGE_KEY, nextUserId)
+  window.localStorage.setItem(
+    PARAGRAPH_POSITION_STORAGE_KEY,
+    String(showParagraphPosition.value)
+  )
   updateUrlState(nextChapterId)
-  await loadPage()
-  refreshObservedSentences()
-  markBottomVisibleSentencesAsRead()
+  closeSettingsPage()
+
+  if (readingSourceChanged) {
+    await loadPage()
+    refreshObservedSentences()
+    markBottomVisibleSentencesAsRead()
+  }
 }
 
 function openImportModal() {

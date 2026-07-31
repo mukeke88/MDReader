@@ -57,13 +57,6 @@ button {
   gap: 8px;
 }
 
-.reader-controls {
-  display: grid;
-  grid-template-columns: minmax(120px, 180px) minmax(180px, 260px);
-  gap: 8px;
-  align-items: end;
-}
-
 .compact-field {
   display: grid;
   gap: 4px;
@@ -261,6 +254,17 @@ h2 {
   gap: 8px;
 }
 
+.paragraph-marker {
+  position: sticky;
+  top: 12px;
+  z-index: 5;
+  display: flex;
+  width: 18px;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
 .paragraph-label {
   display: inline-flex;
   align-items: center;
@@ -272,11 +276,17 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  position: sticky;
-  top: 12px;
-  z-index: 5;
   background: #fff2d8;
   color: #9a3412;
+}
+
+.paragraph-position {
+  color: #786d5c;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 .paragraph-sentences {
@@ -423,6 +433,68 @@ h2 {
   border: 0;
 }
 
+.settings-page {
+  width: min(620px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: calc(28px + env(safe-area-inset-top, 0px)) 0 calc(48px + env(safe-area-inset-bottom, 0px));
+}
+
+.settings-page__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.settings-card {
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
+}
+
+.settings-field {
+  display: grid;
+  gap: 6px;
+  color: #9a3412;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.settings-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(31, 41, 55, 0.08);
+}
+
+.settings-switch span {
+  display: grid;
+  gap: 4px;
+}
+
+.settings-switch small {
+  color: #786d5c;
+}
+
+.settings-switch input {
+  width: 44px;
+  height: 24px;
+  accent-color: #9a3412;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-width: 720px) {
   .page-shell {
     padding-top: calc(138px + env(safe-area-inset-top, 0px));
@@ -438,10 +510,6 @@ h2 {
     justify-content: flex-start;
   }
 
-  .reader-controls {
-    grid-template-columns: 1fr;
-  }
-
   .floating-score {
     left: 16px;
     right: 16px;
@@ -455,7 +523,7 @@ h2 {
     width: auto;
   }
 
-  .paragraph-label {
+  .paragraph-marker {
     top: 126px;
   }
 

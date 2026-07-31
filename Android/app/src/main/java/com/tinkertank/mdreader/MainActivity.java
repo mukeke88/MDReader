@@ -41,6 +41,7 @@ import android.widget.ProgressBar;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,7 @@ public class MainActivity extends Activity {
     private static final String PREFS_NAME = "mdreader";
     private static final String PREF_USER_ID = "userId";
     private static final String PREF_CHAPTER_ID = "chapterId";
+    private static final String PREF_SHOW_PARAGRAPH_POSITION = "showParagraphPosition";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
     private static final String EUDIC_PACKAGE = "com.qianyan.eudic";
     private static final float READ_TRIGGER_FRACTION = 0.08f;
@@ -97,6 +99,7 @@ public class MainActivity extends Activity {
     private TextView greenScoreView;
     private TextView redScoreView;
     private ProgressBar loading;
+    private View settingsPage;
 
     private String apiBase;
     private String activeChapterId = DEFAULT_CHAPTER_ID;
@@ -109,6 +112,7 @@ public class MainActivity extends Activity {
     private boolean hydrating = false;
     private boolean clearSelectionWhenFocusReturns = false;
     private boolean visibleSentenceCheckScheduled = false;
+    private boolean showParagraphPosition = false;
     private int nextSentenceToMarkIndex = 0;
     private DirectLookupActionMode activeSelectionMode;
     private final Runnable saveRunnable = this::persistProgress;
@@ -124,6 +128,7 @@ public class MainActivity extends Activity {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         activeUserId = normalizeUserId(preferences.getString(PREF_USER_ID, DEFAULT_USER_ID));
         activeChapterId = preferences.getString(PREF_CHAPTER_ID, DEFAULT_CHAPTER_ID);
+        showParagraphPosition = preferences.getBoolean(PREF_SHOW_PARAGRAPH_POSITION, false);
         buildUi();
         loadChapterOptions(false);
         loadPage(activeChapterId);
@@ -137,6 +142,15 @@ public class MainActivity extends Activity {
         }
         executor.shutdownNow();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (settingsPage != null) {
+            closeSettingsPage();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
@@ -286,6 +300,14 @@ public class MainActivity extends Activity {
 
             topSafeAreaInset = topInset;
             contentRoot.setPadding(leftInset, topInset + dp(6), rightInset, bottomInset);
+            if (settingsPage != null) {
+                settingsPage.setPadding(
+                        leftInset + dp(16),
+                        topInset + dp(12),
+                        rightInset + dp(16),
+                        bottomInset + dp(16)
+                );
+            }
             return insets;
         });
         root.requestApplyInsets();
@@ -345,13 +367,46 @@ public class MainActivity extends Activity {
             loadChapterOptions(true);
             return;
         }
-        showSettingsDialog();
+        showSettingsPage();
     }
 
-    private void showSettingsDialog() {
+    private void showSettingsPage() {
+        if (settingsPage != null) {
+            return;
+        }
+
+        LinearLayout page = new LinearLayout(this);
+        page.setOrientation(LinearLayout.VERTICAL);
+        page.setBackgroundColor(Color.rgb(247, 244, 238));
+        page.setPadding(dp(16), topSafeAreaInset + dp(12), dp(16), dp(16));
+
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+        Button backButton = actionButton("Back", v -> closeSettingsPage());
+        header.addView(backButton);
+        TextView pageTitle = new TextView(this);
+        pageTitle.setText("Settings");
+        pageTitle.setTextSize(26);
+        pageTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        pageTitle.setTextColor(Color.rgb(36, 35, 32));
+        pageTitle.setPadding(dp(8), 0, 0, 0);
+        header.addView(pageTitle);
+        page.addView(header, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        ScrollView settingsScroll = new ScrollView(this);
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(dp(20), dp(8), dp(20), 0);
+        layout.setPadding(dp(4), dp(20), dp(4), dp(20));
+        settingsScroll.addView(layout);
+        page.addView(settingsScroll, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1f
+        ));
 
         TextView userLabel = dialogLabel("User");
         EditText userInput = new EditText(this);
@@ -379,32 +434,74 @@ public class MainActivity extends Activity {
         layout.addView(documentLabel);
         layout.addView(documentSpinner);
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Settings")
-                .setView(layout)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Apply", null)
-                .create();
-        dialog.setOnShowListener(currentDialog ->
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
-                    String nextUserId = normalizeUserId(userInput.getText().toString());
-                    ChapterOption selectedChapter = chapterOptions.get(documentSpinner.getSelectedItemPosition());
-                    boolean changed = !nextUserId.equals(activeUserId)
-                            || !selectedChapter.id.equals(activeChapterId);
-                    activeUserId = nextUserId;
-                    activeChapterId = selectedChapter.id;
-                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-                            .edit()
-                            .putString(PREF_USER_ID, activeUserId)
-                            .putString(PREF_CHAPTER_ID, activeChapterId)
-                            .apply();
-                    dialog.dismiss();
-                    if (changed) {
-                        loadPage(activeChapterId);
-                    }
-                })
-        );
-        dialog.show();
+        LinearLayout paragraphSetting = new LinearLayout(this);
+        paragraphSetting.setOrientation(LinearLayout.HORIZONTAL);
+        paragraphSetting.setGravity(Gravity.CENTER_VERTICAL);
+        paragraphSetting.setPadding(0, dp(24), 0, dp(16));
+
+        LinearLayout paragraphCopy = new LinearLayout(this);
+        paragraphCopy.setOrientation(LinearLayout.VERTICAL);
+        TextView paragraphTitle = dialogLabel("Paragraph position");
+        paragraphTitle.setPadding(0, 0, 0, dp(3));
+        paragraphCopy.addView(paragraphTitle);
+        TextView paragraphDescription = new TextView(this);
+        paragraphDescription.setText("Show the current paragraph and total, for example 23/50.");
+        paragraphDescription.setTextColor(Color.rgb(95, 88, 76));
+        paragraphDescription.setTextSize(13);
+        paragraphCopy.addView(paragraphDescription);
+        paragraphSetting.addView(paragraphCopy, new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1f
+        ));
+
+        Switch paragraphSwitch = new Switch(this);
+        paragraphSwitch.setChecked(showParagraphPosition);
+        paragraphSwitch.setContentDescription("Show paragraph position");
+        paragraphSetting.addView(paragraphSwitch);
+        layout.addView(paragraphSetting);
+
+        Button applyButton = actionButton("Apply", view -> {
+            String nextUserId = normalizeUserId(userInput.getText().toString());
+            ChapterOption selectedChapter = chapterOptions.get(documentSpinner.getSelectedItemPosition());
+            boolean readingSourceChanged = !nextUserId.equals(activeUserId)
+                    || !selectedChapter.id.equals(activeChapterId);
+            boolean paragraphSettingChanged = showParagraphPosition != paragraphSwitch.isChecked();
+            activeUserId = nextUserId;
+            activeChapterId = selectedChapter.id;
+            showParagraphPosition = paragraphSwitch.isChecked();
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                    .edit()
+                    .putString(PREF_USER_ID, activeUserId)
+                    .putString(PREF_CHAPTER_ID, activeChapterId)
+                    .putBoolean(PREF_SHOW_PARAGRAPH_POSITION, showParagraphPosition)
+                    .apply();
+            closeSettingsPage();
+            if (readingSourceChanged) {
+                loadPage(activeChapterId);
+            } else if (paragraphSettingChanged) {
+                renderChapter();
+            }
+        });
+        applyButton.setTextSize(14);
+        layout.addView(applyButton);
+
+        settingsPage = page;
+        contentRoot.setVisibility(View.GONE);
+        root.addView(settingsPage, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        root.requestApplyInsets();
+    }
+
+    private void closeSettingsPage() {
+        if (settingsPage == null) {
+            return;
+        }
+        root.removeView(settingsPage);
+        settingsPage = null;
+        contentRoot.setVisibility(View.VISIBLE);
     }
 
     private TextView dialogLabel(String text) {
@@ -456,7 +553,7 @@ public class MainActivity extends Activity {
                     }
                     if (openSettingsAfterLoad) {
                         setStatus("");
-                        showSettingsDialog();
+                        showSettingsPage();
                     }
                 });
             } catch (Exception error) {
@@ -466,7 +563,7 @@ public class MainActivity extends Activity {
                     }
                     setStatus(openSettingsAfterLoad ? "Document list failed: " + error.getMessage() : "");
                     if (openSettingsAfterLoad) {
-                        showSettingsDialog();
+                        showSettingsPage();
                     }
                 });
             }
@@ -655,16 +752,38 @@ public class MainActivity extends Activity {
         sentenceViews.clear();
         selectableTextViews.clear();
 
+        Set<Integer> paragraphIds = new HashSet<>();
+        for (Sentence sentence : sentences) {
+            paragraphIds.add(sentence.paragraphId);
+        }
+        int totalParagraphs = paragraphIds.size();
         int currentParagraph = -1;
+        int paragraphPosition = 0;
         for (Sentence sentence : sentences) {
             if (sentence.paragraphId != currentParagraph) {
                 currentParagraph = sentence.paragraphId;
+                paragraphPosition++;
+                LinearLayout labelRow = new LinearLayout(this);
+                labelRow.setOrientation(LinearLayout.HORIZONTAL);
+                labelRow.setGravity(Gravity.CENTER_VERTICAL);
+                labelRow.setPadding(dp(6), dp(14), dp(6), dp(4));
+
                 TextView label = new TextView(this);
                 label.setText("P");
                 label.setTextColor(Color.rgb(121, 109, 88));
                 label.setTypeface(Typeface.DEFAULT_BOLD);
-                label.setPadding(dp(6), dp(14), dp(6), dp(4));
-                sentenceList.addView(label);
+                labelRow.addView(label);
+
+                if (showParagraphPosition) {
+                    TextView position = new TextView(this);
+                    position.setText(paragraphPosition + "/" + totalParagraphs);
+                    position.setTextColor(Color.rgb(121, 109, 88));
+                    position.setTextSize(11);
+                    position.setTypeface(Typeface.DEFAULT_BOLD);
+                    position.setPadding(dp(6), 0, 0, 0);
+                    labelRow.addView(position);
+                }
+                sentenceList.addView(labelRow);
             }
 
             View card = createSentenceCard(sentence);

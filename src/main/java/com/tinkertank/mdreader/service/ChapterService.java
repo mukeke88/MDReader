@@ -114,7 +114,7 @@ public class ChapterService {
             if (line.isEmpty()) {
                 continue;
             }
-            if ("PARAGRAPH".equalsIgnoreCase(line)) {
+            if (isParagraphMarker(line)) {
                 flushExplanation(currentSentence, explanation);
                 paragraphId++;
                 continue;
@@ -149,6 +149,28 @@ public class ChapterService {
 
         flushExplanation(currentSentence, explanation);
         return sentences;
+    }
+
+    private boolean isParagraphMarker(String line) {
+        String normalized = line.trim();
+
+        // Accept Markdown headings (for example, "## PARAGRAPH") and optional
+        // closing heading markers before checking the marker text itself.
+        normalized = normalized.replaceFirst("^#{1,6}\\s*", "");
+        normalized = normalized.replaceFirst("\\s+#{1,6}\\s*$", "");
+
+        // A paragraph marker is structural, so emphasis around it must not
+        // turn it into sentence text. This handles *, **, _, and __ wrappers.
+        while (normalized.length() >= 2
+                && ((normalized.startsWith("*") && normalized.endsWith("*"))
+                || (normalized.startsWith("_") && normalized.endsWith("_")))) {
+            normalized = normalized.substring(1, normalized.length() - 1).trim();
+        }
+
+        // Keep accepting the historical misspelling as a paragraph marker so
+        // existing documents import with the same paragraph structure.
+        return "PARAGRAPH".equalsIgnoreCase(normalized)
+                || "PARAGRAH".equalsIgnoreCase(normalized);
     }
 
     private String unwrapBoldLine(String line) {

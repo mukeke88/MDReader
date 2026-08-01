@@ -59,6 +59,15 @@ public class FileProgressRepository implements ProgressRepository {
         return progress;
     }
 
+    @Override
+    public void deleteByChapterId(String chapterId) {
+        Map<String, ReadingProgress> progressMap = readAll();
+        progressMap.entrySet().removeIf(entry -> chapterId.equals(entry.getKey())
+                || entry.getKey().endsWith("::" + chapterId)
+                || (entry.getValue() != null && chapterId.equals(entry.getValue().getChapterId())));
+        writeAll(progressMap);
+    }
+
     private String progressKey(String userId, String chapterId) {
         return userId + "::" + chapterId;
     }

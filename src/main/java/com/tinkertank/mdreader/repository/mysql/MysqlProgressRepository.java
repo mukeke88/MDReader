@@ -133,6 +133,11 @@ public class MysqlProgressRepository implements ProgressRepository {
         return progress;
     }
 
+    @Override
+    public void deleteByChapterId(String chapterId) {
+        jdbcTemplate.update("DELETE FROM reading_progress WHERE chapter_id = ?", chapterId);
+    }
+
     private boolean hasDocumentIdColumn() {
         if (hasDocumentIdColumn == null) {
             Integer count = jdbcTemplate.queryForObject(

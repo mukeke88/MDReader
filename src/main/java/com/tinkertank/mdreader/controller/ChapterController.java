@@ -7,6 +7,7 @@ import com.tinkertank.mdreader.service.ChapterService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,11 @@ public class ChapterController {
     @GetMapping("/{chapterId}")
     public ChapterResponse getChapter(@PathVariable String chapterId) {
         return chapterService.getChapter(chapterId);
+    }
+
+    @DeleteMapping("/{chapterId}")
+    public void deleteChapter(@PathVariable String chapterId) {
+        chapterService.deleteChapter(chapterId);
     }
 
     @PostMapping("/import")

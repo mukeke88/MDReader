@@ -5,6 +5,8 @@ I’ll use these placeholders. Replace them everywhere:
 - `YOUR_DOMAIN`: your domain, if you have one
 - `DB_PASSWORD_HERE`: a strong MySQL password
 - `APP_DIR`: `/opt/mdreader`
+- `GITHUB_REPO`: `https://github.com/mukeke88/MDReader.git`
+- `GITHUB_BRANCH`: `main`
 
 **Part 1: Prepare MySQL**
 1. SSH into your Linux server.
@@ -20,16 +22,30 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-**Part 2: Upload Project**
-1. On the server, create the app folder:
+**Part 2: Get the Project from GitHub**
+1. Install Git if needed:
+```bash
+sudo apt update
+sudo apt install -y git
+```
+2. Clone the GitHub repository on the server:
 ```bash
 sudo mkdir -p /opt/mdreader
 sudo chown $USER:$USER /opt/mdreader
+git clone --branch main https://github.com/mukeke88/MDReader.git /opt/mdreader
 ```
-2. Copy your project folder from Windows to `/opt/mdreader`.
-   If using PowerShell from Windows:
-```powershell
-scp -r D:\coding\TinkerTank\MDReader\* your-linux-user@YOUR_SERVER_IP:/opt/mdreader/
+
+The repository must be accessible from the server. For a private repository, configure an SSH deploy key on the server and use the SSH URL instead:
+```bash
+git clone --branch main git@github.com:mukeke88/MDReader.git /opt/mdreader
+```
+
+If `/opt/mdreader` already contains the project copied with `scp`, back it up before cloning:
+```bash
+sudo mv /opt/mdreader /opt/mdreader-scp-backup
+sudo mkdir -p /opt/mdreader
+sudo chown $USER:$USER /opt/mdreader
+git clone --branch main https://github.com/mukeke88/MDReader.git /opt/mdreader
 ```
 
 **Part 3: Seed Chapter Data**
@@ -222,12 +238,16 @@ sudo systemctl reload nginx
 - If web works but Android does not, make sure your phone can reach `http://YOUR_SERVER_IP` or `https://YOUR_DOMAIN` from mobile browser first.
 
 **Updating an Existing Deployment**
-After you make program changes locally, update the same server deployment like this:
+After you commit and push program changes to the `main` branch on GitHub, update the server deployment like this:
 
-1. Copy the updated project to the server:
-```powershell
-scp -r D:\coding\TinkerTank\MDReader\* your-linux-user@YOUR_SERVER_IP:/opt/mdreader/
+1. Pull the latest code on the server:
+```bash
+cd /opt/mdreader
+git checkout main
+git pull --ff-only origin main
 ```
+
+`--ff-only` prevents Git from creating an unexpected merge commit on the server. If it reports local changes, inspect them with `git status`; do not overwrite them blindly.
 
 2. Rebuild and restart the backend:
 ```bash
@@ -252,6 +272,8 @@ sudo systemctl reload nginx
 
 commands in one:
 cd /opt/mdreader
+
+git pull --ff-only origin main
 
 mvn clean package
 

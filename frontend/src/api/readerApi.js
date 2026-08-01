@@ -9,7 +9,11 @@ async function handleResponse(response) {
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`)
   }
-  return response.json()
+  if (response.status === 204) {
+    return null
+  }
+  const body = await response.text()
+  return body.trim() ? JSON.parse(body) : null
 }
 
 export function fetchChapter(chapterId) {
@@ -30,6 +34,12 @@ export function importChapterMarkdown(chapterId, payload) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
+  }).then(handleResponse)
+}
+
+export function deleteChapter(chapterId) {
+  return fetch(`${API_BASE}/chapter/${encodePathSegment(chapterId)}`, {
+    method: 'DELETE'
   }).then(handleResponse)
 }
 

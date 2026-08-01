@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.PopupMenu;
@@ -75,6 +76,8 @@ public class MainActivity extends Activity {
     private static final String PREF_USER_ID = "userId";
     private static final String PREF_CHAPTER_ID = "chapterId";
     private static final String PREF_SHOW_PARAGRAPH_POSITION = "showParagraphPosition";
+    private static final String PREF_EXPECTED_PARAGRAPH_PREFIX = "expectedParagraphs::";
+    private static final String PREF_WELL_DONE_ACK_PREFIX = "wellDoneAcknowledged::";
     private static final int IMPORT_MARKDOWN_REQUEST = 10;
     private static final String EUDIC_PACKAGE = "com.qianyan.eudic";
     private static final float READ_TRIGGER_FRACTION = 0.08f;
@@ -113,6 +116,8 @@ public class MainActivity extends Activity {
     private boolean clearSelectionWhenFocusReturns = false;
     private boolean visibleSentenceCheckScheduled = false;
     private boolean showParagraphPosition = false;
+    private int expectedParagraphCount = 0;
+    private AlertDialog wellDoneDialog;
     private int nextSentenceToMarkIndex = 0;
     private DirectLookupActionMode activeSelectionMode;
     private final Runnable saveRunnable = this::persistProgress;
@@ -429,10 +434,47 @@ public class MainActivity extends Activity {
             documentSpinner.setSelection(selectedIndex);
         }
 
+        TextView expectedParagraphLabel = dialogLabel("Expected paragraphs");
+        EditText expectedParagraphInput = new EditText(this);
+        expectedParagraphInput.setSingleLine(true);
+        expectedParagraphInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        int savedExpectedParagraphCount = getExpectedParagraphCount(activeUserId, activeChapterId);
+        if (savedExpectedParagraphCount > 0) {
+            expectedParagraphInput.setText(String.valueOf(savedExpectedParagraphCount));
+        }
+        expectedParagraphInput.setHint("Disabled");
+
+        TextView expectedParagraphDescription = new TextView(this);
+        expectedParagraphDescription.setText("Show Well Done! after this many paragraphs are completely read.");
+        expectedParagraphDescription.setTextColor(Color.rgb(95, 88, 76));
+        expectedParagraphDescription.setTextSize(13);
+
         layout.addView(userLabel);
         layout.addView(userInput);
         layout.addView(documentLabel);
         layout.addView(documentSpinner);
+        layout.addView(expectedParagraphLabel);
+        layout.addView(expectedParagraphInput);
+        layout.addView(expectedParagraphDescription);
+
+        documentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position < 0 || position >= chapterOptions.size()) {
+                    return;
+                }
+                int value = getExpectedParagraphCount(
+                        normalizeUserId(userInput.getText().toString()),
+                        chapterOptions.get(position).id
+                );
+                expectedParagraphInput.setText(value > 0 ? String.valueOf(value) : "");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                expectedParagraphInput.setText("");
+            }
+        });
 
         LinearLayout paragraphSetting = new LinearLayout(this);
         paragraphSetting.setOrientation(LinearLayout.HORIZONTAL);
@@ -464,12 +506,17 @@ public class MainActivity extends Activity {
         Button applyButton = actionButton("Apply", view -> {
             String nextUserId = normalizeUserId(userInput.getText().toString());
             ChapterOption selectedChapter = chapterOptions.get(documentSpinner.getSelectedItemPosition());
+            int nextExpectedParagraphCount = parseExpectedParagraphCount(
+                    expectedParagraphInput.getText().toString()
+            );
             boolean readingSourceChanged = !nextUserId.equals(activeUserId)
                     || !selectedChapter.id.equals(activeChapterId);
             boolean paragraphSettingChanged = showParagraphPosition != paragraphSwitch.isChecked();
             activeUserId = nextUserId;
             activeChapterId = selectedChapter.id;
             showParagraphPosition = paragraphSwitch.isChecked();
+            saveExpectedParagraphCount(activeUserId, activeChapterId, nextExpectedParagraphCount);
+            expectedParagraphCount = nextExpectedParagraphCount;
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                     .edit()
                     .putString(PREF_USER_ID, activeUserId)
@@ -482,8 +529,15 @@ public class MainActivity extends Activity {
             } else if (paragraphSettingChanged) {
                 renderChapter();
             }
+            maybeShowWellDone();
         });
         applyButton.setTextSize(14);
+
+        Button deleteButton = actionButton("Delete document", view ->
+                confirmDeleteChapter(chapterOptions.get(documentSpinner.getSelectedItemPosition()))
+        );
+        deleteButton.setTextSize(14);
+        layout.addView(deleteButton);
         layout.addView(applyButton);
 
         settingsPage = page;
@@ -502,6 +556,66 @@ public class MainActivity extends Activity {
         root.removeView(settingsPage);
         settingsPage = null;
         contentRoot.setVisibility(View.VISIBLE);
+    }
+
+    private void confirmDeleteChapter(ChapterOption chapter) {
+        if (chapter == null) {
+            return;
+        }
+        String title = chapter.title.isEmpty() ? chapter.id : chapter.title;
+        new AlertDialog.Builder(this)
+                .setTitle("Delete document?")
+                .setMessage("Delete \"" + title + "\" and its saved reading progress?")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Delete", (dialog, which) -> deleteChapter(chapter))
+                .show();
+    }
+
+    private void deleteChapter(ChapterOption chapter) {
+        setStatus("Deleting document...");
+        executor.execute(() -> {
+            try {
+                deleteJson("/chapter/" + encode(chapter.id));
+                mainHandler.post(() -> {
+                    for (int index = chapterOptions.size() - 1; index >= 0; index--) {
+                        if (chapterOptions.get(index).id.equals(chapter.id)) {
+                            chapterOptions.remove(index);
+                        }
+                    }
+                    if (!chapter.id.equals(activeChapterId)) {
+                        closeSettingsPage();
+                        loadChapterOptions(true);
+                        return;
+                    }
+
+                    if (chapterOptions.isEmpty()) {
+                        sentences.clear();
+                        openedSentenceIds.clear();
+                        readSentenceIds.clear();
+                        scoredSentenceIds.clear();
+                        explanationUsedSentenceIds.clear();
+                        lastSentenceId = null;
+                        chapterTitle = "";
+                        expectedParagraphCount = 0;
+                        renderChapter();
+                        updateScores();
+                        closeSettingsPage();
+                        setStatus("No documents available");
+                        return;
+                    }
+
+                    activeChapterId = chapterOptions.get(0).id;
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                            .edit()
+                            .putString(PREF_CHAPTER_ID, activeChapterId)
+                            .apply();
+                    closeSettingsPage();
+                    loadPage(activeChapterId);
+                });
+            } catch (Exception error) {
+                mainHandler.post(() -> setStatus("Delete failed: " + error.getMessage()));
+            }
+        });
     }
 
     private TextView dialogLabel(String text) {
@@ -631,6 +745,7 @@ public class MainActivity extends Activity {
                 JSONObject chapter = postJson("/chapter/import", payload);
                 mainHandler.post(() -> {
                     applyChapterState(chapter, new JSONObject());
+                    scrollView.post(() -> scrollView.scrollTo(0, 0));
                     getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                             .edit()
                             .putString(PREF_CHAPTER_ID, activeChapterId)
@@ -655,7 +770,7 @@ public class MainActivity extends Activity {
         executor.execute(() -> {
             try {
                 JSONObject chapter = getJson("/chapter/" + encode(chapterId));
-                JSONObject progress = getProgressWithFallback(chapter);
+                JSONObject progress = getJson(progressPath(chapter.optString("chapterId", activeChapterId)));
                 mainHandler.post(() -> applyChapterState(chapter, progress));
             } catch (Exception error) {
                 mainHandler.post(() -> {
@@ -697,6 +812,7 @@ public class MainActivity extends Activity {
 
         activeChapterId = chapter.optString("chapterId", DEFAULT_CHAPTER_ID);
         chapterTitle = chapter.optString("title", "");
+        expectedParagraphCount = getExpectedParagraphCount(activeUserId, activeChapterId);
         JSONArray sentenceArray = chapter.optJSONArray("sentences");
         if (sentenceArray != null) {
             for (int i = 0; i < sentenceArray.length(); i++) {
@@ -735,6 +851,7 @@ public class MainActivity extends Activity {
         loading.setVisibility(View.GONE);
         hydrating = false;
         setStatus("");
+        maybeShowWellDone();
         if (showFeedback) {
             Toast.makeText(this, "Progress refreshed", Toast.LENGTH_SHORT).show();
         }
@@ -742,6 +859,7 @@ public class MainActivity extends Activity {
         if (scrollToLast && lastSentenceId != null) {
             mainHandler.postDelayed(() -> scrollToSentence(lastSentenceId), 250);
         } else {
+            scrollView.post(() -> scrollView.scrollTo(0, 0));
             mainHandler.postDelayed(this::markVisibleSentencesAsRead, 250);
         }
     }
@@ -960,6 +1078,8 @@ public class MainActivity extends Activity {
         if (readChanged && card != null) {
             updateSentenceMarker(card, sentenceId);
         }
+
+        maybeShowWellDone();
 
         return changed;
     }
@@ -1381,33 +1501,9 @@ public class MainActivity extends Activity {
         return readJson(connection);
     }
 
-    private JSONObject getProgressWithFallback(JSONObject chapter) throws Exception {
-        String chapterId = chapter.optString("chapterId", activeChapterId);
-        JSONObject progress = getJson(progressPath(chapterId));
-        String legacyProgressKey = buildProgressKey(chapter.optString("title", ""));
-        if (!hasSavedProgress(progress)
-                && legacyProgressKey != null
-                && !legacyProgressKey.equals(chapterId)) {
-            progress = getJson(progressPath(legacyProgressKey));
-        }
-        return progress;
-    }
-
-    private boolean hasSavedProgress(JSONObject progress) {
-        return progress.optInt("lastSentenceId", 0) > 0
-                || progress.optInt("totalScore", 0) > 0
-                || progress.optInt("greenScore", 0) > 0
-                || progress.optInt("redScore", 0) > 0
-                || progress.optInt("manualRedScore", 0) > 0
-                || jsonArrayLength(progress, "openedSentenceIds") > 0
-                || jsonArrayLength(progress, "readSentenceIds") > 0
-                || jsonArrayLength(progress, "scoredSentenceIds") > 0
-                || jsonArrayLength(progress, "explanationUsedSentenceIds") > 0;
-    }
-
-    private int jsonArrayLength(JSONObject object, String key) {
-        JSONArray array = object.optJSONArray(key);
-        return array == null ? 0 : array.length();
+    private JSONObject deleteJson(String path) throws Exception {
+        HttpURLConnection connection = openConnection(path, "DELETE");
+        return readJson(connection);
     }
 
     private String progressPath(String chapterId) throws Exception {
@@ -1500,26 +1596,6 @@ public class MainActivity extends Activity {
         return builder.toString();
     }
 
-    private String getCurrentProgressKey() {
-        return buildProgressKey(chapterTitle);
-    }
-
-    private String buildProgressKey(String title) {
-        String normalized = title == null ? "" : title.trim();
-        if (normalized.isEmpty()) {
-            return activeChapterId;
-        }
-        if ("temp".equalsIgnoreCase(normalized)) {
-            return null;
-        }
-        return normalized
-                .replace("\\", "_")
-                .replace("/", "_")
-                .replace("#", "_")
-                .replace("?", "_")
-                .replace("%", "_");
-    }
-
     private int deriveGreenScore() {
         int value = 0;
         for (Integer id : scoredSentenceIds) {
@@ -1538,6 +1614,87 @@ public class MainActivity extends Activity {
             }
         }
         return value;
+    }
+
+    private int parseExpectedParagraphCount(String value) {
+        try {
+            int parsed = Integer.parseInt(value == null ? "" : value.trim());
+            return parsed > 0 ? parsed : 0;
+        } catch (NumberFormatException ignored) {
+            return 0;
+        }
+    }
+
+    private String expectedParagraphPreferenceKey(String userId, String chapterId) {
+        return PREF_EXPECTED_PARAGRAPH_PREFIX + userId + "::" + chapterId;
+    }
+
+    private String wellDoneAcknowledgementPreferenceKey(int target) {
+        return PREF_WELL_DONE_ACK_PREFIX + activeUserId + "::" + activeChapterId + "::" + target;
+    }
+
+    private int getExpectedParagraphCount(String userId, String chapterId) {
+        return getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getInt(expectedParagraphPreferenceKey(userId, chapterId), 0);
+    }
+
+    private void saveExpectedParagraphCount(String userId, String chapterId, int value) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        String key = expectedParagraphPreferenceKey(userId, chapterId);
+        if (value > 0) {
+            editor.putInt(key, value);
+        } else {
+            editor.remove(key);
+        }
+        editor.apply();
+    }
+
+    private int completedParagraphCount() {
+        int completed = 0;
+        int currentParagraph = -1;
+        boolean currentParagraphComplete = true;
+        for (Sentence sentence : sentences) {
+            if (sentence.paragraphId != currentParagraph) {
+                if (currentParagraph != -1 && currentParagraphComplete) {
+                    completed++;
+                }
+                currentParagraph = sentence.paragraphId;
+                currentParagraphComplete = true;
+            }
+            if (!readSentenceIds.contains(sentence.id)) {
+                currentParagraphComplete = false;
+            }
+        }
+        if (currentParagraph != -1 && currentParagraphComplete) {
+            completed++;
+        }
+        return completed;
+    }
+
+    private void maybeShowWellDone() {
+        if (expectedParagraphCount <= 0
+                || hydrating
+                || completedParagraphCount() < expectedParagraphCount
+                || getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getBoolean(wellDoneAcknowledgementPreferenceKey(expectedParagraphCount), false)
+                || (wellDoneDialog != null && wellDoneDialog.isShowing())) {
+            return;
+        }
+
+        int target = expectedParagraphCount;
+        wellDoneDialog = new AlertDialog.Builder(this)
+                .setTitle("Well Done!")
+                .setMessage("You finished paragraph " + target + ".")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", (dialog, which) -> {
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                            .edit()
+                            .putBoolean(wellDoneAcknowledgementPreferenceKey(target), true)
+                            .apply();
+                    wellDoneDialog = null;
+                })
+                .create();
+        wellDoneDialog.show();
     }
 
     private void addAll(Set<Integer> target, JSONArray values) {

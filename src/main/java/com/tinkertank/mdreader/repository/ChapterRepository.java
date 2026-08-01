@@ -18,4 +18,6 @@ public interface ChapterRepository {
     void saveSentences(String chapterId, List<Sentence> sentences);
 
     void updateTitle(String chapterId, String title);
+
+    void deleteChapter(String chapterId);
 }

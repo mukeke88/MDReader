@@ -102,6 +102,40 @@ public class FileChapterRepository implements ChapterRepository {
         throw new IllegalStateException("Chapter not found: " + chapterId);
     }
 
+    @Override
+    public void deleteChapter(String chapterId) {
+        List<ChapterMeta> chapters = readAllChapters();
+        ChapterMeta chapter = null;
+        for (ChapterMeta candidate : chapters) {
+            if (chapterId.equals(candidate.getId())) {
+                chapter = candidate;
+                break;
+            }
+        }
+        if (chapter == null) {
+            return;
+        }
+
+        chapters.remove(chapter);
+        writeAllChapters(chapters);
+
+        boolean sourceFileStillUsed = false;
+        for (ChapterMeta candidate : chapters) {
+            if (chapter.getSourceFile() != null
+                    && chapter.getSourceFile().equals(candidate.getSourceFile())) {
+                sourceFileStillUsed = true;
+                break;
+            }
+        }
+        if (!sourceFileStillUsed && chapter.getSourceFile() != null) {
+            try {
+                Files.deleteIfExists(dataDirectory.resolve("sentences").resolve(chapter.getSourceFile()));
+            } catch (IOException e) {
+                throw new IllegalStateException("Unable to delete sentence data", e);
+            }
+        }
+    }
+
     private List<ChapterMeta> readAllChapters() {
         try {
             ensureChapterStorageExists();

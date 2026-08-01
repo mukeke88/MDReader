@@ -124,7 +124,11 @@
 
       <label class="settings-field">
         <span>Document</span>
-        <select v-model="settingsChapterId" class="compact-input">
+        <select
+          v-model="settingsChapterId"
+          class="compact-input"
+          @change="syncSettingsExpectedParagraphCount"
+        >
           <option
             v-for="availableChapter in chapters"
             :key="availableChapter.id"
@@ -133,6 +137,18 @@
             {{ availableChapter.title || availableChapter.id }}
           </option>
         </select>
+      </label>
+
+      <label class="settings-field">
+        <span>Expected paragraphs</span>
+        <input
+          v-model="settingsExpectedParagraphCount"
+          class="compact-input"
+          type="number"
+          min="1"
+          placeholder="Disabled"
+        />
+        <small>Show Well Done! after this many paragraphs are completely read.</small>
       </label>
 
       <label class="settings-switch">
@@ -144,26 +160,56 @@
       </label>
 
       <div class="settings-actions">
+        <button
+          class="ghost-button ghost-button--danger"
+          type="button"
+          :disabled="!settingsChapterId || isDeletingChapter"
+          @click="deleteSelectedDocument"
+        >
+          {{ isDeletingChapter ? 'Deleting...' : 'Delete document' }}
+        </button>
         <button class="ghost-button ghost-button--primary" type="button" @click="applySettings">
           Apply
         </button>
       </div>
+      <p v-if="settingsError" class="import-error">{{ settingsError }}</p>
     </section>
   </main>
+
+  <div v-if="isWellDoneVisible" class="modal-backdrop" role="dialog" aria-modal="true">
+    <section class="well-done-modal">
+      <p class="eyebrow">Reading goal</p>
+      <h2>Well Done!</h2>
+      <p>You finished paragraph {{ wellDoneParagraphCount }}.</p>
+      <div class="import-actions">
+        <button class="ghost-button ghost-button--primary" type="button" @click="acknowledgeWellDone">
+          Confirm
+        </button>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import ScoreIndicator from '../components/ScoreIndicator.vue'
 import SentenceBlock from '../components/SentenceBlock.vue'
-import { fetchChapter, fetchChapters, fetchProgress, importChapterMarkdown, saveProgress } from '../api/readerApi'
+import {
+  deleteChapter,
+  fetchChapter,
+  fetchChapters,
+  fetchProgress,
+  importChapterMarkdown,
+  saveProgress
+} from '../api/readerApi'
 
 const DEFAULT_CHAPTER_ID = 'chapter-1'
 const DEFAULT_USER_ID = 'default'
 const USER_STORAGE_KEY = 'mdreader.userId'
 const PARAGRAPH_POSITION_STORAGE_KEY = 'mdreader.showParagraphPosition'
+const EXPECTED_PARAGRAPH_STORAGE_PREFIX = 'mdreader.expectedParagraphs'
+const WELL_DONE_ACK_STORAGE_PREFIX = 'mdreader.wellDoneAcknowledged'
 const READ_TRIGGER_PERCENT = 15
-const TEMP_CHAPTER_NAME = 'temp'
 
 function getChapterIdFromUrl() {
   const params = new URLSearchParams(window.location.search)
@@ -190,6 +236,12 @@ const isSettingsPageOpen = ref(false)
 const settingsUserInput = ref(activeUserId.value)
 const settingsChapterId = ref(activeChapterId.value)
 const settingsShowParagraphPosition = ref(showParagraphPosition.value)
+const expectedParagraphCount = ref(0)
+const settingsExpectedParagraphCount = ref('')
+const isDeletingChapter = ref(false)
+const settingsError = ref('')
+const isWellDoneVisible = ref(false)
+const wellDoneParagraphCount = ref(0)
 
 const chapter = reactive({
   chapterId: activeChapterId.value,
@@ -244,6 +296,11 @@ const paragraphGroups = computed(() => {
     total: entries.length
   }))
 })
+const completedParagraphCount = computed(() => paragraphGroups.value.reduce((count, paragraph) => {
+  const isComplete = paragraph.sentences.length > 0
+    && paragraph.sentences.every(sentence => readIdSet.value.has(sentence.id))
+  return isComplete ? count + 1 : count
+}, 0))
 
 function dedupe(ids) {
   return Array.from(new Set(ids)).sort((a, b) => a - b)
@@ -253,13 +310,50 @@ function normalizeChapterName(value) {
   return (value || '').trim()
 }
 
-function buildLegacyProgressKey(title) {
-  const chapterName = normalizeChapterName(title)
-  if (!chapterName || chapterName.toLowerCase() === TEMP_CHAPTER_NAME) {
-    return null
-  }
+function normalizeExpectedParagraphCount(value) {
+  const count = Number.parseInt(value, 10)
+  return Number.isFinite(count) && count > 0 ? count : 0
+}
 
-  return chapterName.replace(/[\\/#?%]/g, '_')
+function paragraphSettingKey(prefix, userId, chapterId, target) {
+  return [prefix, userId, chapterId, target]
+    .map(value => encodeURIComponent(String(value || '')))
+    .join('.')
+}
+
+function expectedParagraphStorageKey(userId = activeUserId.value, chapterId = activeChapterId.value) {
+  return paragraphSettingKey(EXPECTED_PARAGRAPH_STORAGE_PREFIX, userId, chapterId, '')
+}
+
+function wellDoneAcknowledgementKey(target = expectedParagraphCount.value) {
+  return paragraphSettingKey(
+    WELL_DONE_ACK_STORAGE_PREFIX,
+    activeUserId.value,
+    activeChapterId.value,
+    target
+  )
+}
+
+function loadExpectedParagraphCount(chapterId = activeChapterId.value, userId = activeUserId.value) {
+  const stored = window.localStorage.getItem(expectedParagraphStorageKey(userId, chapterId))
+  expectedParagraphCount.value = normalizeExpectedParagraphCount(stored)
+}
+
+function maybeShowWellDone() {
+  const target = expectedParagraphCount.value
+  if (target <= 0 || isWellDoneVisible.value || completedParagraphCount.value < target) {
+    return
+  }
+  if (window.localStorage.getItem(wellDoneAcknowledgementKey(target)) === 'true') {
+    return
+  }
+  wellDoneParagraphCount.value = target
+  isWellDoneVisible.value = true
+}
+
+function acknowledgeWellDone() {
+  window.localStorage.setItem(wellDoneAcknowledgementKey(wellDoneParagraphCount.value), 'true')
+  isWellDoneVisible.value = false
 }
 
 function updateDocumentTitle() {
@@ -295,10 +389,10 @@ function mergeProgressState(savedProgress) {
   progress.explanationUsedSentenceIds = explanationUsedSentenceIds
 }
 
-function createEmptyProgress() {
+function createEmptyProgressForChapter(chapterId) {
   return {
     userId: activeUserId.value,
-    chapterId: activeChapterId.value,
+    chapterId,
     lastSentenceId: null,
     totalScore: 0,
     greenScore: 0,
@@ -308,20 +402,6 @@ function createEmptyProgress() {
     scoredSentenceIds: [],
     explanationUsedSentenceIds: []
   }
-}
-
-function hasSavedProgress(savedProgress) {
-  return Boolean(
-    savedProgress.lastSentenceId ||
-    savedProgress.totalScore ||
-    savedProgress.greenScore ||
-    savedProgress.redScore ||
-    savedProgress.manualRedScore ||
-    (savedProgress.openedSentenceIds || []).length ||
-    (savedProgress.readSentenceIds || []).length ||
-    (savedProgress.scoredSentenceIds || []).length ||
-    (savedProgress.explanationUsedSentenceIds || []).length
-  )
 }
 
 function isExplanationOpen(sentenceId) {
@@ -396,6 +476,7 @@ function handleSentenceRead(sentenceId) {
     progress.lastSentenceId = sentenceId
   }
   scoreSentence(sentenceId)
+  maybeShowWellDone()
 }
 
 function markSentencesUpTo(targetSentenceId) {
@@ -470,11 +551,13 @@ async function hydrateChapterState(chapterResponse, progressResponse) {
   chapter.title = chapterResponse.title
   chapter.sentences = chapterResponse.sentences
   updateDocumentTitle()
+  loadExpectedParagraphCount(chapterResponse.chapterId, activeUserId.value)
   mergeProgressState(progressResponse)
   progress.userId = activeUserId.value
   progress.chapterId = chapter.chapterId
   await nextTick()
   isHydratingProgress.value = false
+  maybeShowWellDone()
 }
 
 async function loadChapterOptions() {
@@ -484,16 +567,14 @@ async function loadChapterOptions() {
 async function loadPage() {
   try {
     const chapterResponse = await fetchChapter(activeChapterId.value)
-    let progressResponse = await fetchProgress(chapterResponse.chapterId, activeUserId.value)
-    const legacyProgressKey = buildLegacyProgressKey(chapterResponse.title)
-    if (!hasSavedProgress(progressResponse) && legacyProgressKey && legacyProgressKey !== chapterResponse.chapterId) {
-      progressResponse = await fetchProgress(legacyProgressKey, activeUserId.value)
-    }
+    const progressResponse = await fetchProgress(chapterResponse.chapterId, activeUserId.value)
 
     await hydrateChapterState(chapterResponse, progressResponse)
     updateUrlState(chapterResponse.chapterId)
     if (progress.lastSentenceId) {
       scrollToSentence(progress.lastSentenceId)
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' })
     }
   } catch (error) {
     if (activeChapterId.value !== DEFAULT_CHAPTER_ID) {
@@ -511,11 +592,22 @@ function openSettingsPage() {
   settingsUserInput.value = activeUserId.value
   settingsChapterId.value = activeChapterId.value
   settingsShowParagraphPosition.value = showParagraphPosition.value
+  settingsExpectedParagraphCount.value = expectedParagraphCount.value || ''
+  settingsError.value = ''
   isSettingsPageOpen.value = true
 }
 
 function closeSettingsPage() {
   isSettingsPageOpen.value = false
+}
+
+function syncSettingsExpectedParagraphCount() {
+  const userId = normalizeUserId(settingsUserInput.value)
+  const stored = window.localStorage.getItem(
+    expectedParagraphStorageKey(userId, settingsChapterId.value)
+  )
+  const count = normalizeExpectedParagraphCount(stored)
+  settingsExpectedParagraphCount.value = count || ''
 }
 
 async function applySettings() {
@@ -528,11 +620,21 @@ async function applySettings() {
   userInput.value = nextUserId
   activeChapterId.value = nextChapterId
   showParagraphPosition.value = settingsShowParagraphPosition.value
+  const nextExpectedParagraphCount = normalizeExpectedParagraphCount(
+    settingsExpectedParagraphCount.value
+  )
+  expectedParagraphCount.value = nextExpectedParagraphCount
   window.localStorage.setItem(USER_STORAGE_KEY, nextUserId)
   window.localStorage.setItem(
     PARAGRAPH_POSITION_STORAGE_KEY,
     String(showParagraphPosition.value)
   )
+  const expectedParagraphKey = expectedParagraphStorageKey(nextUserId, nextChapterId)
+  if (nextExpectedParagraphCount > 0) {
+    window.localStorage.setItem(expectedParagraphKey, String(nextExpectedParagraphCount))
+  } else {
+    window.localStorage.removeItem(expectedParagraphKey)
+  }
   updateUrlState(nextChapterId)
   closeSettingsPage()
 
@@ -540,6 +642,53 @@ async function applySettings() {
     await loadPage()
     refreshObservedSentences()
     markBottomVisibleSentencesAsRead()
+  } else {
+    maybeShowWellDone()
+  }
+}
+
+async function deleteSelectedDocument() {
+  const chapterToDelete = chapters.value.find(item => item.id === settingsChapterId.value)
+  if (!chapterToDelete || isDeletingChapter.value) {
+    return
+  }
+  const title = chapterToDelete.title || chapterToDelete.id
+  if (!window.confirm(`Delete document "${title}"? This also removes its saved reading progress.`)) {
+    return
+  }
+
+  isDeletingChapter.value = true
+  settingsError.value = ''
+  try {
+    await deleteChapter(chapterToDelete.id)
+    chapters.value = chapters.value.filter(item => item.id !== chapterToDelete.id)
+    if (chapterToDelete.id !== activeChapterId.value) {
+      settingsChapterId.value = activeChapterId.value
+      return
+    }
+
+    const nextChapter = chapters.value[0]
+    if (!nextChapter) {
+      chapter.chapterId = ''
+      chapter.title = ''
+      chapter.sentences = []
+      Object.assign(progress, createEmptyProgressForChapter(''))
+      activeChapterId.value = ''
+      updateDocumentTitle()
+      closeSettingsPage()
+      return
+    }
+    activeChapterId.value = nextChapter.id
+    settingsChapterId.value = nextChapter.id
+    updateUrlState(nextChapter.id)
+    closeSettingsPage()
+    await loadPage()
+    refreshObservedSentences()
+    markBottomVisibleSentencesAsRead()
+  } catch (error) {
+    settingsError.value = error.message || 'Delete failed'
+  } finally {
+    isDeletingChapter.value = false
   }
 }
 
@@ -589,9 +738,13 @@ async function submitMarkdownImport() {
       title: importForm.title,
       markdown: importForm.markdown
     })
-    await hydrateChapterState(chapterResponse, createEmptyProgress())
+    await hydrateChapterState(
+      chapterResponse,
+      createEmptyProgressForChapter(chapterResponse.chapterId)
+    )
     await loadChapterOptions()
     refreshObservedSentences()
+    window.scrollTo({ top: 0, behavior: 'auto' })
     updateUrlState(chapterResponse.chapterId)
     isImportModalOpen.value = false
   } catch (error) {

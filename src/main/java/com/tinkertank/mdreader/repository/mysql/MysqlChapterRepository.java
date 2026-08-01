@@ -128,4 +128,9 @@ public class MysqlChapterRepository implements ChapterRepository {
             throw new IllegalStateException("Chapter not found: " + chapterId);
         }
     }
+
+    @Override
+    public void deleteChapter(String chapterId) {
+        jdbcTemplate.update("DELETE FROM chapters WHERE id = ?", chapterId);
+    }
 }

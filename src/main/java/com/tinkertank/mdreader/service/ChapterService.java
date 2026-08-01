@@ -6,6 +6,7 @@ import com.tinkertank.mdreader.model.ChapterMeta;
 import com.tinkertank.mdreader.model.ChapterResponse;
 import com.tinkertank.mdreader.model.Sentence;
 import com.tinkertank.mdreader.repository.ChapterRepository;
+import com.tinkertank.mdreader.repository.ProgressRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -16,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class ChapterService {
 
     private final ChapterRepository chapterRepository;
+    private final ProgressRepository progressRepository;
 
-    public ChapterService(ChapterRepository chapterRepository) {
+    public ChapterService(ChapterRepository chapterRepository, ProgressRepository progressRepository) {
         this.chapterRepository = chapterRepository;
+        this.progressRepository = progressRepository;
     }
 
     public ChapterResponse getChapter(String chapterId) {
@@ -34,6 +37,14 @@ public class ChapterService {
 
     public List<ChapterMeta> getChapters() {
         return chapterRepository.findAllChapters();
+    }
+
+    public void deleteChapter(String chapterId) {
+        if (!chapterRepository.findChapter(chapterId).isPresent()) {
+            throw new ResourceNotFoundException("Chapter not found: " + chapterId);
+        }
+        progressRepository.deleteByChapterId(chapterId);
+        chapterRepository.deleteChapter(chapterId);
     }
 
     public ChapterResponse importMarkdown(String chapterId, ChapterImportRequest request) {
@@ -55,6 +66,9 @@ public class ChapterService {
 
         chapterRepository.saveChapter(meta);
         chapterRepository.saveSentences(chapterId, sentences);
+        // Re-importing a document replaces its sentence ids, so its old reading
+        // position must never be carried into the new text.
+        progressRepository.deleteByChapterId(chapterId);
         return getChapter(chapterId);
     }
 

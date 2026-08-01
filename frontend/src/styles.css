@@ -221,6 +221,16 @@ h2 {
   color: #fff;
 }
 
+.ghost-button--danger {
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.2);
+}
+
+.ghost-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
 .toggle-button {
   display: inline-flex;
   align-items: center;
@@ -374,6 +384,22 @@ h2 {
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
 }
 
+.well-done-modal {
+  width: min(360px, 100%);
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  border-radius: 20px;
+  background: #fffaf2;
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.well-done-modal > p:not(.eyebrow) {
+  margin: 0;
+  color: #786d5c;
+}
+
 .import-modal__header {
   display: flex;
   justify-content: space-between;
@@ -464,6 +490,14 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.settings-field small {
+  color: #786d5c;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .settings-switch {

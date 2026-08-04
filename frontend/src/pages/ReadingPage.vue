@@ -271,7 +271,8 @@ const isImporting = ref(false)
 const importError = ref('')
 const importForm = reactive({
   title: '',
-  markdown: ''
+  markdown: '',
+  sourceFileName: ''
 })
 
 const readIdSet = computed(() => new Set(progress.readSentenceIds))
@@ -712,6 +713,7 @@ async function deleteSelectedDocument() {
 function openImportModal() {
   importForm.title = normalizeChapterName(chapter.title)
   importForm.markdown = ''
+  importForm.sourceFileName = ''
   importError.value = ''
   isImportModalOpen.value = true
 }
@@ -733,9 +735,8 @@ function loadMarkdownFile(event) {
     return
   }
 
-  if (!normalizeChapterName(importForm.title)) {
-    importForm.title = titleFromFileName(file.name)
-  }
+  importForm.title = titleFromFileName(file.name)
+  importForm.sourceFileName = file.name
 
   const reader = new FileReader()
   reader.onload = () => {
@@ -767,31 +768,28 @@ async function submitMarkdownImport() {
 
     const chapterResponse = await importChapterMarkdown(null, {
       title: importForm.title,
-      markdown: importForm.markdown
+      markdown: importForm.markdown,
+      sourceFileName: importForm.sourceFileName
     })
     importedChapter = true
-    const emptyProgress = createEmptyProgressForChapter(chapterResponse.chapterId)
-    try {
-      await saveProgress(
-        chapterResponse.chapterId,
-        activeUserId.value,
-        createProgressPayload(chapterResponse.chapterId, activeUserId.value, emptyProgress)
-      )
-    } catch (error) {
-      console.error('Failed to persist empty progress for imported document', error)
-    }
+    const importedProgress = await fetchProgress(chapterResponse.chapterId, activeUserId.value)
     await hydrateChapterState(
       chapterResponse,
-      emptyProgress,
+      importedProgress,
       false
     )
     updateUrlState(chapterResponse.chapterId)
     isImportModalOpen.value = false
-    isWaitingForImportedDocumentScroll.value = true
+    isWaitingForImportedDocumentScroll.value = false
     await nextTick()
-    window.scrollTo({ top: 0, behavior: 'auto' })
+    if (progress.lastSentenceId) {
+      scrollToSentence(progress.lastSentenceId)
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
     refreshObservedSentences()
     isHydratingProgress.value = false
+    maybeShowWellDone()
     await loadChapterOptions()
   } catch (error) {
     importError.value = error.message || 'Import failed'

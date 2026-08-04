@@ -1,9 +1,11 @@
 package com.tinkertank.mdreader.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.tinkertank.mdreader.model.ChapterImportRequest;
 import com.tinkertank.mdreader.model.ChapterMeta;
+import com.tinkertank.mdreader.model.ChapterResponse;
 import com.tinkertank.mdreader.model.ReadingProgress;
 import com.tinkertank.mdreader.model.Sentence;
 import com.tinkertank.mdreader.repository.ChapterRepository;
@@ -48,6 +50,48 @@ class ChapterServiceTest {
                 "Sentence three",
                 "Sentence four",
                 "Sentence five"), sentenceTexts(sentences));
+    }
+
+    @Test
+    void sameSourceFileReplacesContentAndPreservesProgress() {
+        InMemoryChapterRepository chapters = new InMemoryChapterRepository();
+        RecordingProgressRepository progress = new RecordingProgressRepository();
+        ChapterService service = new ChapterService(chapters, progress);
+
+        ChapterImportRequest first = importRequest("First title", "reading.md", "**Old one**\n**Old two**");
+        String chapterId = service.importMarkdown(first).getChapterId();
+
+        ChapterImportRequest replacement = importRequest("Updated title", "reading.md", "**Current content**");
+        List<Sentence> sentences = service.importMarkdown(replacement).getSentences();
+
+        assertEquals(1, chapters.findAllChapters().size());
+        assertEquals(chapterId, service.getChapters().get(0).getId());
+        assertEquals("Updated title", service.getChapters().get(0).getTitle());
+        assertEquals(Collections.singletonList("Current content"), sentenceTexts(sentences));
+        assertFalse(progress.deleted);
+    }
+
+    @Test
+    void sameNamedUploadReplacesDocumentCreatedBeforeFileNamesWereTracked() {
+        InMemoryChapterRepository chapters = new InMemoryChapterRepository();
+        ChapterService service = new ChapterService(chapters, new NoOpProgressRepository());
+
+        String chapterId = service.importMarkdown(importRequest("reading", null, "**Old content**"))
+                .getChapterId();
+        ChapterResponse replacement = service.importMarkdown(
+                importRequest("reading", "reading.md", "**Current content**"));
+
+        assertEquals(chapterId, replacement.getChapterId());
+        assertEquals(1, chapters.findAllChapters().size());
+        assertEquals(Collections.singletonList("Current content"), sentenceTexts(replacement.getSentences()));
+    }
+
+    private ChapterImportRequest importRequest(String title, String sourceFileName, String markdown) {
+        ChapterImportRequest request = new ChapterImportRequest();
+        request.setTitle(title);
+        request.setSourceFileName(sourceFileName);
+        request.setMarkdown(markdown);
+        return request;
     }
 
     private List<Integer> paragraphIds(List<Sentence> sentences) {
@@ -123,6 +167,15 @@ class ChapterServiceTest {
         @Override
         public void deleteByChapterId(String chapterId) {
             // No progress is needed for this parser test.
+        }
+    }
+
+    private static class RecordingProgressRepository extends NoOpProgressRepository {
+        private boolean deleted;
+
+        @Override
+        public void deleteByChapterId(String chapterId) {
+            deleted = true;
         }
     }
 }

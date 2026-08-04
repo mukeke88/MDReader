@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.view.DisplayCutout;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.OpenableColumns;
 import android.text.InputType;
 import android.text.Selection;
 import android.text.Spannable;
@@ -698,11 +700,14 @@ public class MainActivity extends Activity {
     }
 
     private void promptForImportTitle(Uri uri) {
+        String sourceFileName = getSourceFileName(uri);
         EditText input = new EditText(this);
         input.setHint("Chapter Title");
         input.setSingleLine(true);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         input.setPadding(dp(16), dp(8), dp(16), dp(8));
+        input.setText(titleFromFileName(sourceFileName));
+        input.setSelection(input.getText().length());
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Chapter Title")
@@ -718,7 +723,7 @@ public class MainActivity extends Activity {
                         return;
                     }
                     dialog.dismiss();
-                    importMarkdownFromUri(uri, title);
+                    importMarkdownFromUri(uri, title, sourceFileName);
                 })
         );
         dialog.show();
@@ -729,7 +734,7 @@ public class MainActivity extends Activity {
         statusView.setVisibility(text == null || text.trim().isEmpty() ? View.GONE : View.VISIBLE);
     }
 
-    private void importMarkdownFromUri(Uri uri, String title) {
+    private void importMarkdownFromUri(Uri uri, String title, String sourceFileName) {
         hydrating = true;
         waitingForImportedDocumentScroll = false;
         mainHandler.removeCallbacks(saveRunnable);
@@ -756,9 +761,13 @@ public class MainActivity extends Activity {
                 JSONObject payload = new JSONObject();
                 payload.put("title", title.trim());
                 payload.put("markdown", markdown);
+                payload.put("sourceFileName", sourceFileName);
                 JSONObject chapter = postJson("/chapter/import", payload);
+                JSONObject importedProgress = getJson(progressPath(
+                        chapter.optString("chapterId", activeChapterId),
+                        activeUserId));
                 mainHandler.post(() -> {
-                    applyChapterState(chapter, new JSONObject(), true);
+                    applyChapterState(chapter, importedProgress);
                     getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                             .edit()
                             .putString(PREF_CHAPTER_ID, activeChapterId)
@@ -774,6 +783,35 @@ public class MainActivity extends Activity {
                 });
             }
         });
+    }
+
+    private String getSourceFileName(Uri uri) {
+        try (Cursor cursor = getContentResolver().query(
+                uri,
+                new String[]{OpenableColumns.DISPLAY_NAME},
+                null,
+                null,
+                null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameColumn = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (nameColumn >= 0) {
+                    String displayName = cursor.getString(nameColumn);
+                    if (displayName != null && !displayName.trim().isEmpty()) {
+                        return displayName.trim();
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+            // Some document providers do not expose display-name metadata.
+        }
+        String lastPathSegment = uri.getLastPathSegment();
+        return lastPathSegment == null || lastPathSegment.trim().isEmpty()
+                ? "document.md"
+                : lastPathSegment;
+    }
+
+    private String titleFromFileName(String fileName) {
+        return fileName.replaceFirst("(?i)\\.(md|markdown|txt)$", "");
     }
 
     private void loadPage(String chapterId) {

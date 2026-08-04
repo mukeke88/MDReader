@@ -10,7 +10,9 @@ import com.tinkertank.mdreader.repository.ProgressRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
+import java.nio.charset.StandardCharsets;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -66,16 +68,56 @@ public class ChapterService {
 
         chapterRepository.saveChapter(meta);
         chapterRepository.saveSentences(chapterId, sentences);
-        // Re-importing a document replaces its sentence ids, so its old reading
-        // position must never be carried into the new text.
-        progressRepository.deleteByChapterId(chapterId);
         return getChapter(chapterId);
     }
 
     public ChapterResponse importMarkdown(ChapterImportRequest request) {
         String normalizedTitle = request.getTitle().trim();
-        String chapterId = nextDocumentId(normalizedTitle);
+        String sourceStorageFile = sourceStorageFile(request.getSourceFileName());
+        Optional<ChapterMeta> existingChapter = findExistingUpload(sourceStorageFile, normalizedTitle);
+        String chapterId = existingChapter.isPresent()
+                ? existingChapter.get().getId()
+                : nextDocumentId(normalizedTitle);
+
+        if (!existingChapter.isPresent() && sourceStorageFile != null) {
+            ChapterMeta meta = new ChapterMeta();
+            meta.setId(chapterId);
+            meta.setBookId("book-1");
+            meta.setTitle(normalizedTitle);
+            meta.setSourceFile(sourceStorageFile);
+            chapterRepository.saveChapter(meta);
+        }
         return importMarkdown(chapterId, request);
+    }
+
+    private Optional<ChapterMeta> findExistingUpload(String sourceStorageFile, String title) {
+        if (sourceStorageFile == null) {
+            return Optional.empty();
+        }
+        for (ChapterMeta chapter : chapterRepository.findAllChapters()) {
+            if (sourceStorageFile.equals(chapter.getSourceFile())) {
+                return Optional.of(chapter);
+            }
+        }
+        // Uploads created before source filenames were sent by the clients used
+        // <chapter-id>.json. Match those once by title so an existing document
+        // is replaced instead of duplicated after this upgrade.
+        for (ChapterMeta chapter : chapterRepository.findAllChapters()) {
+            if ((chapter.getId() + ".json").equals(chapter.getSourceFile())
+                    && title.equalsIgnoreCase(chapter.getTitle())) {
+                return Optional.of(chapter);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private String sourceStorageFile(String sourceFileName) {
+        if (sourceFileName == null || sourceFileName.trim().isEmpty()) {
+            return null;
+        }
+        String normalized = sourceFileName.trim().toLowerCase(Locale.ROOT);
+        UUID sourceId = UUID.nameUUIDFromBytes(normalized.getBytes(StandardCharsets.UTF_8));
+        return "upload-" + sourceId + ".json";
     }
 
     private String nextDocumentId(String title) {

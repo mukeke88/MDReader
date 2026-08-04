@@ -10,6 +10,8 @@ public class ChapterImportRequest {
     @NotBlank
     private String markdown;
 
+    private String sourceFileName;
+
     public String getTitle() {
         return title;
     }
@@ -24,5 +26,13 @@ public class ChapterImportRequest {
 
     public void setMarkdown(String markdown) {
         this.markdown = markdown;
+    }
+
+    public String getSourceFileName() {
+        return sourceFileName;
+    }
+
+    public void setSourceFileName(String sourceFileName) {
+        this.sourceFileName = sourceFileName;
     }
 }

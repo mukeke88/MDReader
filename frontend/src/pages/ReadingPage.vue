@@ -32,7 +32,7 @@
     <main class="reading-list">
       <section
         v-for="paragraph in paragraphGroups"
-        :key="paragraph.id"
+        :key="`${chapter.chapterId}-${paragraph.id}`"
         class="paragraph-group"
       >
         <div class="paragraph-marker" aria-hidden="true">
@@ -44,7 +44,7 @@
         <div class="paragraph-sentences">
           <SentenceBlock
             v-for="sentence in paragraph.sentences"
-            :key="sentence.id"
+            :key="`${chapter.chapterId}-${sentence.id}`"
             :sentence="sentence"
             :is-explanation-open="isExplanationOpen(sentence.id)"
             :is-read="readIdSet.has(sentence.id)"
@@ -265,6 +265,7 @@ const progress = reactive({
 const sentenceObserver = ref(null)
 const persistTimer = ref(null)
 const isHydratingProgress = ref(true)
+const isWaitingForImportedDocumentScroll = ref(false)
 const isImportModalOpen = ref(false)
 const isImporting = ref(false)
 const importError = ref('')
@@ -504,19 +505,33 @@ function schedulePersist() {
   }
 
   window.clearTimeout(persistTimer.value)
+  const chapterId = activeChapterId.value
+  const userId = activeUserId.value
+  const payload = createProgressPayload(chapterId, userId)
   persistTimer.value = window.setTimeout(() => {
-    const payload = {
-      ...progress,
-      userId: activeUserId.value,
-      chapterId: activeChapterId.value
-    }
-    saveProgress(activeChapterId.value, activeUserId.value, payload).catch((error) => {
+    saveProgress(chapterId, userId, payload).catch((error) => {
       console.error('Failed to save progress', error)
     })
   }, 250)
 }
 
+function createProgressPayload(chapterId, userId, state = progress) {
+  return {
+    ...state,
+    userId,
+    chapterId,
+    openedSentenceIds: [...state.openedSentenceIds],
+    readSentenceIds: [...state.readSentenceIds],
+    scoredSentenceIds: [...state.scoredSentenceIds],
+    explanationUsedSentenceIds: [...state.explanationUsedSentenceIds]
+  }
+}
+
 function markBottomVisibleSentencesAsRead() {
+  if (isHydratingProgress.value || isWaitingForImportedDocumentScroll.value) {
+    return
+  }
+
   const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24
   if (!nearBottom) {
     return
@@ -544,7 +559,7 @@ function refreshObservedSentences() {
   })
 }
 
-async function hydrateChapterState(chapterResponse, progressResponse) {
+async function hydrateChapterState(chapterResponse, progressResponse, finishHydration = true) {
   isHydratingProgress.value = true
   activeChapterId.value = chapterResponse.chapterId
   chapter.chapterId = chapterResponse.chapterId
@@ -556,8 +571,10 @@ async function hydrateChapterState(chapterResponse, progressResponse) {
   progress.userId = activeUserId.value
   progress.chapterId = chapter.chapterId
   await nextTick()
-  isHydratingProgress.value = false
-  maybeShowWellDone()
+  if (finishHydration) {
+    isHydratingProgress.value = false
+    maybeShowWellDone()
+  }
 }
 
 async function loadChapterOptions() {
@@ -733,22 +750,55 @@ function loadMarkdownFile(event) {
 async function submitMarkdownImport() {
   isImporting.value = true
   importError.value = ''
+  isHydratingProgress.value = true
+  isWaitingForImportedDocumentScroll.value = false
+  window.clearTimeout(persistTimer.value)
+  sentenceObserver.value?.disconnect()
+  let importedChapter = false
   try {
+    const previousChapterId = activeChapterId.value
+    const previousUserId = activeUserId.value
+    const previousProgress = createProgressPayload(previousChapterId, previousUserId)
+    try {
+      await saveProgress(previousChapterId, previousUserId, previousProgress)
+    } catch (error) {
+      console.error('Failed to save progress before import', error)
+    }
+
     const chapterResponse = await importChapterMarkdown(null, {
       title: importForm.title,
       markdown: importForm.markdown
     })
+    importedChapter = true
+    const emptyProgress = createEmptyProgressForChapter(chapterResponse.chapterId)
+    try {
+      await saveProgress(
+        chapterResponse.chapterId,
+        activeUserId.value,
+        createProgressPayload(chapterResponse.chapterId, activeUserId.value, emptyProgress)
+      )
+    } catch (error) {
+      console.error('Failed to persist empty progress for imported document', error)
+    }
     await hydrateChapterState(
       chapterResponse,
-      createEmptyProgressForChapter(chapterResponse.chapterId)
+      emptyProgress,
+      false
     )
-    await loadChapterOptions()
-    refreshObservedSentences()
-    window.scrollTo({ top: 0, behavior: 'auto' })
     updateUrlState(chapterResponse.chapterId)
     isImportModalOpen.value = false
+    isWaitingForImportedDocumentScroll.value = true
+    await nextTick()
+    window.scrollTo({ top: 0, behavior: 'auto' })
+    refreshObservedSentences()
+    isHydratingProgress.value = false
+    await loadChapterOptions()
   } catch (error) {
     importError.value = error.message || 'Import failed'
+    isHydratingProgress.value = false
+    if (!importedChapter) {
+      refreshObservedSentences()
+    }
   } finally {
     isImporting.value = false
   }
@@ -772,6 +822,16 @@ function updateUrlState(chapterId) {
 function buildObserver() {
   const bottomMargin = -(100 - READ_TRIGGER_PERCENT)
   sentenceObserver.value = new IntersectionObserver((entries) => {
+    if (isHydratingProgress.value) {
+      return
+    }
+    if (isWaitingForImportedDocumentScroll.value) {
+      if (window.scrollY <= 0) {
+        return
+      }
+      isWaitingForImportedDocumentScroll.value = false
+    }
+
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
         return

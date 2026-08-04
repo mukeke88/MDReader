@@ -113,6 +113,7 @@ public class MainActivity extends Activity {
     private int greenScore = 0;
     private int redScore = 0;
     private boolean hydrating = false;
+    private boolean waitingForImportedDocumentScroll = false;
     private boolean clearSelectionWhenFocusReturns = false;
     private boolean visibleSentenceCheckScheduled = false;
     private boolean showParagraphPosition = false;
@@ -730,10 +731,23 @@ public class MainActivity extends Activity {
 
     private void importMarkdownFromUri(Uri uri, String title) {
         hydrating = true;
+        waitingForImportedDocumentScroll = false;
+        mainHandler.removeCallbacks(saveRunnable);
+        scrollView.removeCallbacks(visibleSentenceCheckRunnable);
+        visibleSentenceCheckScheduled = false;
+        String previousChapterId = activeChapterId;
+        String previousUserId = activeUserId;
+        JSONObject previousProgress = buildProgressJson();
         loading.setVisibility(View.VISIBLE);
         setStatus("Importing Markdown...");
         executor.execute(() -> {
             try {
+                try {
+                    postJson(progressPath(previousChapterId, previousUserId), previousProgress);
+                } catch (Exception ignored) {
+                    // Importing must still be possible if saving the previous document fails.
+                }
+
                 String markdown;
                 try (InputStream stream = getContentResolver().openInputStream(uri)) {
                     markdown = readText(stream);
@@ -744,8 +758,7 @@ public class MainActivity extends Activity {
                 payload.put("markdown", markdown);
                 JSONObject chapter = postJson("/chapter/import", payload);
                 mainHandler.post(() -> {
-                    applyChapterState(chapter, new JSONObject());
-                    scrollView.post(() -> scrollView.scrollTo(0, 0));
+                    applyChapterState(chapter, new JSONObject(), true);
                     getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                             .edit()
                             .putString(PREF_CHAPTER_ID, activeChapterId)
@@ -804,6 +817,10 @@ public class MainActivity extends Activity {
     }
 
     private void applyChapterState(JSONObject chapter, JSONObject progress) {
+        applyChapterState(chapter, progress, false);
+    }
+
+    private void applyChapterState(JSONObject chapter, JSONObject progress, boolean importedDocument) {
         sentences.clear();
         openedSentenceIds.clear();
         readSentenceIds.clear();
@@ -828,10 +845,19 @@ public class MainActivity extends Activity {
             }
         }
 
-        applyProgressState(progress, true, false);
+        applyProgressState(progress, true, false, importedDocument);
     }
 
     private void applyProgressState(JSONObject progress, boolean scrollToLast, boolean showFeedback) {
+        applyProgressState(progress, scrollToLast, showFeedback, false);
+    }
+
+    private void applyProgressState(
+            JSONObject progress,
+            boolean scrollToLast,
+            boolean showFeedback,
+            boolean importedDocument
+    ) {
         openedSentenceIds.clear();
         readSentenceIds.clear();
         scoredSentenceIds.clear();
@@ -847,6 +873,12 @@ public class MainActivity extends Activity {
         greenScore = progress.has("greenScore") ? progress.optInt("greenScore") : deriveGreenScore();
         redScore = progress.has("redScore") ? progress.optInt("redScore") : deriveRedScore();
         renderChapter();
+        if (importedDocument) {
+            scrollView.scrollTo(0, 0);
+            waitingForImportedDocumentScroll = true;
+        } else {
+            waitingForImportedDocumentScroll = false;
+        }
         updateScores();
         loading.setVisibility(View.GONE);
         hydrating = false;
@@ -856,11 +888,13 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Progress refreshed", Toast.LENGTH_SHORT).show();
         }
 
-        if (scrollToLast && lastSentenceId != null) {
-            mainHandler.postDelayed(() -> scrollToSentence(lastSentenceId), 250);
-        } else {
-            scrollView.post(() -> scrollView.scrollTo(0, 0));
-            mainHandler.postDelayed(this::markVisibleSentencesAsRead, 250);
+        if (!importedDocument) {
+            if (scrollToLast && lastSentenceId != null) {
+                mainHandler.postDelayed(() -> scrollToSentence(lastSentenceId), 250);
+            } else {
+                scrollView.post(() -> scrollView.scrollTo(0, 0));
+                mainHandler.postDelayed(this::markVisibleSentencesAsRead, 250);
+            }
         }
     }
 
@@ -1023,6 +1057,12 @@ public class MainActivity extends Activity {
         if (hydrating || sentenceViews.isEmpty()) {
             return;
         }
+        if (waitingForImportedDocumentScroll) {
+            if (scrollView.getScrollY() <= 0) {
+                return;
+            }
+            waitingForImportedDocumentScroll = false;
+        }
 
         int targetIndex = nextSentenceToMarkIndex - 1;
         if (!scrollView.canScrollVertically(1)) {
@@ -1155,9 +1195,11 @@ public class MainActivity extends Activity {
 
     private void persistProgress() {
         JSONObject payload = buildProgressJson();
+        String chapterId = activeChapterId;
+        String userId = activeUserId;
         executor.execute(() -> {
             try {
-                postJson(progressPath(activeChapterId), payload);
+                postJson(progressPath(chapterId, userId), payload);
             } catch (Exception error) {
                 mainHandler.post(() -> setStatus("Save failed: " + error.getMessage()));
             }
@@ -1507,7 +1549,11 @@ public class MainActivity extends Activity {
     }
 
     private String progressPath(String chapterId) throws Exception {
-        return "/progress/" + encode(chapterId) + "?userId=" + encode(activeUserId);
+        return progressPath(chapterId, activeUserId);
+    }
+
+    private String progressPath(String chapterId, String userId) throws Exception {
+        return "/progress/" + encode(chapterId) + "?userId=" + encode(userId);
     }
 
     private HttpURLConnection openConnection(String path, String method) throws Exception {
